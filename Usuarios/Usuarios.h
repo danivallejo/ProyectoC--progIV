@@ -1,12 +1,12 @@
-class Usuario
+class Usuarios
 {
 	int DNI;
 	String nombre;
 	String apellido;
 
 public:
-	void Usuario();
-	
+	Usuarios();
+
 	int getDNI();
 	void setDNI(int DNI);
 	String getnombre();
@@ -16,4 +16,4 @@ public:
 
 	~Usuario();
 
-}
+};

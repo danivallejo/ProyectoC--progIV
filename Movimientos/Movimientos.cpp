@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Movimientos.h"
 using namespace std;
 
 Movimientos::Movimientos ()
@@ -27,7 +28,7 @@ int Movimientos::getnumTarjeta1()
 }
 void Movimientos::setnumTarjeta1(int numTarjeta1)
 {
-	this-->numTarjeta1 = numTarjeta1;
+	this->numTarjeta1 = numTarjeta1;
 }
 int Movimientos::getnumTarjeta2()
 {
@@ -35,7 +36,7 @@ int Movimientos::getnumTarjeta2()
 }
 void Movimientos::setnumTarjeta2(int numTarjeta2)
 {
-	this-->numTarjeta2 = numTarjeta2;
+	this->numTarjeta2 = numTarjeta2;
 }
 String Movimientos::getTipoMovimiento()
 {
@@ -43,7 +44,7 @@ String Movimientos::getTipoMovimiento()
 }
 void Movimientos::setTipoMovimiento(String TipoMovimiento)
 {
-	this-->TipoMovimiento = TipoMovimiento;
+	this->TipoMovimiento = TipoMovimiento;
 }
 int Movimientos::getCantidad()
 {
@@ -51,7 +52,7 @@ int Movimientos::getCantidad()
 }
 void Movimientos::setCantidad(int Cantidad)
 {
-	this-->Cantidad = Cantidad;
+	this->Cantidad = Cantidad;
 }
 ~Movimientos()
 {

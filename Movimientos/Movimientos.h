@@ -23,4 +23,4 @@ public:
 	int getCantidad();
 	void setCantidad (int Cantidad);
 
-}
+};

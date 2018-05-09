@@ -1,5 +1,10 @@
+#include <iostream>
+#include "Usuarios.h"
 
-void Usuarios::Usuario()
+using namespace std;
+
+
+Usuarios::Usuario()
 {
 
 }

@@ -17,4 +17,4 @@ public:
 	void setPIN(int PIN);
 	int getsaldo();
 	void setsaldo(int saldo);
-}
+};
