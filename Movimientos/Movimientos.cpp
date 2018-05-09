@@ -5,51 +5,51 @@ Movimientos::Movimientos ()
 {
 
 }
-void Movimiento::ConsultarMovimiento ()
+void Movimientos::ConsultarMovimiento ()
 {
 
 }
-void Movimiento::Transferencia ()
+void Movimientos::Transferencia ()
 {
 
 }
-void Movimiento::SacarDinero ()
+void Movimientos::SacarDinero ()
 {
 
 }
-void Movimiento::MeterDinero()
+void Movimientos::MeterDinero()
 {
 
 }
-int getnumTarjeta1()
+int Movimientos::getnumTarjeta1()
 {
 	return numTarjeta1;
 }
-void setnumTarjeta1(int numTarjeta1)
+void Movimientos::setnumTarjeta1(int numTarjeta1)
 {
 	this-->numTarjeta1 = numTarjeta1;
 }
-int getnumTarjeta2()
+int Movimientos::getnumTarjeta2()
 {
 	return numTarjeta2;
 }
-void setnumTarjeta2(int numTarjeta2)
+void Movimientos::setnumTarjeta2(int numTarjeta2)
 {
 	this-->numTarjeta2 = numTarjeta2;
 }
-String getTipoMovimiento()
+String Movimientos::getTipoMovimiento()
 {
 	return TipoMovimiento;
 }
-void setTipoMovimiento(String TipoMovimiento)
+void Movimientos::setTipoMovimiento(String TipoMovimiento)
 {
 	this-->TipoMovimiento = TipoMovimiento;
 }
-int getCantidad()
+int Movimientos::getCantidad()
 {
 	return Cantidad;
 }
-void setCantidad(int Cantidad)
+void Movimientos::setCantidad(int Cantidad)
 {
 	this-->Cantidad = Cantidad;
 }

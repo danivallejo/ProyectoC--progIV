@@ -17,32 +17,32 @@ void Tarjeta::ConsultarSaldo()
 {
 
 }
-int getnumTarjeta()
+int Tarjeta::getnumTarjeta()
 {
 return numTarjeta;
 }
-void setnumTarjeta(int numTarjeta)
+void Tarjeta::setnumTarjeta(int numTarjeta)
 {
 this-->numTarjeta=numTarjeta;
 }
-int getPIN()
+int Tarjeta::getPIN()
 {
 return PIN;
 }
-void setPIN(int PIN)
+void Tarjeta::setPIN(int PIN)
 {
 this-->PIN=PIN;
 }
-int getsaldo()
+int Tarjeta::getsaldo()
 {
 return saldo;
 }
-void setsaldo(int saldo)
+void Tarjeta::setsaldo(int saldo)
 {
 this-->saldo=saldo;	
 }
 ~Tarjeta()
 {
-	
+
 }
 
