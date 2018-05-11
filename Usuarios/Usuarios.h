@@ -1,19 +1,25 @@
+#include <iostream>
+
+namespace Usuarios
+{
+
 class Usuarios
 {
 	int DNI;
-	String nombre;
-	String apellido;
+	std::string nombre;
+	std::string apellido;
 
 public:
 	Usuarios();
 
 	int getDNI();
 	void setDNI(int DNI);
-	String getnombre();
-	void setnombre(String nombre);
-	String getapellido();
-	void setapellido(String apellido);
+	std::string getnombre();
+	void setnombre(std::string nombre);
+	std::string getapellido();
+	void setapellido(std::string apellido);
 
-	~Usuario();
+	~Usuarios();
 
 };
+}

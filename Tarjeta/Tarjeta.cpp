@@ -1,11 +1,14 @@
 #include <iostream>
-using namespace std;
+#include "Tarjeta.h"
+
+namespace Tarjeta
+{
 
 Tarjeta::Tarjeta()
 {
 
 }
-void Tarjeta::AltaTarjeta ()
+int Tarjeta::AltaTarjeta ()
 {
 
 }
@@ -41,8 +44,8 @@ void Tarjeta::setsaldo(int saldo)
 {
 this->saldo=saldo;	
 }
-~Tarjeta()
+Tarjeta::~Tarjeta()
 {
 
 }
-
+}

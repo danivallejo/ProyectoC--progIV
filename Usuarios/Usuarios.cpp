@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Usuarios.h"
 
-using namespace std;
+namespace Usuarios
+{
 
 
-Usuarios::Usuario()
+Usuarios::Usuarios()
 {
 
 }
@@ -16,19 +17,24 @@ void Usuarios::setDNI(int DNI)
 {
 
 }
-String Usuarios::getnombre()
+std::string Usuarios::getnombre()
 {
 
 }
-void Usuarios::setnombre(String nombre)
+void Usuarios::setnombre(std::string nombre)
 {
 
 }
-String Usuarios::getapellido()
+std::string Usuarios::getapellido()
 {
 
 }
-void Usuarios::setapellido(String apellido)
+void Usuarios::setapellido(std::string apellido)
 {
 
+}
+Usuarios::~Usuarios()
+{
+
+}
 }

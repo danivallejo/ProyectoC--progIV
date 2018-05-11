@@ -1,4 +1,7 @@
+#include <iostream>
 
+namespace Tarjeta
+{
 class Tarjeta
 {
 	int numTarjeta;
@@ -17,4 +20,7 @@ public:
 	void setPIN(int PIN);
 	int getsaldo();
 	void setsaldo(int saldo);
+
+	~Tarjeta();
 };
+}

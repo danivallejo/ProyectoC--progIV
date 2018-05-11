@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Movimientos.h"
-using namespace std;
 
+namespace Movimientos
+{
 Movimientos::Movimientos ()
 {
 
@@ -38,11 +39,11 @@ void Movimientos::setnumTarjeta2(int numTarjeta2)
 {
 	this->numTarjeta2 = numTarjeta2;
 }
-String Movimientos::getTipoMovimiento()
+std::string Movimientos::getTipoMovimiento()
 {
 	return TipoMovimiento;
 }
-void Movimientos::setTipoMovimiento(String TipoMovimiento)
+void Movimientos::setTipoMovimiento(std::string TipoMovimiento)
 {
 	this->TipoMovimiento = TipoMovimiento;
 }
@@ -54,7 +55,8 @@ void Movimientos::setCantidad(int Cantidad)
 {
 	this->Cantidad = Cantidad;
 }
-~Movimientos()
+Movimientos::~Movimientos()
 {
 	
+}
 }

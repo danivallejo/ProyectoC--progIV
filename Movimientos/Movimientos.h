@@ -1,9 +1,13 @@
+#include <iostream>
+
+namespace Movimientos
+{
 class Movimientos
 
 {
 	int numTarjeta1;
 	int numTarjeta2;
-	String TipoMovimiento;
+	std::string TipoMovimiento;
 	int Cantidad;
 
 public:
@@ -18,9 +22,12 @@ public:
 	void setnumTarjeta1(int numTarjeta1);
 	int getnumTarjeta2();
 	void setnumTarjeta2 (int numTarjeta2);
-	String TipoMovimiento();
-	void setTipoMovimiento(String TipoMovimiento);
+	std::string getTipoMovimiento();
+	void setTipoMovimiento(std::string TipoMovimiento);
 	int getCantidad();
 	void setCantidad (int Cantidad);
 
+	~Movimientos();
+
 };
+}
