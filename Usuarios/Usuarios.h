@@ -1,4 +1,7 @@
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 namespace Usuarios
 {
@@ -6,18 +9,22 @@ namespace Usuarios
 class Usuarios
 {
 	int DNI;
-	std::string nombre;
-	std::string apellido;
+	string nombre;
+	string apellido;
+	string email;
 
 public:
 	Usuarios();
 
+	int AltaUsuario();
 	int getDNI();
 	void setDNI(int DNI);
-	std::string getnombre();
-	void setnombre(std::string nombre);
-	std::string getapellido();
-	void setapellido(std::string apellido);
+	string getnombre();
+	void setnombre(string nombre);
+	string getapellido();
+	void setapellido(string apellido);
+	string getemail();
+	void setemail(string email);
 
 	~Usuarios();
 

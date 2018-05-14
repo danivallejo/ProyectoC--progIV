@@ -46,6 +46,6 @@ this->saldo=saldo;
 }
 Tarjeta::~Tarjeta()
 {
-
+//delete t;
 }
 }
