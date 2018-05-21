@@ -9,10 +9,10 @@ private:
   sqlite3 *db = NULL;
 
 public:
- int createAllUsers() {
+ int createUsers() {
     sqlite3_stmt *stmt;
 
-    char sql[] = "create table users (int DNI primary key string nombre string apellido string email)";
+    char sql[] = "create table users (DNI int primary key, nombre varchar(20), apellido varchar(30), email varchar(40))";
 
     //Hay que crear la tabla bien!!!!!!!!!
 
@@ -126,7 +126,7 @@ public:
   int insertNewUsers(int DNI) {
     sqlite3_stmt *stmt;
 
-    char sql[] = "insert into users (DNI, nombre, apellido, email) values (NULL, ?, ?, ?)";
+    char sql[] = "insert into users (DNI, nombre, apellido, email) values (?, ?, ?, ?)";
     int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
     if (result != SQLITE_OK) {
       std::cout << "Error preparing statement (INSERT)" << std::endl;
@@ -240,29 +240,35 @@ public:
 int main() {
   DBConnector dbConnector("test.sqlite");
 
-  int result = dbConnector.deleteAllUsers();
+  int result;
+
+  result = dbConnector.createUsers();
   if (result != SQLITE_OK) {
-    std::cout << "Error deleting all users" << std::endl;
+    std::cout << "Error creating table users" << std::endl;
     return result;
   }
-
+   result = dbConnector.insertNewUsersID(72606542, "Dani", "Vallejo", "danivallejo@opendeusto.es");
+  if (result != SQLITE_OK) {
+    std::cout << "Error inserting new data with DNI 72606542G. Already exists" << std::endl;
+    return result;
+  }
   result = dbConnector.insertNewUsers(72606542);
   if (result != SQLITE_OK) {
     std::cout << "Error inserting new data" << std::endl;
     return result;
   }
-
-  result = dbConnector.insertNewUsersID(72606542, "Dani", "Vallejo", "danivallejo@opendeusto.es");
-  if (result != SQLITE_OK) {
-    std::cout << "Error inserting new data with DNI 72606542G. Already exists" << std::endl;
-    return result;
-  }
-
   result = dbConnector.showAllUsers();
   if (result != SQLITE_OK) {
     std::cout << "Error getting all users" << std::endl;
     return result;
   }
+
+   result = dbConnector.deleteAllUsers();
+  if (result != SQLITE_OK) {
+    std::cout << "Error deleting all users" << std::endl;
+    return result;
+  }
+
 
   return 0;
 }
