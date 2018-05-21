@@ -2,14 +2,11 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include "DBConnector.h"
 
-class DBConnector {
+  
 
-private:
-  sqlite3 *db = NULL;
-
-public:
- int createUsers() {
+ int DBConnector::createUsers() {
     sqlite3_stmt *stmt;
 
     char sql[] = "create table users (DNI int primary key, nombre varchar(20), apellido varchar(30), email varchar(40))";
@@ -41,7 +38,7 @@ public:
   }
 
 
-  int showAllUsers() {
+  int DBConnector::showAllUsers() {
     sqlite3_stmt *stmt;
 
     char sql[] = "select DNI, nombre, apellido, email from users";
@@ -90,7 +87,7 @@ public:
     return SQLITE_OK;
   }
 
-  int deleteAllUsers() {
+  int DBConnector::deleteAllUsers() {
     sqlite3_stmt *stmt;
 
     char sql[] = "delete from users";
@@ -123,7 +120,7 @@ public:
     return SQLITE_OK;
   }
 
-  int insertNewUsers(int DNI) {
+  int DBConnector::insertNewUsers(int DNI) {
     sqlite3_stmt *stmt;
 
     char sql[] = "insert into users (DNI, nombre, apellido, email) values (?, ?, ?, ?)";
@@ -161,7 +158,7 @@ public:
     return SQLITE_OK;
   }
 
-  int insertNewUsersID(int DNI, std::string nombre, std::string apellido, std::string email) {
+  int DBConnector::insertNewUsersID(int DNI, std::string nombre, std::string apellido, std::string email) {
     sqlite3_stmt *stmt;
 
     char sql[] = "insert into users (DNI , nombre, apellido, email) values (?, ?, ?, ?)";
@@ -219,7 +216,7 @@ public:
     return SQLITE_OK;
   }
 
-  DBConnector(std::string dbFile) {
+  DBConnector::DBConnector(std::string dbFile) {
     //int result = sqlite3_open("test.sqlite", &db);
     int result = sqlite3_open(dbFile.c_str(), &db);
     if (result != SQLITE_OK) {
@@ -228,47 +225,12 @@ public:
     }
   }
 
-  ~DBConnector() {
+  DBConnector::~DBConnector() {
     int result = sqlite3_close(db);
     if (result != SQLITE_OK) {
       std::cout << "Error opening database" << std::endl;
       std::cout << sqlite3_errmsg(db) << std::endl;
     }	
   }
-};
-
-int main() {
-  DBConnector dbConnector("test.sqlite");
-
-  int result;
-
-  result = dbConnector.createUsers();
-  if (result != SQLITE_OK) {
-    std::cout << "Error creating table users" << std::endl;
-    return result;
-  }
-   result = dbConnector.insertNewUsersID(72606542, "Dani", "Vallejo", "danivallejo@opendeusto.es");
-  if (result != SQLITE_OK) {
-    std::cout << "Error inserting new data with DNI 72606542G. Already exists" << std::endl;
-    return result;
-  }
-  result = dbConnector.insertNewUsers(72606542);
-  if (result != SQLITE_OK) {
-    std::cout << "Error inserting new data" << std::endl;
-    return result;
-  }
-  result = dbConnector.showAllUsers();
-  if (result != SQLITE_OK) {
-    std::cout << "Error getting all users" << std::endl;
-    return result;
-  }
-
-   result = dbConnector.deleteAllUsers();
-  if (result != SQLITE_OK) {
-    std::cout << "Error deleting all users" << std::endl;
-    return result;
-  }
 
 
-  return 0;
-}
