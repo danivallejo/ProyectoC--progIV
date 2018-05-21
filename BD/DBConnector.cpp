@@ -9,10 +9,42 @@ private:
   sqlite3 *db = NULL;
 
 public:
-  int showAllCountries() {
+ int createAllUsers() {
     sqlite3_stmt *stmt;
 
-    char sql[] = "select id, name from country";
+    char sql[] = "create table users (int DNI primary key string nombre string apellido string email)";
+
+    //Hay que crear la tabla bien!!!!!!!!!
+
+    int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+    if (result != SQLITE_OK) {
+      std::cout << "Error preparing statement (CREATE TABLE)" << std::endl;      
+      std::cout << sqlite3_errmsg(db) << std::endl;
+      return result;
+    }
+
+    std::cout << "SQL query prepared (CREATE TABLE)" << std::endl;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    result = sqlite3_finalize(stmt);
+    if (result != SQLITE_OK) {
+      std::cout << "Error finalizing statement (CREATE TABLE)" << std::endl;
+      std::cout << sqlite3_errmsg(db) << std::endl;
+      return result;
+    }
+
+    std::cout << "Prepared statement finalized (CREATE TABLE)" << std::endl;
+
+    return SQLITE_OK;
+  }
+
+
+  int showAllUsers() {
+    sqlite3_stmt *stmt;
+
+    char sql[] = "select DNI, nombre, apellido, email from users";
 
     int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
     if (result != SQLITE_OK) {
@@ -23,19 +55,23 @@ public:
 
     std::cout << "SQL query prepared (SELECT)" << std::endl;
 
-    int id;
-    char name[100];
+    int DNI;
+    char * nombre;
+    char * apellido;
+    char * email;
 
     std::cout << std::endl;
     std::cout << std::endl;
-    std::cout << "Showing countries" << std::endl;
+    std::cout << "Showing users" << std::endl;
 
     do {
       result = sqlite3_step(stmt);
       if (result == SQLITE_ROW) {
-	id = sqlite3_column_int(stmt, 0);
-	strcpy(name, (char *) sqlite3_column_text(stmt, 1));
-	std::cout << "ID: " << id << " Name: " << name << std::endl;
+	DNI = sqlite3_column_int(stmt, 0);
+	strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
+  strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
+  strcpy(email, (char *) sqlite3_column_text(stmt, 3));
+	std::cout << "DNI: " << DNI << " nombre: " << nombre << " apellido: " << apellido << " email: " << email << std::endl;
       }
     } while (result == SQLITE_ROW);
 
@@ -54,10 +90,10 @@ public:
     return SQLITE_OK;
   }
 
-  int deleteAllCountry() {
+  int deleteAllUsers() {
     sqlite3_stmt *stmt;
 
-    char sql[] = "delete from country";
+    char sql[] = "delete from users";
 
     int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
     if (result != SQLITE_OK) {
@@ -87,10 +123,10 @@ public:
     return SQLITE_OK;
   }
 
-  int insertNewCountry(std::string country) {
+  int insertNewUsers(int DNI) {
     sqlite3_stmt *stmt;
 
-    char sql[] = "insert into country (id, name) values (NULL, ?)";
+    char sql[] = "insert into users (DNI, nombre, apellido, email) values (NULL, ?, ?, ?)";
     int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
     if (result != SQLITE_OK) {
       std::cout << "Error preparing statement (INSERT)" << std::endl;
@@ -100,16 +136,16 @@ public:
 
     std::cout << "SQL query prepared (INSERT)" << std::endl;
 
-    result = sqlite3_bind_text(stmt, 1, country.c_str(), country.length(), SQLITE_STATIC);
+    result = sqlite3_bind_int(stmt, 1, DNI);
     if (result != SQLITE_OK) {
       std::cout << "Error binding parameters" << std::endl;
-      std::cout <<  sqlite3_errmsg(db) << std::endl;
+      std::cout << sqlite3_errmsg(db) << std::endl;
       return result;
     }
 
     result = sqlite3_step(stmt);
     if (result != SQLITE_DONE) {
-      std::cout << "Error inserting new data into country table" << std::endl;
+      std::cout << "Error inserting new data into users table" << std::endl;
       return result;
     }
 
@@ -125,10 +161,10 @@ public:
     return SQLITE_OK;
   }
 
-  int insertNewCountryID(int id, std::string name) {
+  int insertNewUsersID(int DNI, std::string nombre, std::string apellido, std::string email) {
     sqlite3_stmt *stmt;
 
-    char sql[] = "insert into country (id, name) values (?, ?)";
+    char sql[] = "insert into users (DNI , nombre, apellido, email) values (?, ?, ?, ?)";
     int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
     if (result != SQLITE_OK) {
       std::cout << "Error preparing statement (INSERT)" << std::endl;
@@ -138,23 +174,36 @@ public:
 
     std::cout << "SQL query prepared (INSERT)" << std::endl;
 
-    result = sqlite3_bind_int(stmt, 1, id);
+    result = sqlite3_bind_int(stmt, 1, DNI);
     if (result != SQLITE_OK) {
       std::cout << "Error binding parameters" << std::endl;
       std::cout << sqlite3_errmsg(db) << std::endl;
       return result;
     }
 
-    result = sqlite3_bind_text(stmt, 2, name.c_str(), name.length(), SQLITE_STATIC);
+    result = sqlite3_bind_text(stmt, 2, nombre.c_str(), nombre.length(), SQLITE_STATIC);
     if (result != SQLITE_OK) {
       std::cout << "Error binding parameters" << std::endl;
       std::cout << sqlite3_errmsg(db) << std::endl;
       return result;
     }
 
+    result = sqlite3_bind_text(stmt, 3, apellido.c_str(), apellido.length(), SQLITE_STATIC);
+    if (result != SQLITE_OK) {
+      std::cout << "Error binding parameters" << std::endl;
+      std::cout << sqlite3_errmsg(db) << std::endl;
+      return result;
+    }
+
+    result = sqlite3_bind_text(stmt, 4, email.c_str(), email.length(), SQLITE_STATIC);
+    if (result != SQLITE_OK) {
+      std::cout << "Error binding parameters" << std::endl;
+      std::cout << sqlite3_errmsg(db) << std::endl;
+      return result;
+    }
     result = sqlite3_step(stmt);
     if (result != SQLITE_DONE) {
-      std::cout << "Error inserting new data into country table" << std::endl;
+      std::cout << "Error inserting new data into users table" << std::endl;
       return result;
     }
 
@@ -191,27 +240,27 @@ public:
 int main() {
   DBConnector dbConnector("test.sqlite");
 
-  int result = dbConnector.deleteAllCountry();
+  int result = dbConnector.deleteAllUsers();
   if (result != SQLITE_OK) {
-    std::cout << "Error deleting all countries" << std::endl;
+    std::cout << "Error deleting all users" << std::endl;
     return result;
   }
 
-  result = dbConnector.insertNewCountry("France");
+  result = dbConnector.insertNewUsers(72606542);
   if (result != SQLITE_OK) {
     std::cout << "Error inserting new data" << std::endl;
     return result;
   }
 
-  result = dbConnector.insertNewCountryID(200, "France");
+  result = dbConnector.insertNewUsersID(72606542, "Dani", "Vallejo", "danivallejo@opendeusto.es");
   if (result != SQLITE_OK) {
-    std::cout << "Error inserting new data with id: 200. Already exists" << std::endl;
+    std::cout << "Error inserting new data with DNI 72606542G. Already exists" << std::endl;
     return result;
   }
 
-  result = dbConnector.showAllCountries();
+  result = dbConnector.showAllUsers();
   if (result != SQLITE_OK) {
-    std::cout << "Error getting all countries" << std::endl;
+    std::cout << "Error getting all users" << std::endl;
     return result;
   }
 
