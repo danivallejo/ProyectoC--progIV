@@ -3,18 +3,18 @@
 
 using namespace std;
 
-namespace Usuarios
-{
+//namespace Usuario
+//{
 
 class Usuarios
 {
-	int DNI;
+	unsigned int DNI;
 	string nombre;
 	string apellido;
 	string email;
 
 public:
-	Usuarios();
+	Usuarios(unsigned int dni, string nombre, string apellido, string email);
 
 	int AltaUsuario();
 	int getDNI();
@@ -29,4 +29,4 @@ public:
 	~Usuarios();
 
 };
-}
+//}
