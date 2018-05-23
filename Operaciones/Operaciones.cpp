@@ -40,7 +40,6 @@ using namespace std;
 	int Tarjeta::AltaTarjeta ()
 	{
 
-		vector<Tarjetas> tarjetas;
 
 		do
 		{
