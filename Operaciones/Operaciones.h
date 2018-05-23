@@ -4,7 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "../Tarjeta/Tarjeta.h"
+#include "../Movimientos/Movimientos.h"
+#include "../Usuarios/Usuarios.h"
 
 using namespace std;
 
@@ -12,13 +14,13 @@ using namespace std;
 //{
 class Operaciones
 {
-
+	
 public: 
 	int menu(Usuarios usuarioIntroducido);
 	int AltaUsuario();
 	void IntroducirUsuario();
 	int AltaTarjeta ();
-	void IntroducirTarjeta ();
+	void IntroducirTarjeta();
 	void ConsultarSaldo();
 	void Salir();
 

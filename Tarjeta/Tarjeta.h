@@ -2,6 +2,9 @@
 #define _TARJETA_H
 
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 namespace Tarjeta
 {
@@ -10,6 +13,8 @@ class Tarjeta
 	int numTarjeta;
 	int PIN;
 	int saldo;
+
+	vector<Tarjeta> tarjetas; 
 
 public:
 	Tarjeta();

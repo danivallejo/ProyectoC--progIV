@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Movimientos
 	string TipoMovimiento;
 	int Cantidad;
 
+	vector<Movimientos> movimientos;
 public:
 
 	Movimientos();

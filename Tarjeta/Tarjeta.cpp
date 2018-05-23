@@ -1,12 +1,18 @@
 #include <iostream>
 #include "Tarjeta.h"
 
+using namespace std;
+
 namespace Tarjeta
 {
 
 Tarjeta::Tarjeta()
-{
-
+{/*
+	for(int i; i < tarjetas.size(); i++)
+	{
+		tarjetas[i].push_back(numTarjeta, PIN, saldo);
+	}
+*/	
 }
 int Tarjeta::getnumTarjeta()
 {
@@ -34,6 +40,6 @@ this->saldo=saldo;
 }
 Tarjeta::~Tarjeta()
 {
-//delete t;
+//delete tarjetas;
 }
 }

@@ -7,13 +7,13 @@
 #include "../Tarjeta/Tarjeta.h"
 #include "../Movimientos/Movimientos.h"
 
-
 //#include "../BD/DBConnector.cpp"
 
 using namespace std;
 
 //namespace Operaciones
 //{
+
 int menu(Usuarios usuarioIntroducido)
 {
 Operaciones o;
@@ -80,8 +80,7 @@ int a;
 	}
 	int Operaciones::AltaTarjeta ()
 	{
-		vector<Tarjeta> tarjetas;	
-			
+
 		int PIN;
 		int numTarjeta;
 		int aux;
@@ -91,19 +90,19 @@ int a;
 		{
 	
 		cout << "Registra el numero de tu nueva tarjeta" << endl;
-		cin >> tarjetas.numTarjeta;
+		cin >> numTarjeta;
 	
 		aux = 0;
 
 		// hay que cambiar el aux del for por el tamaño del vector
 			for (int i = 0; i < aux; i++)
  			{
- 				if(tarjetas.numTarjeta == tarjetas[i].numTarjeta)
- 				{
+ 				//if(tarjetas.numTarjeta == tarjetas[i].numTarjeta)
+ 				//{
  					cout << "El numero de tarjeta ya esta registrado en el sistema" << endl;
  					aux = 1;
- 				}
- 				if(tarjetas.numTarjeta == 0)
+ 				//}
+ 				if(numTarjeta == 0)
  				{
  					cout << "El numero de tarjeta no puede ser 0 \n" << endl;
  					aux = 1;
@@ -114,15 +113,14 @@ int a;
 
 	cout << "Introduce el PIN para completar el registro de tu nueva tarjeta" << endl;
 
-	cin >> Tarjeta -> setPIN(PIN);
+	cin >> PIN;
 
-	Tarjeta -> setsaldo(0);
+	//Tarjeta -> setsaldo(0);
 
 	}
-	void IntroducirTarjeta()
+	void Operaciones::IntroducirTarjeta()
 	{
 
-	vector<Tarjeta> tarjetas;	
 
 	int numeroTarjeta;
 	int PIN;
@@ -161,6 +159,9 @@ int a;
 	*/
 
 	}
+	void Operaciones::IntroducirUsuario()
+	{
+	}	
 	void Operaciones::ConsultarSaldo()
 	{
 

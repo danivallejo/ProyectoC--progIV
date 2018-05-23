@@ -2,7 +2,7 @@
 #include "Tarjeta/Tarjeta.h"
 #include "Usuarios/Usuarios.h"
 #include "Operaciones/Operaciones.h"
-#include "BD/DBConnector.h"
+//#include "BD/DBConnector.h"
 #include <vector>
 
 using namespace std;
@@ -11,8 +11,8 @@ int main()
 {
   Operaciones o;
    
-    vector<Usuarios> usuarios;
-    vector<Movimientos> movimientos;
+  
+   
     
 
     int a;
@@ -40,7 +40,7 @@ int main()
 	}while(a != 3);
 
 	
-
+/*
 
   DBConnector dbConnector("test.sqlite");
 
@@ -74,7 +74,7 @@ int main()
   }
 
 
-
+*/
 
   return 0;
 }

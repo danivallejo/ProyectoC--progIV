@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -15,6 +16,8 @@ class Usuarios
 	string nombre;
 	string apellido;
 	string email;
+
+	vector<Usuarios> usuarios;
 
 public:
 	Usuarios(unsigned int dni, string nombre, string apellido, string email);
