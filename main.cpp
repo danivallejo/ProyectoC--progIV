@@ -2,11 +2,18 @@
 #include "Tarjeta/Tarjeta.h"
 #include "Usuarios/Usuarios.h"
 #include "BD/DBConnector.h"
+#include <vector>
 
 using namespace std;
 
 int main() 
 {
+
+    vector<Tarjetas> tarjetas;
+    vector<Usuarios> usuarios;
+    vector<Movimientos> movimientos;
+
+
   DBConnector dbConnector("test.sqlite");
 
   int result;
