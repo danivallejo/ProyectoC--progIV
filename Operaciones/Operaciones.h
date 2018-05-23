@@ -7,8 +7,10 @@ using namespace std;
 //{
 class Operaciones
 {
+
 public: 
-	void altaUsuario();
+	int menu(Usuarios usuarioIntroducido);
+	void AltaUsuario();
 	void modificarUsuario();
 	int AltaTarjeta ();
 	void IntroducirTarjeta ();

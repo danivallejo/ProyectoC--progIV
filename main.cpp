@@ -9,9 +9,35 @@ using namespace std;
 int main() 
 {
 
-    vector<Tarjetas> tarjetas;
+   
     vector<Usuarios> usuarios;
-    vector<Movimientos> movimientos;
+    
+
+    int a;
+
+
+    do 
+
+	{
+		cout << endl <<" Este es el menu principal. Seleccione que operación desea realizar:" << endl <<" 1. Registrar usuario. 2.Iniciar sesion . 3.Salir." << endl;
+
+		cin >> a;
+
+		switch (a)
+		{
+			case 1:
+			AltaUsuario(vector<Usuarios> usuarios);
+			break;
+			case 2: 
+			IntroducirUsuario(vector<Usuarios>usuarios);
+			break;
+			case 3:
+			Salir();
+			break;
+		}
+	}while(a != 3);
+
+	
 
 
   DBConnector dbConnector("test.sqlite");
@@ -44,6 +70,8 @@ int main()
     std::cout << "Error deleting all users" << std::endl;
     return result;
   }
+
+
 
 
   return 0;

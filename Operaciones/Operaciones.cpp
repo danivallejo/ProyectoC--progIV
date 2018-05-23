@@ -4,16 +4,56 @@
 
 #include "Operaciones.h"
 #include "../Usuarios/Usuarios.h"
+#include "../Tarjeta/Tarjeta.h"
+
 //#include "../BD/DBConnector.cpp"
 
 using namespace std;
 
 //namespace Operaciones
 //{
-	void AltaUsuario()
-	{
-		vector<Usuarios> usuarios;
+int menu(Usuarios usuarioIntroducido)
+{
+vector<Movimientos> movimientos;
+vector<Tarjetas> tarjetas;	
 
+	do
+	{
+
+	printf("\nEste es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n");
+
+	scanf("%i", &a);
+
+	switch(a)	
+	{
+	case 1:
+	AltaTarjeta(vector<Tarjetas> tarjetas);
+	break;
+	case 2:
+	IntroducirTarjeta(vector<Tarjetas> tarjetas);
+	break;
+	case 1:
+	SacarDinero(TarjetaIntroducida);
+	break;
+	case 2:
+	MeterDinero(TarjetaIntroducida);
+	break;
+	case 3:
+	ConsultarSaldo(TarjetaIntroducida);
+	break;
+	case 4:
+	ConsultarMovimiento(TarjetaIntroducida);
+	break;
+	case 5:
+	Transferencia(TarjetaIntroducida);
+	case 6:
+	Salir(TarjetaIntroducida);
+	break;
+	}
+	}while(a!=6);
+}	
+	void Operaciones::AltaUsuario(vector<Usuarios> usuarios)
+	{
 		unsigned int DNI;
 		string nombre;
 		string apellido;
@@ -37,7 +77,7 @@ using namespace std;
 
 		Usuarios usu  (DNI, nombre, apellido, email);
 	}
-	int Tarjeta::AltaTarjeta ()
+	int Operaciones::AltaTarjeta (vector<Tarjeta> tarjetas)
 	{
 
 
