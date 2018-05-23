@@ -10,9 +10,7 @@ class Tarjeta
 
 public:
 	Tarjeta();
-	int AltaTarjeta ();
-	void IntroducirTarjeta ();
-	void ConsultarSaldo();
+	
 	
 	int getnumTarjeta();
 	void setnumTarjeta(int numTarjeta);

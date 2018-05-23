@@ -8,18 +8,6 @@ Tarjeta::Tarjeta()
 {
 
 }
-int Tarjeta::AltaTarjeta ()
-{
-
-}
-void Tarjeta::IntroducirTarjeta ()
-{
-
-}
-void Tarjeta::ConsultarSaldo()
-{
-
-}
 int Tarjeta::getnumTarjeta()
 {
 return numTarjeta;

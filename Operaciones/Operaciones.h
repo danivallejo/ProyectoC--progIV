@@ -9,6 +9,10 @@ class Operaciones
 {
 public: 
 	void altaUsuario();
+	void modificarUsuario();
+	int AltaTarjeta ();
+	void IntroducirTarjeta ();
+	void ConsultarSaldo();
 
 };
 
