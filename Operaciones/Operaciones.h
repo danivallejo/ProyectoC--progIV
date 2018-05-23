@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <vector>
+
 
 using namespace std;
 
@@ -10,11 +12,17 @@ class Operaciones
 
 public: 
 	int menu(Usuarios usuarioIntroducido);
-	void AltaUsuario();
-	void modificarUsuario();
+	int AltaUsuario();
+	void IntroducirUsuario();
 	int AltaTarjeta ();
 	void IntroducirTarjeta ();
 	void ConsultarSaldo();
+	void Salir();
+
+	void ConsultarMovimiento();
+	void Transferencia();
+	void SacarDinero();
+	void MeterDinero();
 
 };
 

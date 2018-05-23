@@ -5,6 +5,8 @@
 #include "Operaciones.h"
 #include "../Usuarios/Usuarios.h"
 #include "../Tarjeta/Tarjeta.h"
+#include "../Movimientos/Movimientos.h"
+
 
 //#include "../BD/DBConnector.cpp"
 
@@ -14,9 +16,8 @@ using namespace std;
 //{
 int menu(Usuarios usuarioIntroducido)
 {
-vector<Movimientos> movimientos;
-vector<Tarjetas> tarjetas;	
-
+Operaciones o;
+int a;
 	do
 	{
 
@@ -27,32 +28,32 @@ vector<Tarjetas> tarjetas;
 	switch(a)	
 	{
 	case 1:
-	AltaTarjeta(vector<Tarjetas> tarjetas);
+	o.AltaTarjeta();
 	break;
 	case 2:
-	IntroducirTarjeta(vector<Tarjetas> tarjetas);
-	break;
-	case 1:
-	SacarDinero(TarjetaIntroducida);
-	break;
-	case 2:
-	MeterDinero(TarjetaIntroducida);
+	o.IntroducirTarjeta();
 	break;
 	case 3:
-	ConsultarSaldo(TarjetaIntroducida);
+	o.SacarDinero();
 	break;
 	case 4:
-	ConsultarMovimiento(TarjetaIntroducida);
+	o.MeterDinero();
 	break;
 	case 5:
-	Transferencia(TarjetaIntroducida);
+	o.ConsultarSaldo();
+	break;
 	case 6:
-	Salir(TarjetaIntroducida);
+	o.ConsultarMovimiento();
+	break;
+	case 7:
+	o.Transferencia();
+	case 8:
+	o.Salir();
 	break;
 	}
-	}while(a!=6);
+	}while(a!=8);
 }	
-	void Operaciones::AltaUsuario(vector<Usuarios> usuarios)
+	int Operaciones::AltaUsuario()
 	{
 		unsigned int DNI;
 		string nombre;
@@ -77,15 +78,19 @@ vector<Tarjetas> tarjetas;
 
 		Usuarios usu  (DNI, nombre, apellido, email);
 	}
-	int Operaciones::AltaTarjeta (vector<Tarjeta> tarjetas)
+	int Operaciones::AltaTarjeta ()
 	{
-
+		vector<Tarjeta> tarjetas;	
+			
+		int PIN;
+		int numTarjeta;
+		int aux;
 
 		do
 		{
 	
 		cout << "Registra el numero de tu nueva tarjeta" << endl;
-		cin >> Tarjeta --> numTarjeta;
+		cin >> tarjetas.numTarjeta;
 	
 		aux = 0;
 
@@ -108,13 +113,16 @@ vector<Tarjetas> tarjetas;
 
 	cout << "Introduce el PIN para completar el registro de tu nueva tarjeta" << endl;
 
-	scanf ("%i", &tarjeta.Password);
+	cin >> Tarjeta -> setPIN(PIN);
 
-	tarjeta.Saldo = 0;
+	Tarjeta -> setsaldo(0);
 
 	}
 	void IntroducirTarjeta()
-{
+	{
+
+	vector<Tarjeta> tarjetas;	
+
 	unsinged int numeroTarjeta;
 	int PIN;
 	
@@ -128,7 +136,7 @@ vector<Tarjetas> tarjetas;
 	
 	*/
 
-	cout << "Introduce tu tarjeta" \n << endl
+	cout << "Introduce tu tarjeta" << endl;
 	cin >> numeroTarjeta;
 
 	//COMPROBAR SI LA TARJETA EXISTE NO SABEMOS COMO
@@ -152,14 +160,30 @@ vector<Tarjetas> tarjetas;
 	*/
 
 	}
-	void Tarjeta::ConsultarSaldo()
+	void Operaciones::ConsultarSaldo()
+	{
+
+	}
+	void Operaciones::ConsultarMovimiento()
+	{
+
+	}
+	void Operaciones::Transferencia()
+	{
+
+	}
+	void Operaciones::SacarDinero()
+	{
+
+	}
+	void Operaciones::MeterDinero()
+	{
+
+	}
+	void Operaciones::Salir()
 	{
 
 
 
 	}
-
-
-
-
 //}

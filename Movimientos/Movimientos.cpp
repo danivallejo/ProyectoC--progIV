@@ -10,22 +10,6 @@ Movimientos::Movimientos ()
 {
 
 }
-void Movimientos::ConsultarMovimiento ()
-{
-
-}
-void Movimientos::Transferencia ()
-{
-
-}
-void Movimientos::SacarDinero ()
-{
-
-}
-void Movimientos::MeterDinero()
-{
-
-}
 int Movimientos::getnumTarjeta1()
 {
 	return numTarjeta1;

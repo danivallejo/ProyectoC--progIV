@@ -16,10 +16,7 @@ class Movimientos
 public:
 
 	Movimientos();
-	void ConsultarMovimiento();
-	void Transferencia();
-	void SacarDinero();
-	void MeterDinero();
+
 
 	int getnumTarjeta1();
 	void setnumTarjeta1(int numTarjeta1);

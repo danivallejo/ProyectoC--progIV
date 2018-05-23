@@ -1,6 +1,7 @@
 #include "Movimientos/Movimientos.h"
 #include "Tarjeta/Tarjeta.h"
 #include "Usuarios/Usuarios.h"
+#include "Operaciones/Operaciones.h"
 #include "BD/DBConnector.h"
 #include <vector>
 
@@ -8,9 +9,10 @@ using namespace std;
 
 int main() 
 {
-
+  Operaciones o;
    
     vector<Usuarios> usuarios;
+    vector<Movimientos> movimientos;
     
 
     int a;
@@ -26,13 +28,13 @@ int main()
 		switch (a)
 		{
 			case 1:
-			AltaUsuario(vector<Usuarios> usuarios);
+			o.AltaUsuario();
 			break;
 			case 2: 
-			IntroducirUsuario(vector<Usuarios>usuarios);
+			o.IntroducirUsuario();
 			break;
 			case 3:
-			Salir();
+			o.Salir();
 			break;
 		}
 	}while(a != 3);

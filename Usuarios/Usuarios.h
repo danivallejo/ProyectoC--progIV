@@ -16,7 +16,6 @@ class Usuarios
 public:
 	Usuarios(unsigned int dni, string nombre, string apellido, string email);
 
-	int AltaUsuario();
 	int getDNI();
 	void setDNI(int DNI);
 	string getnombre();
