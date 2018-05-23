@@ -1,3 +1,6 @@
+#ifndef _MOVIMIENTOS_H
+#define _MOVIMIENTOS_H
+
 #include <iostream>
 #include <string>
 
@@ -31,3 +34,4 @@ public:
 
 };
 }
+#endif

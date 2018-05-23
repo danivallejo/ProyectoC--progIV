@@ -1,3 +1,6 @@
+#ifndef _TARJETA_H
+#define _TARJETA_H
+
 #include <iostream>
 
 namespace Tarjeta
@@ -22,3 +25,5 @@ public:
 	~Tarjeta();
 };
 }
+
+#endif

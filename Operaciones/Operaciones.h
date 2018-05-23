@@ -1,3 +1,6 @@
+#ifndef _OPERACIONES_H
+#define _OPERACIONES_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,6 +28,8 @@ public:
 	void MeterDinero();
 
 };
+
+#endif
 
 
 //}

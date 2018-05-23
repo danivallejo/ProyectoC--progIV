@@ -1,3 +1,6 @@
+#ifndef _USUARIOS_H
+#define _USUARIOS_H
+
 #include <iostream>
 #include <string>
 
@@ -29,3 +32,4 @@ public:
 
 };
 //}
+#endif

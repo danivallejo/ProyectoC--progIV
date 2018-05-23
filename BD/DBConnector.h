@@ -1,3 +1,7 @@
+#ifndef _DBCONNECTOR_H
+#define _DBCONNECTOR_H
+
+
 #include <iostream>
 #include <string.h>
 #include "sqlite3.h"
@@ -25,4 +29,6 @@ public:
 
 	~DBConnector(); 
 };
+
+#endif
 

@@ -86,6 +86,7 @@ int a;
 		int numTarjeta;
 		int aux;
 
+
 		do
 		{
 	
@@ -94,15 +95,15 @@ int a;
 	
 		aux = 0;
 
-		
-			for (i = 0; i < CantidadTarjetas; i++)
+		// hay que cambiar el aux del for por el tamaño del vector
+			for (int i = 0; i < aux; i++)
  			{
- 				if(tarjeta.numTarjeta == tarjetas[i].numTarjeta)
+ 				if(tarjetas.numTarjeta == tarjetas[i].numTarjeta)
  				{
  					cout << "El numero de tarjeta ya esta registrado en el sistema" << endl;
  					aux = 1;
  				}
- 				if(tarjeta.numTarjeta == 0)
+ 				if(tarjetas.numTarjeta == 0)
  				{
  					cout << "El numero de tarjeta no puede ser 0 \n" << endl;
  					aux = 1;
@@ -123,7 +124,7 @@ int a;
 
 	vector<Tarjeta> tarjetas;	
 
-	unsinged int numeroTarjeta;
+	int numeroTarjeta;
 	int PIN;
 	
 	/* ABRIMOS LA BD
