@@ -38,7 +38,7 @@ vector <Usuarios> getUsuarios (sqlite3 *db)
 			strcpy(str, (char *) sqlite3_column_text(stmt, 3));
 			string email (str);
 
-			Usuarios a (dni,nombre,apellido,email);
+			Usuarios a (DNI,nombre,apellido,email);
 			vectorUsuarios.push_back(a);
 		}
 	}while (result == SQLITE_ROW);
@@ -93,7 +93,7 @@ vector <Movimientos> getMovimientos (sqlite3)
 		cout << sqlite3_errmsg(db) << endl;
 
 	vector <Movimientos> vectorMovimientos;
-	int numtarjeta1, int numtarjeta2, cantidad;
+	int numtarjeta1, numtarjeta2, cantidad;
 	char str [100];
 
 	do
@@ -107,7 +107,7 @@ vector <Movimientos> getMovimientos (sqlite3)
 			string tipomovimiento (str);
 			cantidad = sqlite3_column_int (stmt, 3);
 			
-			Movimiento a (numtarjeta1,numtarjeta2,tipomovimiento,cantidad);
+			Movimientos a (numtarjeta1,numtarjeta2,tipomovimiento,cantidad);
 			vectorMovimientos.push_back(a);
 		}
 	}while (result == SQLITE_ROW);
@@ -118,3 +118,4 @@ vector <Movimientos> getMovimientos (sqlite3)
 
 	return vectorMovimientos;
 }
+
