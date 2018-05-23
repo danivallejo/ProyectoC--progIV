@@ -74,10 +74,43 @@ using namespace std;
 	tarjeta.Saldo = 0;
 
 	}
-	void Tarjeta::IntroducirTarjeta ()
+	void IntroducirTarjeta()
+{
+	unsinged int numeroTarjeta;
+	int PIN;
+	
+	/* ABRIMOS LA BD
+	result = dbConnector.showAllTarjetas();
+  	if (result != SQLITE_OK) 
 	{
+    		std::cout << "Error al sacar las tarjetas" << std::endl;
+    		return result;
+  	}
+	
+	*/
 
+	cout << "Introduce tu tarjeta" \n << endl
+	cin >> numeroTarjeta;
 
+	//COMPROBAR SI LA TARJETA EXISTE NO SABEMOS COMO
+
+	/*if(EXISTE)
+	{
+		cout << "Tu tarjeta está en los servidores, ahora introduce tu PIN \n<< endl
+		cin >>PIN;
+	
+		if(PIN CORRECTO)
+		{	
+			cout << "¡Tarjeta introducida! \n" << endl;
+		}else
+		{
+			cout << " PIN INCORRECTO \n << endl;
+		}
+	}else
+	{
+		cout << "Lo sentimos, su tarjeta no aparece en los servidores" << endl;
+
+	*/
 
 	}
 	void Tarjeta::ConsultarSaldo()
