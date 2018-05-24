@@ -2,7 +2,8 @@
 #include "Tarjeta/Tarjeta.h"
 #include "Usuarios/Usuarios.h"
 #include "Operaciones/Operaciones.h"
-//#include "BD/DBConnector.h"
+#include "BD/EscrituraBD.h"
+#include "BD/sqlite3.h"
 #include <vector>
 
 using namespace std;
@@ -10,6 +11,10 @@ using namespace std;
 int main() 
 {
   Operaciones o;
+  EscrituraBD obj;
+  sqlite3 *db;
+
+  obj.iniciarBD(db);
 
   int a;
 

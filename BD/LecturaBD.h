@@ -9,8 +9,12 @@
 
 using namespace std;
 
-vector<Usuarios> getUsuarios (sqlite3 *db);
-vector<Tarjeta> getTarjetas (sqlite3 *db);
-vector<Movimientos> getMovimientos (sqlite3 *db);
+class LecturaBD
+{
 
+public:
+	vector<Usuarios> getUsuarios (sqlite3 *db);
+	vector<Tarjeta> getTarjetas (sqlite3 *db);
+	vector<Movimientos> getMovimientos (sqlite3 *db);
+};
 #endif
