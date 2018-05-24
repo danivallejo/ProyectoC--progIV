@@ -13,8 +13,16 @@ int main()
   Operaciones o;
   EscrituraBD obj;
   sqlite3 *db;
+  string dbFile = "test.db";
+  
+  int result;
 
-  obj.iniciarBD(db);
+  result = sqlite3_open(dbFile.c_str(), &db);
+  if(result != SQLITE_OK)
+    cout << "Error opening database" << endl;
+
+
+  //obj.iniciarBD(db);
 
   int a;
 

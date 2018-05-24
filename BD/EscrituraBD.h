@@ -9,6 +9,8 @@ using namespace std;
 
 class EscrituraBD
 {
+sqlite3 *db;
+
 public:
 	void iniciarBD(sqlite3 *db);
 	int altaUsuario (sqlite3 *db, int DNI, string nombre, string apellido, string email);

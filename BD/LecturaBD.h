@@ -11,6 +11,7 @@ using namespace std;
 
 class LecturaBD
 {
+sqlite3 *db; 
 
 public:
 	vector<Usuarios> getUsuarios (sqlite3 *db);
