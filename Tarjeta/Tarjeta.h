@@ -8,14 +8,14 @@ using namespace std;
 
 class Tarjeta
 {
-	int numTarjeta;
-	int PIN;
+	unsigned int numTarjeta;
+	unsigned int PIN;
 	int saldo;
 
 	vector<Tarjeta> tarjetas; 
 
 public:
-	Tarjeta();
+	Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo);
 	
 	
 	int getnumTarjeta();

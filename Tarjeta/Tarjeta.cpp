@@ -4,14 +4,13 @@
 using namespace std;
 
 
-Tarjeta::Tarjeta()
-{/*
-	for(int i; i < tarjetas.size(); i++)
-	{
-		tarjetas[i].push_back(numTarjeta, PIN, saldo);
-	}
-*/	
+Tarjeta::Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo)
+{
+	this -> numTarjeta = numtarjeta;
+	this -> PIN = pin;
+	this -> saldo = Saldo;
 }
+
 int Tarjeta::getnumTarjeta()
 {
 return numTarjeta;
@@ -40,4 +39,3 @@ Tarjeta::~Tarjeta()
 {
 //delete tarjetas;
 }
-
