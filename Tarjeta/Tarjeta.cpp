@@ -3,8 +3,6 @@
 
 using namespace std;
 
-namespace Tarjeta
-{
 
 Tarjeta::Tarjeta()
 {/*
@@ -42,4 +40,4 @@ Tarjeta::~Tarjeta()
 {
 //delete tarjetas;
 }
-}
+

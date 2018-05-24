@@ -4,10 +4,15 @@
 
 using namespace std;
 
-namespace Movimientos
+
+Movimientos::Movimientos (unsigned int numtarjeta1, unsigned int numtarjeta2, string tipoMovimiento, int cantidad)
 {
-Movimientos::Movimientos ()
-{
+	this -> numTarjeta1 = numtarjeta1;
+	this -> numTarjeta2 = numtarjeta2;
+	this -> TipoMovimiento = tipoMovimiento;
+	this -> Cantidad = cantidad;
+
+
 
 }
 int Movimientos::getnumTarjeta1()
@@ -45,5 +50,4 @@ void Movimientos::setCantidad(int Cantidad)
 Movimientos::~Movimientos()
 {
 //delete m;
-}
 }

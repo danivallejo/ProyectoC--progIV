@@ -28,6 +28,8 @@ void iniciarBD (sqlite3 *db)
 	rc = sqlite3_exec (db, sql_query3, 0, 0, &err_message);
 	if (rc != SQLITE_OK)
 		cout << sqlite3_errmsg(db);
+
+	//HACER TABLA TRANSFERENCIAS
 }
 
 int altaUsuario (sqlite3 *db, int DNI, string nombre, string apellido, string email)
@@ -79,14 +81,12 @@ int altaTarjeta (sqlite3 *db, int numeroTarjeta, int PIN, int saldo)
 		cout << sqlite3_errmsg(db) << endl;
 		return result;
 	} 
-
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE)
 	{
 		cout << "ERROR. El numero de tarjeta ya se ha registrado" << endl;
 		return result;
 	}
-	
 	result = sqlite3_finalize (stmt);
 	if(result != SQLITE_OK)
 	{

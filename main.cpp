@@ -10,15 +10,10 @@ using namespace std;
 int main() 
 {
   Operaciones o;
-   
-  
-   
-    
 
-    int a;
+  int a;
 
-
-    do 
+  do 
 
 	{
 		cout << endl <<" Este es el menu principal. Seleccione que operación desea realizar:" << endl <<" 1. Registrar usuario. 2.Iniciar sesion . 3.Salir." << endl;

@@ -7,8 +7,6 @@
 
 using namespace std;
 
-namespace Movimientos
-{
 class Movimientos
 
 {
@@ -20,8 +18,7 @@ class Movimientos
 	vector<Movimientos> movimientos;
 public:
 
-	Movimientos();
-
+	Movimientos(unsigned int numtarjeta1, unsigned int numtarjeta2, string tipoMovimiento, int cantidad);
 
 	int getnumTarjeta1();
 	void setnumTarjeta1(int numTarjeta1);
@@ -35,5 +32,5 @@ public:
 	~Movimientos();
 
 };
-}
+
 #endif

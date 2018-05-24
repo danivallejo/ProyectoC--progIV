@@ -7,8 +7,10 @@
 #include "../Movimientos/Movimientos.h"
 #include "../Tarjeta/Tarjeta.h"
 
-vector <Usuarios> getUsuarios (sqlite3 *db);
-vector <Tarjeta> getTarjetas (sqlite3 *db);
-vector <Movimientos> getMovimientos (sqlite3 *db);
+using namespace std;
+
+vector<Usuarios> getUsuarios (sqlite3 *db);
+vector<Tarjeta> getTarjetas (sqlite3 *db);
+vector<Movimientos> getMovimientos (sqlite3 *db);
 
 #endif

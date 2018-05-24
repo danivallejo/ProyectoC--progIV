@@ -92,7 +92,7 @@ vector <Movimientos> getMovimientos (sqlite3)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	vector <Movimientos> vectorMovimientos;
+	vector<Movimientos> vectorMovimientos;
 	int numtarjeta1, numtarjeta2, cantidad;
 	char str [100];
 

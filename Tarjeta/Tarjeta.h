@@ -6,8 +6,6 @@
 
 using namespace std;
 
-namespace Tarjeta
-{
 class Tarjeta
 {
 	int numTarjeta;
@@ -29,6 +27,5 @@ public:
 
 	~Tarjeta();
 };
-}
 
 #endif
