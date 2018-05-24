@@ -83,12 +83,12 @@ vector <Tarjeta> getTarjetas (sqlite3 *db)
 	return vectorTarjetas;
 }
 
-vector <Movimientos> getMovimientos (sqlite3)
+vector <Movimientos> getMovimientos (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "SELECT NUMTARJETA1, NUMTARJETA2, TIPOMOVIMIENTO, CANTIDAD FROM MOVIMIENTOS"
-	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	char sql[] = "SELECT NUMTARJETA1, NUMTARJETA2, TIPOMOVIMIENTO, CANTIDAD FROM MOVIMIENTOS";
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
@@ -103,7 +103,7 @@ vector <Movimientos> getMovimientos (sqlite3)
 		{
 			numtarjeta1 = sqlite3_column_int (stmt, 0);
 			numtarjeta2 = sqlite3_column_int (stmt, 1);
-			strcpy(str, (char *) sqlite3_column_text(stmt, 2);
+			strcpy(str, (char *) sqlite3_column_text(stmt, 2));
 			string tipomovimiento (str);
 			cantidad = sqlite3_column_int (stmt, 3);
 			
