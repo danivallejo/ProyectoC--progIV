@@ -11,7 +11,6 @@ using namespace std;
 int main() 
 {
   Operaciones o;
-  EscrituraBD obj;
   sqlite3 *db;
   string dbFile = "test.db";
   
@@ -19,33 +18,13 @@ int main()
 
   result = sqlite3_open(dbFile.c_str(), &db);
   if(result != SQLITE_OK)
+  {
     cout << "Error opening database" << endl;
+    return result;
+  }
+  iniciarBD(db);
 
-
-  //obj.iniciarBD(db);
-
-  int a;
-
-  do 
-
-	{
-		cout << endl <<" Este es el menu principal. Seleccione que operación desea realizar:" << endl <<" 1. Registrar usuario. 2.Iniciar sesion . 3.Salir." << endl;
-
-		cin >> a;
-
-		switch (a)
-		{
-			case 1:
-			o.AltaUsuario();
-			break;
-			case 2: 
-			o.IntroducirUsuario();
-			break;
-			case 3:
-			o.Salir();
-			break;
-		}
-	}while(a != 3);
+  
 
 	
 /*
