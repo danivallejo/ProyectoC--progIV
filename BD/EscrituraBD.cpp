@@ -135,7 +135,7 @@ int altaMovimiento (sqlite3 *db, int numeroTarjeta, string tipoMovimiento, int c
 	}
 	return SQLITE_OK;
 	*/
-}
+} 
 
 int altaTransferencia (sqlite3 *db, int numeroTarjeta1, int numeroTarjeta2, int cantidad)
 {
@@ -146,4 +146,12 @@ int altaTransferencia (sqlite3 *db, int numeroTarjeta1, int numeroTarjeta2, int 
 	string ssql = ss.str();
 	char* sql = new char [ssql.length() +1];
 	strcpy(sql, ssql.c_str());
+}
+/*
+int actualizacionTarjeta (sqlite3 *db, int numtarjeta, int nuevosaldo)
+{
+	sqlite3 stmt *stmt;
+
+	stringstream ss;
+	ss << "UPDATE TARJETAS set SALDO = 
 }
