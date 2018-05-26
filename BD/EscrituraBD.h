@@ -17,5 +17,6 @@ public:
 	int altaTarjeta (sqlite3 *db, int numtarjeta, int PIN, int saldo);
 	int altaMovimiento (sqlite3 *db, int numTarjeta, string tipoMovimiento, int cantidad);
 	int altaTransferencia (sqlite3 *db, int numTarjeta1, int numTarjeta2, int cantidad);
+	int actualizacionTarjeta (sqlite3 *db, int numtarjeta, int nuevosaldo);
 };
 #endif
