@@ -6,9 +6,10 @@ class menu
 
 
 public:
+	menu();
 	void menuUsuario();
 	void menuOperaciones();
-
+	~menu();
 };
 
 #endif

@@ -6,10 +6,15 @@
 #include <string>
 #include <fstream>
 #include <stdlib.h>
+#include "menu.h"
 
 using namespace std;
 
-void menuUsuario()
+menu::menu()
+{
+
+}
+void menu::menuUsuario()
 {
 	int a;
 	Operaciones o;
@@ -34,7 +39,7 @@ void menuUsuario()
 		}
 	}while(a != 3);
 }
-void menuOperaciones()
+void menu::menuOperaciones()
 {
 	Operaciones o;
 	int a;
@@ -72,6 +77,10 @@ void menuOperaciones()
 	break;
 	}
 	}while(a!=8);
+}
+menu::~menu()
+{
+
 }	
 
 

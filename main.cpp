@@ -2,6 +2,7 @@
 #include "LN/Tarjeta.h"
 #include "LN/Usuarios.h"
 #include "LN/Operaciones.h"
+#include "LP/menu.h"
 #include "BD/EscrituraBD.h"
 #include "BD/sqlite3.h"
 #include <vector>
@@ -13,6 +14,7 @@ int main()
   Operaciones o;
   sqlite3 *db;
   string dbFile = "test.db";
+  menu opcion;
   
   int result;
 
@@ -22,7 +24,9 @@ int main()
     cout << "Error opening database" << endl;
     return result;
   }
-  iniciarBD(db);
+  opcion.menuUsuario();
+
+  //iniciarBD(db);
 
   
 
