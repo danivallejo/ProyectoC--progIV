@@ -42,8 +42,7 @@ int​ DBConnector::altaUsuario (sqlite3 *db, int DNI, string nombre, string ape
 	int​ result;
 	int​ creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
 	creada = sqlite3_step(stmt_ex);//no va
-	if​(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en
-	realidad no sé por qué, pero funciona)
+	if​(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
 	{
 		sqlite3_stmt *stmt;
 		char​ sql[] = "CREATE TABLE ----NOM_TABLA----("
@@ -102,9 +101,7 @@ char​ sql[] = "insert into ----NOM_TABLA---- (Nom_atributos) values
 (?, ?,....)";
 //char sql[] = "insert into Jugadores (NICK, PUNTUACION) values (?, 0)";
 
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt,
-
-NULL) ;
+int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 
 if​ (result != SQLITE_OK)
 {
@@ -117,11 +114,8 @@ return​ result;
 string texto= insertar.getXX();
 // string nick= jugadorInsertar.getNick();
 //Le pasamos el nick al statement
-result = sqlite3_bind_text(stmt, 1, texto.c_str(), texto.length(),
-
-SQLITE_STATIC);
-// result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(),
-SQLITE_STATIC);
+result = sqlite3_bind_text(stmt, 1, texto.c_str(), texto.length(), SQLITE_STATIC);
+// result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(), SQLITE_STATIC);
 
 if​ (result != SQLITE_OK)
 {
@@ -152,9 +146,7 @@ return​ result;
 result = sqlite3_step(stmt);
 if​ (result != SQLITE_DONE)
 {
-cout << "Error inserting new data into ----NOM_TABLA---- table" <<
-
-endl;
+cout << "Error inserting new data into ----NOM_TABLA---- table" << endl;
 
 sqlite3_finalize(stmt);
 return​ result;
@@ -174,9 +166,7 @@ int​ DBConnector::update_XX(tipo modificar)
 {
 
 sqlite3_stmt *stmt;
-char​ sql[] = "update ----NOM_TABLA---- set --atributo_cambiar-- = ?
-
-where --atributo_primario-- = ?";
+char​ sql[] = "update ----NOM_TABLA---- set --atributo_cambiar-- = ? where --atributo_primario-- = ?";
 
 string atributo_primario = modificar.getXX();
 int​ num = modificar.getXX();
@@ -186,9 +176,7 @@ int​ num = modificar.getXX();
 string nick = jugadorModificar.getNick();
 int puntuacion = jugadorModificar.getPuntuacion();
 //Preparar el statement:
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt,
-
-NULL) ;
+int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 
 if​ (result != SQLITE_OK)
 {
@@ -244,9 +232,7 @@ char​ sql[] = "DELETE from ---NOM_TABLA--- where atributo_primario =
 
 string atributo_primario = borrar.getXX();
 //Preparar el statement:
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt,
-
-NULL) ;
+int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 
 if​ (result != SQLITE_OK)
 {
