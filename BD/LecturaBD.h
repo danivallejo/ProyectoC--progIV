@@ -3,9 +3,9 @@
 
 #include "sqlite3.h"
 #include <vector>
-#include "../Usuarios/Usuarios.h"
-#include "../Movimientos/Movimientos.h"
-#include "../Tarjeta/Tarjeta.h"
+#include "../LN/Usuarios.h"
+#include "../LN/Movimientos.h"
+#include "../LN/Tarjeta.h"
 
 using namespace std;
 

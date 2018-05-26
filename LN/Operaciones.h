@@ -4,9 +4,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../Tarjeta/Tarjeta.h"
-#include "../Movimientos/Movimientos.h"
-#include "../Usuarios/Usuarios.h"
+#include "Tarjeta.h"
+#include "Movimientos.h"
+#include "Usuarios.h"
 
 using namespace std;
 

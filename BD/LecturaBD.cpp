@@ -1,7 +1,7 @@
 #include "LecturaBD.h"
-#include "../Usuarios/Usuarios.h"
-#include "../Movimientos/Movimientos.h"
-#include "../Tarjeta/Tarjeta.h"
+#include "../LN/Usuarios.h"
+#include "../LN/Movimientos.h"
+#include "../LN/Tarjeta.h"
 #include "sqlite3.h"
 #include <fstream>
 #include <stdio.h>

@@ -1,9 +1,18 @@
+#include "../LN/Operaciones.h"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <fstream>
+#include <stdlib.h>
 
+using namespace std;
 
 void menuUsuario()
 {
 	int a;
-
+	Operaciones o;
   	do 
 
 	{

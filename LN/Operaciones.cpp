@@ -3,9 +3,9 @@
 #include <vector>
 
 #include "Operaciones.h"
-#include "../Usuarios/Usuarios.h"
-#include "../Tarjeta/Tarjeta.h"
-#include "../Movimientos/Movimientos.h"
+#include "Usuarios.h"
+#include "Tarjeta.h"
+#include "Movimientos.h"
 
 //#include "../BD/DBConnector.cpp"
 
