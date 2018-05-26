@@ -6,6 +6,7 @@
 #include "Usuarios.h"
 #include "Tarjeta.h"
 #include "Movimientos.h"
+#include "Transferencia.h"
 
 //#include "../BD/DBConnector.cpp"
 

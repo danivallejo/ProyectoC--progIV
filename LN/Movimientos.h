@@ -10,20 +10,17 @@ using namespace std;
 class Movimientos
 
 {
-	int numTarjeta1;
-	int numTarjeta2;
+	int numTarjeta;
 	string TipoMovimiento;
 	int Cantidad;
 
 	vector<Movimientos> movimientos;
 public:
 
-	Movimientos(unsigned int numtarjeta1, unsigned int numtarjeta2, string tipoMovimiento, int cantidad);
+	Movimientos(unsigned int numtarjeta, string tipoMovimiento, int cantidad);
 
-	int getnumTarjeta1();
-	void setnumTarjeta1(int numTarjeta1);
-	int getnumTarjeta2();
-	void setnumTarjeta2 (int numTarjeta2);
+	int getnumTarjeta();
+	void setnumTarjeta(int numTarjeta);
 	string getTipoMovimiento();
 	void setTipoMovimiento(string TipoMovimiento);
 	int getCantidad();

@@ -2,6 +2,7 @@
 #include "../LN/Usuarios.h"
 #include "../LN/Movimientos.h"
 #include "../LN/Tarjeta.h"
+#include "../LN/Transferencia.h"
 #include "sqlite3.h"
 #include <fstream>
 #include <stdio.h>
@@ -87,13 +88,13 @@ vector <Movimientos> getMovimientos (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "SELECT NUMTARJETA1, NUMTARJETA2, TIPOMOVIMIENTO, CANTIDAD FROM MOVIMIENTOS";
+	char sql[] = "SELECT NUMTARJETA1, TIPOMOVIMIENTO, CANTIDAD FROM MOVIMIENTOS";
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
 	vector<Movimientos> vectorMovimientos;
-	int numtarjeta1, numtarjeta2, cantidad;
+	int numtarjeta1, cantidad;
 	char str [100];
 
 	do
@@ -102,12 +103,11 @@ vector <Movimientos> getMovimientos (sqlite3 *db)
 		if (result == SQLITE_ROW) 
 		{
 			numtarjeta1 = sqlite3_column_int (stmt, 0);
-			numtarjeta2 = sqlite3_column_int (stmt, 1);
-			strcpy(str, (char *) sqlite3_column_text(stmt, 2));
+			strcpy(str, (char *) sqlite3_column_text(stmt, 1));
 			string tipomovimiento (str);
-			cantidad = sqlite3_column_int (stmt, 3);
+			cantidad = sqlite3_column_int (stmt, 2);
 			
-			Movimientos a (numtarjeta1,numtarjeta2,tipomovimiento,cantidad);
+			Movimientos a (numtarjeta1,tipomovimiento,cantidad);
 			vectorMovimientos.push_back(a);
 		}
 	}while (result == SQLITE_ROW);
@@ -117,5 +117,38 @@ vector <Movimientos> getMovimientos (sqlite3 *db)
 		cout << sqlite3_errmsg(db) << endl;
 
 	return vectorMovimientos;
+}
+
+vector <Transferencia> getTransferencias (sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+
+	char sql[] = "SELECT NUMTARJETA1, NUMTARJETA2, CANTIDAD FROM TRANSFERENCIA";
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	vector<Transferencia> vectorTransferencia;
+	int numtarjeta1, numtarjeta2, cantidad;
+
+	do
+	{
+		result = sqlite3_step(stmt);
+		if (result == SQLITE_ROW) 
+		{
+			numtarjeta1 = sqlite3_column_int (stmt, 0);
+			numtarjeta2 = sqlite3_column_int (stmt, 1);
+			cantidad = sqlite3_column_int (stmt, 3);
+			
+			Transferencia a (numtarjeta1,numtarjeta2,cantidad);
+			vectorTransferencia.push_back(a);
+		}
+	}while (result == SQLITE_ROW);
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	return vectorTransferencia;
 }
 

@@ -25,12 +25,15 @@ void iniciarBD (sqlite3 *db)
 	if (rc != SQLITE_OK)
 		cout << sqlite3_errmsg(db);
 
-	const char *sql_query3 = "CREATE TABLE MOVIMIENTOS (NUMEROTARJETA1 INT PRIMARY KEY NOT NULL, NUMEROTARJETA2 INT, TIPOMOVIMIENTO TEXT NOT NULL, CANTIDAD INT NOT NULL)";
+	const char *sql_query3 = "CREATE TABLE MOVIMIENTOS (NUMEROTARJETA INT PRIMARY KEY NOT NULL, TIPOMOVIMIENTO TEXT NOT NULL, CANTIDAD INT NOT NULL)";
 	rc = sqlite3_exec (db, sql_query3, 0, 0, &err_message);
 	if (rc != SQLITE_OK)
 		cout << sqlite3_errmsg(db);
 
-	//HACER TABLA TRANSFERENCIAS
+	const char *sql_query4 = "CREATE TABLE TRANSFERENCIAS (NUMEROTARJETA1 INT PRIMARY KEY NOT NULL, NUMEROTARJETA2 INT PRIMARY KEY NOT NULL, CANTIDAD INT NOT NULL)";
+	rc = sqlite3_exec (db, sql_query3, 0, 0, &err_message);
+	if (rc != SQLITE_OK)
+		cout << sqlite3_errmsg(db);
 }
 
 int altaUsuario (sqlite3 *db, int DNI, string nombre, string apellido, string email)
@@ -99,12 +102,12 @@ int altaTarjeta (sqlite3 *db, int numeroTarjeta, int PIN, int saldo)
 
 //COMO HACER VALIDACION DE PIN; ¿SE HARÍA AQUÍ?
 
-int altaMovimiento (sqlite3 *db, int numeroTarjeta1, int numeroTarjeta2, string tipoMovimiento, int cantidad)
+int altaMovimiento (sqlite3 *db, int numeroTarjeta, string tipoMovimiento, int cantidad)
 {
 	sqlite3_stmt *stmt;
 
 	stringstream ss;
-	ss << "INSERT INTO MOVIMIENTOS (numeroTarjeta1, numeroTarjeta2, tipoMovimiento, cantidad) values (" << numeroTarjeta1 << ",'" << numeroTarjeta2 << ",'" << tipoMovimiento << ",'" << cantidad << ")";
+	ss << "INSERT INTO MOVIMIENTOS (numeroTarjeta, tipoMovimiento, cantidad) values (" << numeroTarjeta << ",'" << tipoMovimiento << ",'" << cantidad << ")";
 	string ssql = ss.str();
 	char* sql = new char [ssql.length() +1];
 	strcpy(sql, ssql.c_str());
@@ -134,4 +137,13 @@ int altaMovimiento (sqlite3 *db, int numeroTarjeta1, int numeroTarjeta2, string 
 	*/
 }
 
+int altaTransferencia (sqlite3 *db, int numeroTarjeta1, int numeroTarjeta2, int cantidad)
+{
+	sqlite3_stmt *stmt;
 
+	stringstream ss;
+	ss << "INSERT INTO TRANSFERENCIAS (numeroTarjeta1, numeroTarjeta2, cantidad) values (" << numeroTarjeta1 << ",'" << numeroTarjeta2 << ",'" << cantidad << ")";
+	string ssql = ss.str();
+	char* sql = new char [ssql.length() +1];
+	strcpy(sql, ssql.c_str());
+}

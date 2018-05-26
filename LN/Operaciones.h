@@ -7,6 +7,7 @@
 #include "Tarjeta.h"
 #include "Movimientos.h"
 #include "Usuarios.h"
+#include "Transferencia.h"
 
 using namespace std;
 
