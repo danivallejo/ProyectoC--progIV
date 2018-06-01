@@ -16,16 +16,37 @@ class DBConnector
 {
 	private:
 		sqlite3 *db = NULL;
+
 	public:
 	DBConnector(std::string dbFile);
 	~DBConnector();
-	int altaUsuario (sqlite3 *db, int DNI, string nombre, string apellido, string email);
-	int altaTarjeta (sqlite3 *db, int numtarjeta, int PIN, int saldo);
-	int altaMovimiento (sqlite3 *db, int numTarjeta, string tipoMovimiento, int cantidad);
-	int altaTransferencia (sqlite3 *db, int numTarjeta1, int numTarjeta2, int cantidad);
-	int actualizacionTarjeta (sqlite3 *db, int numtarjeta, int nuevosaldo);
-	int getUsuarios (vector<Usuarios>);
-	int getTarjetas (vector<Usuarios>);
-	int getMovimientos (vector<Usuarios>);
-	int getTransferencia (vector<Usuarios>);
+
+	// -----------------Usuario----------------
+	int create_table_Usuarios ();
+	int insert_Usuario (Usuarios usuarioInsertar);
+	int leer_Usuarios(vector <Usuario>& listaTodosUsuarios);
+	int Usuario_existe(Usuarios user);
+
+	//------------------Tarjeta-----------------
+
+	int create_table_Tarjetas ();
+	int Tarjeta_existe(Tarjeta card);
+	int insert_Tarjeta (Tarjeta tarjetaInsertar);
+	int update_Tarjeta(tarjeta tarjetaModificar);
+	int leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas);
+
+	//----------------Movimientos---------------
+
+	int create_table_Movimientos ();
+	int insert_Movimientos (Movimiento movimientoInsertar);
+	int leer_Movimientos(vector <Movimientos>& listaTodosMovimientos);
+
+	//----------------Transferencias-------------
+
+	int create_table_Transferencias ();
+	int insert_Transferencia (Transferencia transferenciaInsertar);
+	int leer_Transferencias(vector <Transferencia>& listaTodasTransferencias);
+
 };
+
+#endif

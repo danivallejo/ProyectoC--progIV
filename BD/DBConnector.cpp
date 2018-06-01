@@ -12,316 +12,770 @@
 
 using namespace std;
 
-DBConnector::DBConnector(string dbFile)
-{
-	int​ result = sqlite3_open(dbFile.c_str(), &db);
-	if​ (result != SQLITE_OK)
+ DBConnector::DBConnector(string dbFile)
+  {
+    //int result = sqlite3_open("test.sqlite", &db);
+    int result = sqlite3_open(dbFile.c_str(), &db);
+    //Si la BD no se ha podido abrir, muestra un mensaje
+    if (result != SQLITE_OK)
+    {
+      // cout << "Error opening database" << endl;
+    }
+  }
+
+ DBConnector::~DBConnector() 
+  {
+    int result = sqlite3_close(db);
+    if (result != SQLITE_OK)
+    {
+       // cout << "Error closing database" <<  endl;
+       // cout << sqlite3_errmsg(db) <<  endl;
+    }	
+  }
+
+  //CREATE TABLE:
+  int DBConnector::create_table_Usuarios () 
+  {
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Usuarios'"; //SELECT para que solo cree la tabla si no existía
+  	sqlite3_stmt *stmt_ex; 
+  	int result;
+  	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
+  	creada = sqlite3_step(stmt_ex);//no va
+  	
+  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	{
+	  	 sqlite3_stmt *stmt; 
+	  	 char sql[] = "CREATE TABLE Usuarios("
+	  	 				"DNI int primary key not null,"
+	  	 				"NOMBRE text not null,"
+	  	 				"APELLIDO text not null,"
+	  	 				"EMAIL text not null);";
+
+	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
+	    {
+	       // cout << "Error Creating table Jugadores" <<  endl;   
+	      sqlite3_finalize(stmt);   
+	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	    }
+		
+		result = sqlite3_step(stmt);
+	    
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (CREATE)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+	}
+	else
 	{
-		cout << "Error opening database" << endl;
+		 // cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
+		result = SQLITE_OK;
+	}
+	//--Finalizar el statement stmt_ex
+  	result = sqlite3_finalize(stmt_ex);
+    if (result != SQLITE_OK) 
+    {
+       // cout << "Error finalizing statement" <<  endl;
+       // cout << sqlite3_errmsg(db) <<  endl;
+    }
+    //---
+	return result;
+  }
+
+ int DBConnector::create_table_Tarjetas () 
+  {
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Tarjetas'"; //SELECT para que solo cree la tabla si no existía
+  	sqlite3_stmt *stmt_ex; 
+  	int result;
+  	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
+  	creada = sqlite3_step(stmt_ex);//no va
+  	
+  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	{
+	  	 sqlite3_stmt *stmt; 
+	  	 char sql[] = "CREATE TABLE Tarjetas("
+	  	 				"NUMEROTARJETA int primary key not null,"
+	  	 				"PIN int not null,"
+	  	 				"SALDO int not null);";
+
+	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
+	    {
+	       // cout << "Error Creating table Jugadores" <<  endl;   
+	      sqlite3_finalize(stmt);   
+	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	    }
+		
+		result = sqlite3_step(stmt);
+	    
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (CREATE)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+	}
+	else
+	{
+		 // cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
+		result = SQLITE_OK;
+	}
+	//--Finalizar el statement stmt_ex
+  	result = sqlite3_finalize(stmt_ex);
+    if (result != SQLITE_OK) 
+    {
+       // cout << "Error finalizing statement" <<  endl;
+       // cout << sqlite3_errmsg(db) <<  endl;
+    }
+    //---
+	return result;
+  }
+
+ int DBConnector::create_table_Movimientos () 
+  {
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Movimientos'"; //SELECT para que solo cree la tabla si no existía
+  	sqlite3_stmt *stmt_ex; 
+  	int result;
+  	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
+  	creada = sqlite3_step(stmt_ex);//no va
+  	
+  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	{
+	  	 sqlite3_stmt *stmt; 
+	  	 char sql[] = "CREATE TABLE Movimientos("
+	  	 				"NUMEROTARJETA int primary key not null,"
+	  	 				"TIPOMOVIMIENTO text not null,"
+	  	 				"CANTIDAD int not null);";
+
+	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
+	    {
+	       // cout << "Error Creating table Jugadores" <<  endl;   
+	      sqlite3_finalize(stmt);   
+	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	    }
+		
+		result = sqlite3_step(stmt);
+	    
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (CREATE)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+	}
+	else
+	{
+		 // cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
+		result = SQLITE_OK;
+	}
+	//--Finalizar el statement stmt_ex
+  	result = sqlite3_finalize(stmt_ex);
+    if (result != SQLITE_OK) 
+    {
+       // cout << "Error finalizing statement" <<  endl;
+       // cout << sqlite3_errmsg(db) <<  endl;
+    }
+    //---
+	return result;
+  }
+
+int DBConnector::create_table_Transferencias () 
+  {
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Transferencias'"; //SELECT para que solo cree la tabla si no existía
+  	sqlite3_stmt *stmt_ex; 
+  	int result;
+  	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
+  	creada = sqlite3_step(stmt_ex);//no va
+  	
+  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	{
+	  	 sqlite3_stmt *stmt; 
+	  	 char sql[] = "CREATE TABLE Transferencias("
+	  	 				"NUMEROTARJETA1 int primary key not null,"
+	  	 				"NUMEROTARJETA2 int primary key not null,"
+	  	 				"CANTIDAD int not null);";
+
+	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
+	    {
+	       // cout << "Error Creating table Jugadores" <<  endl;   
+	      sqlite3_finalize(stmt);   
+	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	    }
+		
+		result = sqlite3_step(stmt);
+	    
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (CREATE)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+	}
+	else
+	{
+		 // cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
+		result = SQLITE_OK;
+	}
+	//--Finalizar el statement stmt_ex
+  	result = sqlite3_finalize(stmt_ex);
+    if (result != SQLITE_OK) 
+    {
+       // cout << "Error finalizing statement" <<  endl;
+       // cout << sqlite3_errmsg(db) <<  endl;
+    }
+    //---
+	return result;
+  }
+  
+//Para INSERT, UPDATE y DELETE, ver si el jugador existe:
+
+int DBConnector::Usuario_existe(Usuarios user)
+  {
+  	vector<Usuarios> Usuarios;
+
+  	leer_Usuarios(Usuarios);
+
+  	for(int i=0; i<Usuarios.size(); i++)
+  	{
+  		if(user.getDNI() == Usuarios[i].getDNI())
+  			return 1;
+  	}
+
+  	return 0;
+  }
+
+int DBConnector::Tarjeta_existe(Tarjeta card)
+  {
+  	vector<Tarjeta> Tarjetas;
+
+  	leer_Tarjetas(Tarjeta);
+
+  	for(int i=0; i<Tarjetas.size(); i++)
+  	{
+  		if(card.getNumTarjeta() == Usuarios[i].getNumTarjeta())
+  			return 1;
+  	}
+
+  	return 0;
+  }
+
+  //INSERT:
+  int DBConnector::insert_Usuario (Usuarios usuarioInsertar)
+  {
+  	if(Usuario_existe(usuarioInsertar) == 0)
+  	{ //el jugador no existe, lo podemos insertar
+	  	sqlite3_stmt *stmt;
+	  	char sql[] = "insert into Usuarios (DNI, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?)";
+	    
+	    int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error preparing statement (INSERT)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	      return result;
+	    }
+
+
+	   	int DNI = usuarioInsertar.getDNI();
+
+	   	result = sqlite3_bind_int(stmt, 1, DNI);
+
+	   	if​ (result != SQLITE_OK)
+	   	{
+	   		cout << "Error binding parameters" << endl;
+	   		cout << sqlite3_errmsg(db) << endl;
+	   		sqlite3_finalize(stmt);
+	   		return​ result;
+	   	}
+
+	    string nombre= usuarioInsertar.getNombre();
+	    //Le pasamos el nick al statement
+	    result = sqlite3_bind_text(stmt, 2, nick.c_str(), nick.length(), SQLITE_STATIC);
+
+	    if (result != SQLITE_OK)
+	    {
+	       // cout << "Error binding parameters" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	      sqlite3_finalize(stmt);
+	      return result;
+	    }
+
+	    string apellido= usuarioInsertar.getApellido();
+	    //Le pasamos el nick al statement
+	    result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(), SQLITE_STATIC);
+
+	    if (result != SQLITE_OK)
+	    {
+	       // cout << "Error binding parameters" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	      sqlite3_finalize(stmt);
+	      return result;
+	    }
+
+
+	    string email= usuarioInsertar.getEmail();
+	    //Le pasamos el nick al statement
+	    result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(), SQLITE_STATIC);
+
+	    if (result != SQLITE_OK)
+	    {
+	       // cout << "Error binding parameters" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	      sqlite3_finalize(stmt);
+	      return result;
+	    }
+	    //Ejecutamos el INSERT
+	    result = sqlite3_step(stmt);
+	    if (result != SQLITE_DONE) 
+	    {
+	       // cout << "Error inserting new data into Jugadores table" <<  endl;
+	      sqlite3_finalize(stmt);
+	      return result;
+	    }
+
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (INSERT)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+		return result;
+	}
+	else
+	{
+		 // cout << "El jugador ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
+		return 0;	
 	}
 }
 
-DBConnector::~DBConnector()
+  int DBConnector::insert_Tarjeta (Tarjeta tarjetaInsertar)
+  {
+  	if(Tarjeta_existe(tarjetaInsertar) == 0)
+  	{ //el jugador no existe, lo podemos insertar
+	  	sqlite3_stmt *stmt;
+	  	char sql[] = "insert into Tarjetas (NUMEROTARJETA, PIN, SALDO) values (?, ?, 0)";
+	    
+	    int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error preparing statement (INSERT)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	      return result;
+	    }
 
+	   	int NUMEROTARJETA = tarjetaInsertar.getNumTarjeta();
+
+	   	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA);
+
+	   	if​ (result != SQLITE_OK)
+	   	{
+	   		cout << "Error binding parameters" << endl;
+	   		cout << sqlite3_errmsg(db) << endl;
+			sqlite3_finalize(stmt);
+	   		return​ result;
+	   	}
+
+		int PIN = tarjetaInsertar.getPIN();
+
+	   	result = sqlite3_bind_int(stmt, 2, PIN);
+
+	   	if​ (result != SQLITE_OK)
+	   	{
+	   		cout << "Error binding parameters" << endl;
+	   		cout << sqlite3_errmsg(db) << endl;
+	   		sqlite3_finalize(stmt);
+	   		return​ result;
+	   	}
+
+	    //Ejecutamos el INSERT
+	    result = sqlite3_step(stmt);
+	    if (result != SQLITE_DONE) 
+	    {
+	       // cout << "Error inserting new data into Jugadores table" <<  endl;
+	      sqlite3_finalize(stmt);
+	      return result;
+	    }
+
+	    result = sqlite3_finalize(stmt);
+	    if (result != SQLITE_OK) 
+	    {
+	       // cout << "Error finalizing statement (INSERT)" <<  endl;
+	       // cout << sqlite3_errmsg(db) <<  endl;
+	    }
+		return result;
+	}
+	else
+	{
+		 // cout << "El jugador ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
+		return 0;	
+	}
+}
+
+int DBConnector::insert_Movimientos (Movimiento movimientoInsertar)
 {
-	int​ result = sqlite3_close(db);
+  	sqlite3_stmt *stmt;
+	char sql[] = "insert into Movimientos (NUMEROTARJETA, TIPOMOVIMIENTO, CANTIDAD) values (?, ?, ?)";
+
+ 	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	if (result != SQLITE_OK) 
+	{
+		return result;
+	}
+
+	int NUMEROTARJETA = movimientoInsertar.getNumTarjeta();
+
+	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA);
+	
 	if​ (result != SQLITE_OK)
 	{
-		cout << "Error closing database" << endl;
+		cout << "Error binding parameters" << endl;
 		cout << sqlite3_errmsg(db) << endl;
+		sqlite3_finalize(stmt);
+		return​ result;
 	}
-}
 
-//CREATE TABLE:
+	string TIPOMOVIMIENTO= movimientoInsertar.getTIPOMOVIMIENTO();
+	//Le pasamos el nick al statement
+	result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(), SQLITE_STATIC);
 
-int​ DBConnector::altaUsuario (sqlite3 *db, int DNI, string nombre, string apellido, string email)
-{
-	char​ existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND
-	name = '----NOM_TABLA----'"; //SELECT para que solo cree la tabla si no existía
-	sqlite3_stmt *stmt_ex;
-	int​ result;
-	int​ creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
-	creada = sqlite3_step(stmt_ex);//no va
-	if​(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+	if (result != SQLITE_OK)
 	{
-		sqlite3_stmt *stmt;
-		char​ sql[] = "CREATE TABLE ----NOM_TABLA----("
+	// cout << "Error binding parameters" <<  endl;
+	// cout << sqlite3_errmsg(db) <<  endl;
+	sqlite3_finalize(stmt);
+	return result;
+	}
+		
+	int CANTIDAD = movimientoInsertar.getCantidad();
 
-		"----Atributo1---- text primary key not
+	result = sqlite3_bind_int(stmt, 3, PIN);
 
-		null,"
+	if​ (result != SQLITE_OK)
+	{
+		cout << "Error binding parameters" << endl;
+		cout << sqlite3_errmsg(db) << endl;
+		sqlite3_finalize(stmt);
+		return​ result;
+	}
+	
+	//Ejecutamos el INSERT
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) 
+	{
+		sqlite3_finalize(stmt);
+		return result;
+	}
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+	// cout << "Error finalizing statement (INSERT)" <<  endl;
+	// cout << sqlite3_errmsg(db) <<  endl;
+	}
+	return result;
+}
 
-"----Atributo2----- int not null);";
-
-//Cambiar esto según el objeto
-int​ result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
-if​ (result != SQLITE_OK)//Para continuar, el resultado debe ser
-SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la
-select
+int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 {
-cout << "Error Creating table ----NOM_TABLA----" << endl;
-sqlite3_finalize(stmt);
+	sqlite3_stmt *stmt;
+	char sql[] = "insert into Transferencias (NUMEROTARJETA1, NUMEROTARJETA2, CANTIDAD) values (?, ?, ?)";
+	
+	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	if (result != SQLITE_OK) 
+	{
+		// cout << "Error preparing statement (INSERT)" <<  endl;
+		// cout << sqlite3_errmsg(db) <<  endl;
+		return result;
+	}
 
-cout << sqlite3_errmsg(db) << endl; //Devuelve el error interno de
+	int NUMEROTARJETA1 = transferenciaInsertar.getNumTarjeta1();
 
-la BBDD (db) como resultado de la última operación sobre ella.
+	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA1);
 
-}
-result = sqlite3_step(stmt);
-result = sqlite3_finalize(stmt);
-if​ (result != SQLITE_OK)
-{
-cout << "Error finalizing statement (CREATE)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-}
-}
-else
-{
-//LA TABLA EXISTE
-result = SQLITE_OK;
-}
-//--Finalizar el statement stmt_ex
-result = sqlite3_finalize(stmt_ex);
-if​ (result != SQLITE_OK)
-{
-cout << "Error finalizing statement" << endl;
-cout << sqlite3_errmsg(db) << endl;
-}
-//---
-return​ result;
-}
+	if​ (result != SQLITE_OK)
+	{
+		cout << "Error binding parameters" << endl;
+		cout << sqlite3_errmsg(db) << endl;
+		sqlite3_finalize(stmt);
+		return​ result;
+	}
 
-//INSERT:
-int​ DBConnector::insert_XX (tipo insertar)
-{
+	int NUMEROTARJETA2 = transferenciaInsertar.getNumTarjeta2();
 
-sqlite3_stmt *stmt;
-char​ sql[] = "insert into ----NOM_TABLA---- (Nom_atributos) values
+	result = sqlite3_bind_int(stmt, 2, NUMEROTARJETA2);
 
-(?, ?,....)";
-//char sql[] = "insert into Jugadores (NICK, PUNTUACION) values (?, 0)";
+	if​ (result != SQLITE_OK)
+	{
+		cout << "Error binding parameters" << endl;
+		cout << sqlite3_errmsg(db) << endl;
+		sqlite3_finalize(stmt);
+		return​ result;
+	}
 
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 
-if​ (result != SQLITE_OK)
-{
-cout << "Error preparing statement (INSERT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
+	int CANTIDAD = tarjetaInsertar.getCantidad();
 
-//SI HAY QUE INSERTAR STRING
-string texto= insertar.getXX();
-// string nick= jugadorInsertar.getNick();
-//Le pasamos el nick al statement
-result = sqlite3_bind_text(stmt, 1, texto.c_str(), texto.length(), SQLITE_STATIC);
-// result = sqlite3_bind_text(stmt, 1, nick.c_str(), nick.length(), SQLITE_STATIC);
+	result = sqlite3_bind_int(stmt, 3, Cantidad);
 
-if​ (result != SQLITE_OK)
-{
-cout << "Error binding parameters" << endl;
-cout << sqlite3_errmsg(db) << endl;
-sqlite3_finalize(stmt);
-return​ result;
-}
-//SI HAY QUE INSERTAR INT​:
-int​ num= insertar.getXX();
-//Le pasamos el nick al statement
-result = sqlite3_bind_int(stmt, 2, num);
-if​ (result != SQLITE_OK)
-{
-cout << "Error binding parameters" << endl;
-cout << sqlite3_errmsg(db) << endl;
-sqlite3_finalize(stmt);
-return​ result;
-}
-if​ (result != SQLITE_OK)
-{
-cout << "Error binding parameters" << endl;
-cout << sqlite3_errmsg(db) << endl;
-sqlite3_finalize(stmt);
-return​ result;
-}
-//Ejecutamos el INSERT
-result = sqlite3_step(stmt);
-if​ (result != SQLITE_DONE)
-{
-cout << "Error inserting new data into ----NOM_TABLA---- table" << endl;
+	if​ (result != SQLITE_OK)
+	{
+		cout << "Error binding parameters" << endl;
+		cout << sqlite3_errmsg(db) << endl;
+		sqlite3_finalize(stmt);
+		return​ result;
+	}
+	
+	//Ejecutamos el INSERT
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) 
+	{
+	// cout << "Error inserting new data into Jugadores table" <<  endl;
+	sqlite3_finalize(stmt);
+	return result;
+	}
 
-sqlite3_finalize(stmt);
-return​ result;
-
-}
-result = sqlite3_finalize(stmt);
-if​ (result != SQLITE_OK)
-{
-cout << "Error finalizing statement (INSERT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-}
-return​ result;
-
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		// cout << "Error finalizing statement (INSERT)" <<  endl;
+		// cout << sqlite3_errmsg(db) <<  endl;
+	}
+	return result;
 }
 //UPDATE:
-int​ DBConnector::update_XX(tipo modificar)
+int DBConnector::update_Tarjeta(tarjeta tarjetaModificar)//Pasar el jugador completo
 {
+	sqlite3_stmt *stmt;
+	char sql[] = "update Tarjetas set SALDO = ? where NUMEROTARJETA = ?";
+	int numeroTarjeta = tarjetaModificar.getNumTarjeta();
+	int saldo = tarjetaModificar.getSaldo();
+	//Preparar el statement:
+	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	if (result != SQLITE_OK) 
+	{
+		// cout << "Error preparing statement (INSERT)" <<  endl;
+		// cout << sqlite3_errmsg(db) <<  endl;
+		return result;
+	}
 
-sqlite3_stmt *stmt;
-char​ sql[] = "update ----NOM_TABLA---- set --atributo_cambiar-- = ? where --atributo_primario-- = ?";
+	//Juntar los parámetros con el statement
+	//Le pasamos el puntuacion al statement
+	result = sqlite3_bind_int(stmt, 1, saldo);
+    if (result != SQLITE_OK)
+	{
+		// cout << "Error binding parameters" <<  endl;
+		sqlite3_finalize(stmt);
+		// cout << sqlite3_errmsg(db) <<  endl;
+		return result;
+	}
+	//Le pasamos el nick al statement
+	result = sqlite3_bind_int(stmt, 2, numeroTarjeta)
 
-string atributo_primario = modificar.getXX();
-int​ num = modificar.getXX();
+	if (result != SQLITE_OK)
+	{
+    	// cout << "Error binding parameters" <<  endl;
+		sqlite3_finalize(stmt);
+		// cout << sqlite3_errmsg(db) <<  endl;
+		return result;
+	}
 
-//char sql[] = "update Jugadores set PUNTUACION = ? where NICK = ?";
+	//Ejecutamos el UPDATE
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) 
+	{
+		// cout << "Error inserting new data into Jufgadores table" <<  endl;
+		sqlite3_finalize(stmt);
+		return result;
+	}
 
-string nick = jugadorModificar.getNick();
-int puntuacion = jugadorModificar.getPuntuacion();
-//Preparar el statement:
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		// cout << "Error finalizing statement (UPDATE)" <<  endl;
+		// cout << sqlite3_errmsg(db) <<  endl;
+	}
+		return result;
+	}
 
-if​ (result != SQLITE_OK)
-{
-cout << "Error preparing statement (INSERT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-result = sqlite3_bind_int(stmt, 1, num);
-if​ (result != SQLITE_OK)
-{
-cout << "Error binding parameters" << endl;
-sqlite3_finalize(stmt);
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-//Le pasamos el nick al statement
-result = sqlite3_bind_text(stmt, 2, atributo_primario.c_str(),
-
-atributo_primario.length(), SQLITE_STATIC);
-if​ (result != SQLITE_OK)
-{
-
-cout << "Error binding parameters" << endl;
-sqlite3_finalize(stmt);
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-//Ejecutamos el UPDATE
-result = sqlite3_step(stmt);
-if​ (result != SQLITE_DONE)
-{
-cout << "Error inserting new data" << endl;
-sqlite3_finalize(stmt);
-return​ result;
-}
-result = sqlite3_finalize(stmt);
-if​ (result != SQLITE_OK)
-{
-cout << "Error finalizing statement (UPDATE)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-}
-return​ result;
-
-}
-//DELETE:
-int​ DBConnector::delete_XX(tipo borrar)
-{
-
-sqlite3_stmt *stmt;
-char​ sql[] = "DELETE from ---NOM_TABLA--- where atributo_primario =
-
-?";
-
-string atributo_primario = borrar.getXX();
-//Preparar el statement:
-int​ result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
-
-if​ (result != SQLITE_OK)
-{
-cout << "Error preparing statement (INSERT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-//Juntar los parámetros con el statement
-//Le pasamos el nick al statement
-result = sqlite3_bind_text(stmt, 1, atributo_primario.c_str(),
-
-atributo_primario.length(), SQLITE_STATIC);
-if​ (result != SQLITE_OK)
-{
-cout << "Error binding parameters" << endl;
-sqlite3_finalize(stmt);
-
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-//Ejecutamos el DELETE
-result = sqlite3_step(stmt);
-if​ (result != SQLITE_DONE)
-{
-cout << "Error DELETING " << nick << endl;
-sqlite3_finalize(stmt);
-return​ result;
-}
-result = sqlite3_finalize(stmt);
-if​ (result != SQLITE_OK)
-{
-cout << "Error finalizing statement (UPDATE)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-}
-return​ result;
-
-}
 //SELECT
-int​ DBConnector::leer_XX(vector <tipo>& lista)
+int DBConnector::leer_Usuarios(vector <Usuario>& listaTodosUsuarios)
 {
-//int cont = 0;
-sqlite3_stmt *stmt;
-char​ sql[] = "select ---atributo1---, ----atributo2--- from
----NOM_TABLA---";
-int​ result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
-if​ (result != SQLITE_OK)
-{
-cout << "Error preparing statement (SELECT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
-}
-//Variables en las que recogeremos los atributos de cada jugador
-int​ num;
-char​ texto[200];
-do
-{
-result = sqlite3_step(stmt);
-if​ (result == SQLITE_ROW)
-{
-strcpy(texto, (char​*)sqlite3_column_text(stmt, 0));
-num = sqlite3_column_int(stmt, 1);
-//Crear un jugador con esos atributos
+	//int cont = 0;
+	sqlite3_stmt *stmt; 
+	char sql[] = "select DNI, NOMBRE, APELLIDO, EMAIL from Usuarios";
+   
+    int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+    if (result != SQLITE_OK)
+    {
+      return result;
+    }
 
-tipo t (texto, num);
-listaTodosJugadores.push_back (jug);
-// listaTodosJugadores[cont] = jugador;
-// cont++;
+    //Variables en las que recogeremos los atributos de cada jugador
+    int DNI;
+  	char nombre[200];
+  	char apellido[200];
+  	char email[200];
+
+    do
+    {
+      result = sqlite3_step(stmt);
+      if (result == SQLITE_ROW) 
+      {
+      	//Leer el nick y la puntuacion de la linea del SELECT
+      	DNI = sqlite3_column_int(stmt, 0);
+      	strcpy(nombre, (char*)sqlite3_column_text(stmt, 1));
+      	strcpy(apellido, (char*)sqlite3_column_text(stmt, 2));
+      	strcpy(email, (char*)sqlite3_column_text(stmt, 3));
+  
+      	//Crear un jugador con esos atributos
+      	Usuario user (DNI, nombre, apellido, email);
+    	
+    	listaTodosUsuarios.push_back (user);
+      	// listaTodosJugadores[cont] = jugador;
+      	// cont++;
+      }
+    } while (result == SQLITE_ROW);
+
+    result = sqlite3_finalize(stmt);
+    if (result != SQLITE_OK) 
+    {
+      return result;
+    }
+    return SQLITE_OK;
 }
-} while​ (result == SQLITE_ROW);
-result = sqlite3_finalize(stmt);
-if​ (result != SQLITE_OK)
+
+int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
 {
-cout << "Error finalizing statement (SELECT)" << endl;
-cout << sqlite3_errmsg(db) << endl;
-return​ result;
+	//int cont = 0;
+	sqlite3_stmt *stmt; 
+	char sql[] = "select NUMEROTARJETA, PIN, SALDO from Tarjetas";
+   
+    int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+    if (result != SQLITE_OK)
+    {
+      return result;
+    }
+
+    //Variables en las que recogeremos los atributos de cada jugador
+    int numeroTarjeta;
+  	int PIN;
+  	int Saldo;
+
+    do
+    {
+      result = sqlite3_step(stmt);
+      if (result == SQLITE_ROW) 
+      {
+      	//Leer el nick y la puntuacion de la linea del SELECT
+      	numeroTarjeta = sqlite3_column_int(stmt, 0);
+      	PIN = sqlite3_column_int(stmt, 1);
+      	Saldo = sqlite3_column_int(stmt, 2);
+  
+      	//Crear un jugador con esos atributos
+      	Tarjeta card (numeroTarjeta, PIN, Saldo);
+    	
+    	listaTodasTarjetas.push_back (card);
+      	// listaTodosJugadores[cont] = jugador;
+      	// cont++;
+      }
+    } while (result == SQLITE_ROW);
+
+    result = sqlite3_finalize(stmt);
+    if (result != SQLITE_OK) 
+    {
+      return result;
+    }
+    return SQLITE_OK;
 }
-return​ SQLITE_OK;
-}
-//DROP TABLE:
-int​ DBConnector::drop_XX ()
+
+int DBConnector::leer_Movimientos(vector <Movimientos>& listaTodosMovimientos)
 {
-sqlite3_stmt *stmt;
-char​ sql[] = "DROP TABLE if exists ---NOM_TABLA";
-int​ result = sqlite3_exec(db, sql, NULL, NULL, NULL);
-if​ (result != SQLITE_DONE)
+	//int cont = 0;
+	sqlite3_stmt *stmt; 
+	char sql[] = "select NUMEROTARJETA, TIPOMOVIMIENTO, CANTIDAD from Movimientos";
+   
+    int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+    if (result != SQLITE_OK)
+    {
+      return result;
+    }
+
+    //Variables en las que recogeremos los atributos de cada jugador
+    int numeroTarjeta;
+  	char[200] tipoMovimiento;
+  	int Cantidad;
+
+    do
+    {
+      result = sqlite3_step(stmt);
+      if (result == SQLITE_ROW) 
+      {
+      	//Leer el nick y la puntuacion de la linea del SELECT
+      	numeroTarjeta = sqlite3_column_int(stmt, 0);
+      	strcpy(tipoMovimiento, (char*)sqlite3_column_text(stmt, 1));
+    	Cantidad = sqlite3_column_int(stmt, 2);
+  
+      	//Crear un jugador con esos atributos
+      	Movimiento mov (numeroTarjeta, tipoMovimiento, Cantidad);
+    	
+    	listaTodosMovimientos.push_back (mov);
+      	// listaTodosJugadores[cont] = jugador;
+      	// cont++;
+      }
+    } while (result == SQLITE_ROW);
+
+    result = sqlite3_finalize(stmt);
+    if (result != SQLITE_OK) 
+    {
+      return result;
+    }
+    return SQLITE_OK;
+}
+
+int DBConnector::leer_Transferencias(vector <Transferencia>& listaTodasTransferencias)
 {
-cout << "Error DROPING "<< endl;
-sqlite3_finalize(stmt);
-return​ result;
+	//int cont = 0;
+	sqlite3_stmt *stmt; 
+	char sql[] = "select NUMEROTARJETA1, NUMEROTARJETA2, CANTIDAD from Transferencias";
+   
+    int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+    if (result != SQLITE_OK)
+    {
+      return result;
+    }
+
+    //Variables en las que recogeremos los atributos de cada jugador
+    int numeroTarjeta1;
+  	int numeroTarjeta2;
+  	int Cantidad;
+
+    do
+    {
+      result = sqlite3_step(stmt);
+      if (result == SQLITE_ROW) 
+      {
+      	//Leer el nick y la puntuacion de la linea del SELECT
+      	numeroTarjeta1 = sqlite3_column_int(stmt, 0);
+      	numeroTarjeta2 = sqlite3_column_int(stmt, 1);
+      	Cantidad = sqlite3_column_int(stmt, 2);
+  
+      	//Crear un jugador con esos atributos
+      	Transferencia transfer (numeroTarjeta1, numeroTarjeta2, Cantidad);
+    	
+    	listaTodasTransferencias.push_back (transfer);
+      	// listaTodosJugadores[cont] = jugador;
+      	// cont++;
+      }
+    } while (result == SQLITE_ROW);
+
+    result = sqlite3_finalize(stmt);
+    if (result != SQLITE_OK) 
+    {
+      return result;
+    }
+    return SQLITE_OK;
 }
-return​ result;
-}
+
