@@ -3,9 +3,10 @@
 #include "LN/Usuarios.h"
 #include "LN/Operaciones.h"
 #include "LP/menu.h"
-#include "BD/EscrituraBD.h"
+//#include "BD/EscrituraBD.h"
 #include "BD/sqlite3.h"
-#include <vector>
+#include "BD/DBConnector.h"
+//#include <vector>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ int main()
   Operaciones o;
   sqlite3 *db;
   string dbFile = "test.db";
+  DBConnector db1(dbFile);
   menu opcion;
   
   int result;
@@ -27,6 +29,11 @@ int main()
   opcion.menuUsuario();
 
   //iniciarBD(db);
+ db1.create_table_Usuarios();
+ db1.create_table_Tarjetas();
+ db1.create_table_Movimientos();
+ db1.create_table_Transferencias();
+
 
   
 

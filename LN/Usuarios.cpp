@@ -10,9 +10,10 @@ using namespace std;
 
 
 
-Usuarios::Usuarios(unsigned int dni, string nombre, string apellido, string email)
+Usuarios::Usuarios(unsigned int dni, unsigned int pin, string nombre, string apellido, string email)
 {
 	this -> DNI = dni;
+	this -> PIN = pin;
 	this -> nombre = nombre;
 	this -> apellido = apellido;
 	this -> email = email;
@@ -36,6 +37,14 @@ return DNI;
 void Usuarios::setDNI(int DNI)
 {
 this->DNI=DNI;
+}
+int Usuarios::getPIN()
+{
+return PIN;
+}
+void Usuarios::setPIN(int PIN)
+{
+this->PIN=PIN;
 }
 string Usuarios::getnombre()
 {

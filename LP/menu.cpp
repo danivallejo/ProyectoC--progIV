@@ -7,6 +7,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include "menu.h"
+#include <vector>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ void menu::menuUsuario()
 {
 	int a;
 	Operaciones o;
+	vector <Usuarios> users;
+
   	do 
 
 	{
@@ -31,7 +34,7 @@ void menu::menuUsuario()
 			o.AltaUsuario();
 			break;
 			case 2: 
-			o.IntroducirUsuario();
+			o.IntroducirUsuario(users);
 			break;
 			case 3:
 			o.Salir();
@@ -39,7 +42,7 @@ void menu::menuUsuario()
 		}
 	}while(a != 3);
 }
-void menu::menuOperaciones()
+void menu::menuOperaciones(Usuarios uIntroducido)
 {
 	Operaciones o;
 	int a;

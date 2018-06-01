@@ -24,7 +24,7 @@ class DBConnector
 	// -----------------Usuario----------------
 	int create_table_Usuarios ();
 	int insert_Usuario (Usuarios usuarioInsertar);
-	int leer_Usuarios(vector <Usuario>& listaTodosUsuarios);
+	int leer_Usuarios(vector <Usuarios>& listaTodosUsuarios);
 	int Usuario_existe(Usuarios user);
 
 	//------------------Tarjeta-----------------
@@ -32,13 +32,13 @@ class DBConnector
 	int create_table_Tarjetas ();
 	int Tarjeta_existe(Tarjeta card);
 	int insert_Tarjeta (Tarjeta tarjetaInsertar);
-	int update_Tarjeta(tarjeta tarjetaModificar);
+	int update_Tarjeta(Tarjeta tarjetaModificar);
 	int leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas);
 
 	//----------------Movimientos---------------
 
 	int create_table_Movimientos ();
-	int insert_Movimientos (Movimiento movimientoInsertar);
+	int insert_Movimientos (Movimientos movimientoInsertar);
 	int leer_Movimientos(vector <Movimientos>& listaTodosMovimientos);
 
 	//----------------Transferencias-------------

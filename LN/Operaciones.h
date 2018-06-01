@@ -18,8 +18,8 @@ class Operaciones
 	
 public: 
 	int menu(Usuarios usuarioIntroducido);
-	int AltaUsuario();
-	void IntroducirUsuario();
+	vector <Usuarios> AltaUsuario();
+	void IntroducirUsuario(vector <Usuarios> users);
 	int AltaTarjeta ();
 	void IntroducirTarjeta();
 	void ConsultarSaldo();
