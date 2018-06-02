@@ -78,12 +78,14 @@ void menu::menuOperaciones(Tarjeta cIntroducida)
 	Operaciones o;
 	int a;
 	vector <Movimientos> moves;
+	vector <Transferencia> transfers;
+	vector <Tarjeta> cards;
 	moves.reserve(rv);
 
 	do
 	{
 	
-	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
+	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Consultar Transferencias \n 7. Salir \n"<< endl;
 
 	cin >> a; 
 
@@ -102,12 +104,15 @@ void menu::menuOperaciones(Tarjeta cIntroducida)
 	o.ConsultarMovimiento(cIntroducida, moves);
 	break;
 	case 5:
-	o.Transferencia();
+	o.Transferencia(cIntroducida, transfers, cards);
+	break;
 	case 6:
+	o.ConsultarTransferencias(cIntroducida, transfers);
+	case 7:
 	o.Salir();
 	break;	
 	}
-	}while(a!=6);
+	}while(a!=7);
 }
 
 

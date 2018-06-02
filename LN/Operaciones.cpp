@@ -367,6 +367,29 @@ void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 	db.update_Tarjeta(cIntroducido);
 }
 
+void Operaciones::ConsultarTransferencias(Tarjeta cIntroducido, vector <Transferencia> transfers)
+{
+	DBConnector db ("test.db");
+	int numeroTarjeta;
+
+	db.leer_Transferencias(transfers);
+
+	numeroTarjeta = cIntroducido.getnumTarjeta();
+
+	for(int i = 0; transfers.size(); i++)
+	{
+		if(transfers[i].getnumTarjeta1() = numeroTarjeta)
+		{
+			Transferencia TRealizada(numeroTarjeta, transfers[i].getnumTarjeta2(), transfers[i].getCantidad())
+			cout << "La tarjeta con numero: " << TRealizada.getnumTarjeta1() << " ha realizado una transferencia a la tarjeta: " << TRealizada.getnumTarjeta2() << " de " << TRealizada.getCantidad() << " euros" << endl;
+		}else if (transfers[i].getnumTarjeta2() = numTarjeta)
+		{
+			Transferencia TRealizada(transfers[i].getnumTarjeta1(), numTarjeta, transfers[i].getCantidad());
+			cout <<"La tarjeta con numero: " << TRealizada.getnumTarjeta2() << " ha recibido una transferencia de la tarjeta: " << TRealizada.getnumTarjeta1() << " de " << TRealizada.getCantidad() << " euros" << endl;
+		}
+	}
+}
+
 void Operaciones::Salir()
 {
 

@@ -26,10 +26,10 @@ public:
 	void Salir();
 
 	void ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos> moves);
-	void Transferencia(Tarjeta cIntroducido, vector <Transferencia> transferencias, vector <Tarjeta> cards);
+	void Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards);
 	void SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 	void MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
-
+	void ConsultarTransferencias(Tarjeta cIntroducido, vector <Transferencia> transfers);
 };
 
 #endif
