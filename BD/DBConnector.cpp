@@ -272,7 +272,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
   	if(Usuario_existe(usuarioInsertar) == 0)
   	{ //el jugador no existe, lo podemos insertar
 	  	sqlite3_stmt *stmt;
-	  	char sql[] = "insert into Usuarios (DNI, PIN, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?, ?)";
+	  	char sql[] = "insert into Usuarios (DNI, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?)";
 	    
 	    int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	    
@@ -297,21 +297,9 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   		return result;
 
 	   	}
-	   	int PIN = usuarioInsertar.getPIN();
-
-	   	result = sqlite3_bind_int(stmt, 1, PIN);
-
-	   	if (result != SQLITE_OK)
-	   	{
-	   		cout << "Error binding parameters" << endl;
-	   		cout << sqlite3_errmsg(db) << endl;
-	   		sqlite3_finalize(stmt);	
-
-	   		return result;
-	   	}
 	   	string nombre= usuarioInsertar.getnombre();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 2, nombre.c_str(), nombre.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 1, nombre.c_str(), nombre.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -323,7 +311,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	    string apellido= usuarioInsertar.getapellido();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 3, apellido.c_str(), apellido.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 2, apellido.c_str(), apellido.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -336,7 +324,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	    string email= usuarioInsertar.getemail();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 4, email.c_str(), email.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 3, email.c_str(), email.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -634,7 +622,7 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
 {
 	//int cont = 0;
 	sqlite3_stmt *stmt; 
-	char sql[] = "select DNI, PIN, NOMBRE, APELLIDO, EMAIL from Usuarios";
+	char sql[] = "select DNI, NOMBRE, APELLIDO, EMAIL from Usuarios";
    
     int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
     if (result != SQLITE_OK)
