@@ -99,7 +99,8 @@ using namespace std;
 	  	 char sql[] = "CREATE TABLE Tarjetas("
 	  	 				"NUMEROTARJETA int primary key not null,"
 	  	 				"PIN int not null,"
-	  	 				"SALDO int not null);";
+	  	 				"SALDO int not null,"
+	  	 				"DNI int not null references Usuarios(DNI));";
 
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
@@ -195,9 +196,10 @@ int DBConnector::create_table_Transferencias ()
   	{
 	  	 sqlite3_stmt *stmt; 
 	  	 char sql[] = "CREATE TABLE Transferencias("
-	  	 				"NUMEROTARJETA1 int primary key not null,"
-	  	 				"NUMEROTARJETA2 int primary key not null,"
-	  	 				"CANTIDAD int not null);";
+	  	 				"NUMEROTARJETA1 int not null,"
+	  	 				"NUMEROTARJETA2 int not null,"
+	  	 				"CANTIDAD int not null,"
+	  	 				"primary key (NUMEROTARJETA1, NUMEROTARJETA2));";
 
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
@@ -270,7 +272,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
   	if(Usuario_existe(usuarioInsertar) == 0)
   	{ //el jugador no existe, lo podemos insertar
 	  	sqlite3_stmt *stmt;
-	  	char sql[] = "insert into Usuarios (DNI, PIN, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?, ?)";
+	  	char sql[] = "insert into Usuarios (DNI, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?)";
 	    
 	    int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	    
@@ -295,21 +297,9 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   		return result;
 
 	   	}
-	   	int PIN = usuarioInsertar.getPIN();
-
-	   	result = sqlite3_bind_int(stmt, 1, PIN);
-
-	   	if (result != SQLITE_OK)
-	   	{
-	   		cout << "Error binding parameters" << endl;
-	   		cout << sqlite3_errmsg(db) << endl;
-	   		sqlite3_finalize(stmt);	
-
-	   		return result;
-	   	}
 	   	string nombre= usuarioInsertar.getnombre();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 2, nombre.c_str(), nombre.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 1, nombre.c_str(), nombre.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -321,7 +311,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	    string apellido= usuarioInsertar.getapellido();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 3, apellido.c_str(), apellido.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 2, apellido.c_str(), apellido.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -334,7 +324,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	    string email= usuarioInsertar.getemail();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 4, email.c_str(), email.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 3, email.c_str(), email.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
@@ -372,7 +362,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
   	if(Tarjeta_existe(tarjetaInsertar) == 0)
   	{ //el jugador no existe, lo podemos insertar
 	  	sqlite3_stmt *stmt;
-	  	char sql[] = "insert into Tarjetas (NUMEROTARJETA, PIN, SALDO) values (?, ?, 0)";
+	  	char sql[] = "insert into Tarjetas (NUMEROTARJETA, PIN, SALDO) values (?, ?, 0, ?)";
 	    
 	    int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	    if (result != SQLITE_OK) 
@@ -392,8 +382,6 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   		
 	   		return result;
 	   	}
-	   	
-
 		int PIN = tarjetaInsertar.getPIN();
 
 	   	result = sqlite3_bind_int(stmt, 1, PIN);
@@ -405,7 +393,17 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   		sqlite3_finalize(stmt);
 			return result;
 	   	}
+		int DNI = tarjetaInsertar.getDNI();
 
+	   	result = sqlite3_bind_int(stmt, 3, PIN);
+
+	   	if(result != SQLITE_OK)
+	   	{
+	   		cout << "Error binding parameters" << endl;
+	   		cout << sqlite3_errmsg(db) << endl;
+	   		sqlite3_finalize(stmt);
+			return result;
+	   	}
 	    //Ejecutamos el INSERT
 	    result = sqlite3_step(stmt);
 	    if (result != SQLITE_DONE) 
@@ -624,7 +622,7 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
 {
 	//int cont = 0;
 	sqlite3_stmt *stmt; 
-	char sql[] = "select DNI, PIN, NOMBRE, APELLIDO, EMAIL from Usuarios";
+	char sql[] = "select DNI, NOMBRE, APELLIDO, EMAIL from Usuarios";
    
     int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
     if (result != SQLITE_OK)
@@ -672,7 +670,7 @@ int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
 {
 	//int cont = 0;
 	sqlite3_stmt *stmt; 
-	char sql[] = "select NUMEROTARJETA, PIN, SALDO from Tarjetas";
+	char sql[] = "select NUMEROTARJETA, PIN, SALDO, DNI from Tarjetas";
    
     int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
     if (result != SQLITE_OK)
@@ -684,6 +682,7 @@ int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
     int numeroTarjeta;
   	int PIN;
   	int Saldo;
+  	int DNI;
 
     do
     {
@@ -694,9 +693,10 @@ int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
       	numeroTarjeta = sqlite3_column_int(stmt, 0);
       	PIN = sqlite3_column_int(stmt, 1);
       	Saldo = sqlite3_column_int(stmt, 2);
+      	DNI = sqlite3_column_int(stmt, 3);
   
       	//Crear un jugador con esos atributos
-      	Tarjeta card (numeroTarjeta, PIN, Saldo);
+      	Tarjeta card (numeroTarjeta, PIN, Saldo, DNI);
     	
     	listaTodasTarjetas.push_back (card);
       	// listaTodosJugadores[cont] = jugador;
