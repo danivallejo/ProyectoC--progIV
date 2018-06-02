@@ -26,7 +26,7 @@ public:
 	void Salir();
 
 	void ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos> moves);
-	void Transferencia();
+	void Transferencia(Tarjeta cIntroducido, vector <Transferencia> transferencias, vector <Tarjeta> cards);
 	void SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 	void MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 

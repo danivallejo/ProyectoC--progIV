@@ -10,9 +10,6 @@ Transferencia::Transferencia (unsigned int numtarjeta1, unsigned int numtarjeta2
 	this -> numTarjeta1 = numtarjeta1;
 	this -> numTarjeta2 = numtarjeta2;
 	this -> Cantidad = cantidad;
-
-
-
 }
 int Transferencia::getnumTarjeta1()
 {
