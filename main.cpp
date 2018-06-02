@@ -3,7 +3,6 @@
 #include "LN/Usuarios.h"
 #include "LN/Operaciones.h"
 #include "LP/menu.h"
-//#include "BD/EscrituraBD.h"
 #include "BD/sqlite3.h"
 #include "BD/DBConnector.h"
 //#include <vector>

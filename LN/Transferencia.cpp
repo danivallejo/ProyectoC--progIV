@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 Transferencia::Transferencia (unsigned int numtarjeta1, unsigned int numtarjeta2, int cantidad)
 {
 	this -> numTarjeta1 = numtarjeta1;

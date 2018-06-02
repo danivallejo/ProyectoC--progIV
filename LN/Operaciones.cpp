@@ -3,10 +3,10 @@
 #include <vector>
 
 #include "Operaciones.h"
-#include "Usuarios.h"
-#include "Tarjeta.h"
-#include "Movimientos.h"
-#include "Transferencia.h"
+//#include "Usuarios.h"
+//#include "Tarjeta.h"
+//#include "Movimientos.h"
+//#include "Transferencia.h"
 #include "../LP/menu.h"
 #include "../BD/DBConnector.h"
 
@@ -107,13 +107,10 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 	//cout << uIntroducido.getDNI << endl <<uIntroducido.getPIN << endl;
 }
 
-vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido)
+vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido, vector <Tarjeta> cards)
 {
 	int existe;
 	DBConnector db ("test.db");
-	vector <Tarjeta> cards;
-
-	cards.reserve(rv);
 
 	unsigned int PIN;
 	unsigned int numTarjeta;
@@ -179,6 +176,8 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 			{
 				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo(), cards[i].getDNIUsuario());
 				cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
+
+				menuOperaciones(cIntroducido, cards);
 			}else
 			{
 				cout << "El PIN es incorrecto!" << endl;
@@ -218,7 +217,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 	}
 }
 
-void Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
+vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
 	int numTarjeta2;
@@ -283,8 +282,8 @@ void Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> tra
 			}
 		}while(aux == 1);
 	}
+	return transfers;
 }
-
 void Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
@@ -376,20 +375,20 @@ void Operaciones::ConsultarTransferencias(Tarjeta cIntroducido, vector <Transfer
 
 	numeroTarjeta = cIntroducido.getnumTarjeta();
 
-	for(int i = 0; transfers.size(); i++)
+	for(int i = 0; i < transfers.size(); i++)
 	{
-		if(transfers[i].getnumTarjeta1() = numeroTarjeta)
+		if(transfers[i].getnumTarjeta1() == numeroTarjeta)
 		{
-			Transferencia TRealizada(numeroTarjeta, transfers[i].getnumTarjeta2(), transfers[i].getCantidad())
+			Transferencia TRealizada(numeroTarjeta, transfers[i].getnumTarjeta2(), transfers[i].getCantidad());
 			cout << "La tarjeta con numero: " << TRealizada.getnumTarjeta1() << " ha realizado una transferencia a la tarjeta: " << TRealizada.getnumTarjeta2() << " de " << TRealizada.getCantidad() << " euros" << endl;
-		}else if (transfers[i].getnumTarjeta2() = numTarjeta)
+		}
+		else if (transfers[i].getnumTarjeta2() == numeroTarjeta)
 		{
-			Transferencia TRealizada(transfers[i].getnumTarjeta1(), numTarjeta, transfers[i].getCantidad());
-			cout <<"La tarjeta con numero: " << TRealizada.getnumTarjeta2() << " ha recibido una transferencia de la tarjeta: " << TRealizada.getnumTarjeta1() << " de " << TRealizada.getCantidad() << " euros" << endl;
+			Transferencia TRecibida(transfers[i].getnumTarjeta1(), numeroTarjeta, transfers[i].getCantidad());
+			cout <<"La tarjeta con numero: " << TRecibida.getnumTarjeta2() << " ha recibido una transferencia de la tarjeta: " << TRecibida.getnumTarjeta1() << " de " << TRecibida.getCantidad() << " euros" << endl;
 		}
 	}
 }
-
 void Operaciones::Salir()
 {
 

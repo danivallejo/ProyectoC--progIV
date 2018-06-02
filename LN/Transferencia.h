@@ -8,13 +8,10 @@
 using namespace std;
 
 class Transferencia
-
 {
 	int numTarjeta1;
 	int numTarjeta2;
 	int Cantidad;
-
-	vector<Transferencia> transferencias;
 public:
 
 	Transferencia(unsigned int numtarjeta1, unsigned int numtarjeta2, int cantidad);
@@ -27,7 +24,5 @@ public:
 	void setCantidad (int Cantidad);
 
 	~Transferencia();
-
 };
-
 #endif

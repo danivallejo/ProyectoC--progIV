@@ -5,7 +5,6 @@
 #include <string.h>
 #include <string>
 #include <fstream>
-#include <stdlib.h>
 #include "menu.h"
 #include <vector>
 
@@ -50,6 +49,7 @@ void menu::menuTarjeta(Usuarios uIntroducido)
 	Operaciones o;
 	int a;
 	vector <Tarjeta> cards;
+
 	cards.reserve(rv);
 
 	do
@@ -62,7 +62,7 @@ void menu::menuTarjeta(Usuarios uIntroducido)
 	switch(a)	
 	{
 	case 1:
-	o.AltaTarjeta(uIntroducido);
+	o.AltaTarjeta(uIntroducido, cards);
 	break;
 	case 2:
 	o.IntroducirTarjeta(cards);
@@ -73,14 +73,15 @@ void menu::menuTarjeta(Usuarios uIntroducido)
 	}
 	}while(a!=3);
 }
-void menu::menuOperaciones(Tarjeta cIntroducida)
+void menu::menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
 {
 	Operaciones o;
 	int a;
 	vector <Movimientos> moves;
 	vector <Transferencia> transfers;
-	vector <Tarjeta> cards;
+
 	moves.reserve(rv);
+	transfers.reserve(rv);
 
 	do
 	{
@@ -114,11 +115,6 @@ void menu::menuOperaciones(Tarjeta cIntroducida)
 	}
 	}while(a!=7);
 }
-
-
-
-
-
 menu::~menu()
 {
 
