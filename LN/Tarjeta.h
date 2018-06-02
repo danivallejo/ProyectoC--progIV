@@ -11,11 +11,12 @@ class Tarjeta
 	unsigned int numTarjeta;
 	unsigned int PIN;
 	int saldo;
+	unsigned int DNIUsuario;
 
 	vector<Tarjeta> tarjetas; 
 
 public:
-	Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo);
+	Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo, unsigned int dniUsuario);
 	
 	
 	int getnumTarjeta();
@@ -24,6 +25,8 @@ public:
 	void setPIN(int PIN);
 	int getsaldo();
 	void setsaldo(int saldo);
+	int getDNIUsuario();
+	void setDNIUsuario(int DNIUsuario);
 
 	~Tarjeta();
 };

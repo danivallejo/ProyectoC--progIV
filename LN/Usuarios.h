@@ -13,7 +13,6 @@ using namespace std;
 class Usuarios
 {
 	unsigned int DNI;
-	unsigned int PIN;
 	string nombre;
 	string apellido;
 	string email;
@@ -21,13 +20,11 @@ class Usuarios
 	//vector<Usuarios> usuarios;
 
 public:
-	Usuarios(unsigned int dni, unsigned int pin, string nombre, string apellido, string email);
+	Usuarios(unsigned int dni, string nombre, string apellido, string email);
 	//Usuarios(const Usuarios&);
 
 	int getDNI();
 	void setDNI(int DNI);
-	int getPIN();
-	void setPIN(int PIN);
 	string getnombre();
 	void setnombre(string nombre);
 	string getapellido();

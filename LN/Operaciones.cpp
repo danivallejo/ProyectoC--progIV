@@ -131,85 +131,101 @@ using namespace std;
 
 
 	}
-	int Operaciones::AltaTarjeta ()
+	vector <Tarjeta> Operaciones::AltaTarjeta (Usuario UsuarioIntroducido)
 	{
+		int existe;
+		DBConnector db ("test.db");
+		vector <Tarjeta> cards;
 
-		int PIN;
-		int numTarjeta;
-		int aux;
+		cards.reserve(rv);
+
+		unsigned int PIN;
+		unsigned int numTarjeta;
+		//NO SE SI SALDO SE DEBERIA PASAR POR PARAMETRO
+		unsigned int saldo = 0;
+		unsigned int aux;
+		unsigned int DNIUsuario = UsuarioIntroducido.getDNI();
 
 
 		do
 		{
-	
-		cout << "Registra el numero de tu nueva tarjeta" << endl;
-		cin >> numTarjeta;
-	
-		aux = 0;
+			cout << "Registra el numero de tu nueva tarjeta" << endl;
+			cin >> numTarjeta;
+			cout << "Introduce el PIN de tu nueva tarjeta" << endl;
+			cin >> PIN;
 
-		// hay que cambiar el aux del for por el tamaño del vector
-			for (int i = 0; i < aux; i++)
- 			{
- 				//if(tarjetas.numTarjeta == tarjetas[i].numTarjeta)
- 				//{
- 					cout << "El numero de tarjeta ya esta registrado en el sistema" << endl;
- 					aux = 1;
- 				//}
- 				if(numTarjeta == 0)
- 				{
- 					cout << "El numero de tarjeta no puede ser 0 \n" << endl;
- 					aux = 1;
- 					break;
- 				}
+
+	
+			Tarjeta card (numTarjeta, PIN, saldo, DNIUsuario);
+			aux = 0;
+
+			existe = db.Tarjeta_existe(card);
+
+			if (existe == 0)
+			{
+				cout << "Se ha creado una tarjeta con este numero: " card.getnumTarjeta() << endl;
 			}
-		}while(aux == 1);
 
-	cout << "Introduce el PIN para completar el registro de tu nueva tarjeta" << endl;
+			if(cards.size() < rv)
+			{
+				cards.push_back(card);
+				cout << cards.size() << endl;
 
-	cin >> PIN;
+				db.inser_Tarjeta(card);
+			}
+			else
+			{
+				cout <<"No se pueden añadir mas tarjetas" << endl;
+			}
+			
 
-	//Tarjeta -> setsaldo(0);
-
+		}
+		else 
+		{
+			cout <<"El numero de tarjeta ya existe" << endl;
+		}		
+	return cards;
 	}
-	void Operaciones::IntroducirTarjeta()
+	void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 	{
+		DBConnector db ("test.db");
 
+		db.leer_Tarjetas(cards);
 
-	int numeroTarjeta;
-	int PIN;
+		int numeroTarjeta;
+		int PIN;
+		int saldo;
 	
-	/* ABRIMOS LA BD
-	result = dbConnector.showAllTarjetas();
-  	if (result != SQLITE_OK) 
-	{
-    		std::cout << "Error al sacar las tarjetas" << std::endl;
-    		return result;
-  	}
+	cout << "Introduce tu numero de tarjeta" << endl;
+	cin >> numeroTarjeta;
+
+	cout << "Introduce el PIN" << endl;
 	
-	*/
 
 	cout << "Introduce tu tarjeta" << endl;
 	cin >> numeroTarjeta;
 
-	//COMPROBAR SI LA TARJETA EXISTE NO SABEMOS COMO
-
-	/*if(EXISTE)
-	{
-		cout << "Tu tarjeta está en los servidores, ahora introduce tu PIN \n<< endl
-		cin >>PIN;
-	
-		if(PIN CORRECTO)
-		{	
-			cout << "¡Tarjeta introducida! \n" << endl;
-		}else
+	for (int i= 0; i< rv; i++)
 		{
-			cout << " PIN INCORRECTO \n << endl;
-		}
-	}else
-	{
-		cout << "Lo sentimos, su tarjeta no aparece en los servidores" << endl;
-
-	*/
+			if(cards[i].getnumTarjeta() == numeroTarjeta)
+			{
+				if(cards[i].getPIN() == PIN)
+				{
+					Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo);
+					cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
+					//menuOperaciones(uIntroducido);
+				}
+				else
+				{
+					cout << "El PIN es incorrecto!" << endl;
+				}
+			}
+			else
+			{
+				cout << "El numero de tarjeta introducido no esta registrado!" << endl;
+			}
+	
+		}	
 
 	}
 	void Operaciones::ConsultarSaldo()
