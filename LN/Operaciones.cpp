@@ -99,7 +99,7 @@ using namespace std;
 			if(users[i].getDNI() == DNI)
 			{
 				Usuarios uIntroducido (DNI, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
-				cout << "El usuario " << uIntroducido.getDNI() << " de nombre " << uIntroducido.getnombre() <<" ha iniciado sesión!" << endl;
+				cout << "El usuario " << uIntroducido.getDNI() << " ha iniciado sesión!" << endl;
 				menuOperaciones(uIntroducido);
 				aux = 1;
 			}
@@ -108,8 +108,6 @@ using namespace std;
 		{	
 			cout << "El usuario introducido no esta registrado!" << endl;
 		}
-			
-	
 			
 		//cout << uIntroducido.getDNI << endl <<uIntroducido.getPIN << endl;
 	}
@@ -203,13 +201,17 @@ using namespace std;
 		}	
 
 	}
-	void Operaciones::ConsultarSaldo()
+	void Operaciones::ConsultarSaldo(Tarjeta cIntroducido)
 	{
+		int saldo;
 
+		saldo = cIntroducido.getsaldo();
+
+		cout << "El saldo de la tarjeta es de: " << saldo << endl;
 	}
 	void Operaciones::ConsultarMovimiento()
 	{
-
+		
 	}
 	void Operaciones::Transferencia()
 	{

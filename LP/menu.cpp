@@ -53,10 +53,10 @@ void menu::menuOperaciones(Usuarios uIntroducido)
 
 	do
 	{
+	
+	cout << "\nEste es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
 
-	printf("\nEste es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n");
-
-	scanf("%i", &a);
+	cin >> a; 
 
 	switch(a)	
 	{
