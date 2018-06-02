@@ -22,13 +22,13 @@ public:
 	void IntroducirUsuario(vector <Usuarios> users);
 	vector <Tarjeta> AltaTarjeta (Usuarios usuarioIntroducido);
 	void IntroducirTarjeta(vector <Tarjeta> cards);
-	void ConsultarSaldo();
+	void ConsultarSaldo(Tarjeta cIntroducido);
 	void Salir();
 
-	void ConsultarMovimiento();
+	void ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos> moves);
 	void Transferencia();
-	void SacarDinero();
-	void MeterDinero();
+	void SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
+	void MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 
 };
 

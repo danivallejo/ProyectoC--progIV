@@ -45,16 +45,17 @@ void menu::menuUsuario()
 		}
 	}while(a != 3);
 }
-void menu::menuOperaciones(Usuarios uIntroducido)
+void menu::menuTarjeta(Usuarios uIntroducido)
 {
 	Operaciones o;
 	int a;
 	vector <Tarjeta> cards;
+	cards.reserve(rv);
 
 	do
 	{
 	
-	cout << "\nEste es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
+	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
 
 	cin >> a; 
 
@@ -67,25 +68,52 @@ void menu::menuOperaciones(Usuarios uIntroducido)
 	o.IntroducirTarjeta(cards);
 	break;
 	case 3:
-	o.SacarDinero();
-	break;
-	case 4:
-	o.MeterDinero();
-	break;
-	case 5:
-	o.ConsultarSaldo();
-	break;
-	case 6:
-	o.ConsultarMovimiento();
-	break;
-	case 7:
-	o.Transferencia();
-	case 8:
 	o.Salir();
 	break;
 	}
-	}while(a!=8);
+	}while(a!=3);
 }
+void menu::menuOperaciones(Tarjeta cIntroducida)
+{
+	Operaciones o;
+	int a;
+	vector <Movimientos> moves;
+	moves.reserve(rv);
+
+	do
+	{
+	
+	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
+
+	cin >> a; 
+
+	switch(a)	
+	{
+	case 1:	
+	o.SacarDinero(cIntroducida, moves);
+	break;
+	case 2:
+	o.MeterDinero(cIntroducida, moves);
+	break;
+	case 3:
+	o.ConsultarSaldo(cIntroducida);
+	break;
+	case 4:
+	o.ConsultarMovimiento(cIntroducida, moves);
+	break;
+	case 5:
+	o.Transferencia();
+	case 6:
+	o.Salir();
+	break;	
+	}
+	}while(a!=6);
+}
+
+
+
+
+
 menu::~menu()
 {
 

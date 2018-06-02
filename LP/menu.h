@@ -10,7 +10,8 @@ class menu
 public:
 	menu();
 	void menuUsuario();
-	void menuOperaciones(Usuarios uIntroducido);
+	void menuTarjeta(Usuarios uIntroducido);
+	void menuOperaciones(Tarjeta cIntroducida);
 	~menu();
 };
 

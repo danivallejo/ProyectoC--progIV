@@ -100,7 +100,7 @@ using namespace std;
 			{
 				Usuarios uIntroducido (DNI, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
 				cout << "El usuario " << uIntroducido.getDNI() << " ha iniciado sesión!" << endl;
-				menuOperaciones(uIntroducido);
+				menu::menuTarjeta(uIntroducido);
 				aux = 1;
 			}
 		}
@@ -186,7 +186,6 @@ using namespace std;
 				{
 					Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo(), cards[i].getDNIUsuario());
 					cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
-					//menuOperaciones(uIntroducido);
 				}
 				else
 				{
@@ -209,19 +208,56 @@ using namespace std;
 
 		cout << "El saldo de la tarjeta es de: " << saldo << endl;
 	}
-	void Operaciones::ConsultarMovimiento()
+	void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos> moves)
 	{
-		
+
 	}
 	void Operaciones::Transferencia()
 	{
 
 	}
-	void Operaciones::SacarDinero()
+	void Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 	{
+		DBConnector db ("test.db");
+		int importe;
+		int saldoTarjeta;
 
+		db.leer_Movimientos(moves);
+
+		cout << "¿Cuanto dinero desea retirar?" << endl;
+
+		cin >> importe;
+
+		saldoTarjeta = cIntroducido.getsaldo();
+
+		do
+		{
+			cout << "Seleccione el importe que desea retirar: Por motivos de seguridad no se pueden sacar mas de mil euros" << endl;
+
+			cin >> importe;
+
+			if(importe > saldoTarjeta)
+			{
+				cout << "El importe que deseas sacar es mayor que el saldo disponible" << endl;
+			}
+
+		}while(importe > 1000||importe < 0 || saldoTarjeta < 0);
+
+		Movimientos m (cIntroducido.getnumTarjeta(), "Sacar dinero", importe);
+
+		if(moves.size() <50)
+		{
+			moves.push_back(m);
+			cout << "La cantidad de movimientos es: " << moves.size() << endl;
+		}
+		saldoTarjeta = saldoTarjeta - importe;
+
+		cIntroducido.setsaldo(saldoTarjeta);
+
+		db.insert_Movimientos (m);
+		db.update_Tarjeta(cIntroducido);
 	}
-	void Operaciones::MeterDinero()
+	void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 	{
 
 	}
