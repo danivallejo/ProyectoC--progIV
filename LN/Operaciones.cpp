@@ -19,13 +19,12 @@ using namespace std;
 
 //namespace Operaciones
 //
-	vector <Usuarios> Operaciones::AltaUsuario()
+	vector <Usuarios> Operaciones::AltaUsuario(vector <Usuarios> users)
 	{
 		int existe;
 		DBConnector db ("test.db");
-		vector <Usuarios> users;
 
-		users.reserve(rv);
+		int leidos = db.leer_Usuarios(users);
 
 		unsigned int DNI;
 		unsigned int PIN;
@@ -33,19 +32,13 @@ using namespace std;
 		string apellido;
 		string email;
 
-		cout <<"Introduce un nuevo usuario: "<< endl;
+		cout <<"Has seleccionado registrar un nuevo usuario! "<< endl;
 		
-
 			//HACER QUE NO SE REPITA; CUANDO FUNCIONE BIEN LA BD
 
 		cout <<"Introduce el DNI: "<<endl;
 		cin >> DNI;
 			//
-
-
-
-		cout <<"Introduce el PIN: "<<endl;
-		cin >> PIN;
 		cout <<"Introduce el nombre: "<<endl;
 		cin >> nombre;
 		cout <<"Introduce el apellido: "<<endl;
@@ -53,14 +46,14 @@ using namespace std;
 		cout <<"Introduce el email: "<<endl;
 		cin >>email;
 
-		Usuarios usu  (DNI, PIN, nombre, apellido, email);
+		Usuarios usu  (DNI, nombre, apellido, email);
 
 			//LLAMAR AL METODO USUARIO EXISTE
 		existe = db.Usuario_existe(usu);
 
 		if(existe == 0)
 		{
-			cout << "Se ha creado un usuario con DNI " << usu.getDNI() << "y PIN " << usu.getPIN() << endl;
+			cout << "Se ha creado un usuario con DNI " << usu.getDNI() << endl;
 			cout << "Tiene los siguientes datos personales: "<< endl;
 			cout << "Nombre: "<< usu.getnombre() << endl;
 			cout << "Apellido: "<< usu.getapellido() << endl;
@@ -77,8 +70,6 @@ using namespace std;
 			{
 				cout <<"No se pueden añadir mas usuarios" << endl;
 			}
-			
-
 		}
 		else 
 		{
@@ -93,14 +84,10 @@ using namespace std;
 		db.leer_Usuarios(users);
 
 		int DNI;
-		int PIN;
-		
+		int aux = 0;
 
 		cout << "Desea iniciar sesión. Introduce el DNI de un usuario: " << endl;
 		cin >> DNI;
-		
-		cout << "Introduce el PIN de este usuario: " << endl;
-		cin >> PIN;
 
 		//Usuarios uIntroducido (DNI, PIN, uIntroducido.getnombre(), uIntroducido.getapellido(), uIntroducido.getemail());
 
@@ -108,30 +95,25 @@ using namespace std;
 		//uIntroducido.setPIN(PIN);
 		for (int i= 0; i< rv; i++)
 		{
+
 			if(users[i].getDNI() == DNI)
 			{
-				if(users[i].getPIN() == PIN)
-				{
-					Usuarios uIntroducido (DNI, PIN, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
-					cout << "El usuario " << uIntroducido.getDNI() << " de nombre " << uIntroducido.getnombre() <<" ha iniciado sesión!" << endl;
-					//menuOperaciones(uIntroducido);
-				}
-				else
-				{
-					cout << "El PIN es incorrecto!" << endl;
-				}
+				Usuarios uIntroducido (DNI, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
+				cout << "El usuario " << uIntroducido.getDNI() << " de nombre " << uIntroducido.getnombre() <<" ha iniciado sesión!" << endl;
+				menuOperaciones(uIntroducido);
+				aux = 1;
 			}
-			else
-			{
-				cout << "El usuario introducido no esta registrado!" << endl;
-			}
+		}
+		if(aux == 0)
+		{	
+			cout << "El usuario introducido no esta registrado!" << endl;
+		}
+			
 	
-		}	
+			
 		//cout << uIntroducido.getDNI << endl <<uIntroducido.getPIN << endl;
-
-
 	}
-	vector <Tarjeta> Operaciones::AltaTarjeta (Usuario UsuarioIntroducido)
+	vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido)
 	{
 		int existe;
 		DBConnector db ("test.db");
@@ -147,8 +129,6 @@ using namespace std;
 		unsigned int DNIUsuario = UsuarioIntroducido.getDNI();
 
 
-		do
-		{
 			cout << "Registra el numero de tu nueva tarjeta" << endl;
 			cin >> numTarjeta;
 			cout << "Introduce el PIN de tu nueva tarjeta" << endl;
@@ -161,23 +141,21 @@ using namespace std;
 
 			existe = db.Tarjeta_existe(card);
 
-			if (existe == 0)
-			{
-				cout << "Se ha creado una tarjeta con este numero: " card.getnumTarjeta() << endl;
-			}
-
+		if (existe == 0)
+		{
+			cout << "Se ha creado una tarjeta con este numero: " << card.getnumTarjeta() << endl;
+		
 			if(cards.size() < rv)
 			{
 				cards.push_back(card);
 				cout << cards.size() << endl;
 
-				db.inser_Tarjeta(card);
+				db.insert_Tarjeta(card);
 			}
 			else
 			{
 				cout <<"No se pueden añadir mas tarjetas" << endl;
 			}
-			
 
 		}
 		else 
@@ -200,10 +178,7 @@ using namespace std;
 	cin >> numeroTarjeta;
 
 	cout << "Introduce el PIN" << endl;
-	
-
-	cout << "Introduce tu tarjeta" << endl;
-	cin >> numeroTarjeta;
+	cin >> PIN;
 
 	for (int i= 0; i< rv; i++)
 		{
@@ -211,7 +186,7 @@ using namespace std;
 			{
 				if(cards[i].getPIN() == PIN)
 				{
-					Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo);
+					Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo(), cards[i].getDNIUsuario());
 					cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
 					//menuOperaciones(uIntroducido);
 				}
@@ -250,7 +225,6 @@ using namespace std;
 	}
 	void Operaciones::Salir()
 	{
-
 
 
 	}

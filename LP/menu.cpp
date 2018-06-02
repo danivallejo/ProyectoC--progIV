@@ -11,6 +11,8 @@
 
 using namespace std;
 
+#define rv 20
+
 menu::menu()
 {
 
@@ -20,6 +22,7 @@ void menu::menuUsuario()
 	int a;
 	Operaciones o;
 	vector <Usuarios> users;
+	users.reserve(rv);
 
   	do 
 
@@ -31,7 +34,7 @@ void menu::menuUsuario()
 		switch (a)
 		{
 			case 1:
-			o.AltaUsuario();
+			o.AltaUsuario(users);
 			break;
 			case 2: 
 			o.IntroducirUsuario(users);
@@ -46,6 +49,8 @@ void menu::menuOperaciones(Usuarios uIntroducido)
 {
 	Operaciones o;
 	int a;
+	vector <Tarjeta> cards;
+
 	do
 	{
 
@@ -56,10 +61,10 @@ void menu::menuOperaciones(Usuarios uIntroducido)
 	switch(a)	
 	{
 	case 1:
-	o.AltaTarjeta();
+	o.AltaTarjeta(uIntroducido);
 	break;
 	case 2:
-	o.IntroducirTarjeta();
+	o.IntroducirTarjeta(cards);
 	break;
 	case 3:
 	o.SacarDinero();

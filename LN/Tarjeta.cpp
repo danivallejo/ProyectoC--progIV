@@ -9,7 +9,7 @@ Tarjeta::Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo, unsigned 
 	this -> numTarjeta = numtarjeta;
 	this -> PIN = pin;
 	this -> saldo = Saldo;
-	this -> DNIUsuario = dniUsuario
+	this -> DNIUsuario = dniUsuario;
 }
 
 int Tarjeta::getnumTarjeta()
@@ -36,13 +36,13 @@ void Tarjeta::setsaldo(int saldo)
 {
 this->saldo=saldo;	
 }
-int Tarjeta::getdniUsuario()
+int Tarjeta::getDNIUsuario()
 {
 return saldo;
 }
-void Tarjeta::setdniUsuario(int dniUsuario)
+void Tarjeta::setDNIUsuario(int dniUsuario)
 {
-this->dniUsuario=dniUsuario;	
+this->DNIUsuario=dniUsuario;	
 }
 
 

@@ -283,10 +283,9 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	      return result;
 	    }
 
-
 	   	int DNI = usuarioInsertar.getDNI();
 
-	   	result = sqlite3_bind_int(stmt, 0, DNI);
+	   	result = sqlite3_bind_int(stmt, 1, DNI);
 
 	   	if(result != SQLITE_OK)
 	   	{
@@ -299,24 +298,24 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   	}
 	   	string nombre= usuarioInsertar.getnombre();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 1, nombre.c_str(), nombre.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 2, nombre.c_str(), nombre.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
-	       // cout << "Error binding parameters" <<  endl;
-	       // cout << sqlite3_errmsg(db) <<  endl;
+	        cout << "Error binding parameters" <<  endl;
+	        cout << sqlite3_errmsg(db) <<  endl;
 	      sqlite3_finalize(stmt);
 	      return result;
 	    }
 
 	    string apellido= usuarioInsertar.getapellido();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 2, apellido.c_str(), apellido.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 3, apellido.c_str(), apellido.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
-	       // cout << "Error binding parameters" <<  endl;
-	       // cout << sqlite3_errmsg(db) <<  endl;
+	        cout << "Error binding parameters" <<  endl;
+	        cout << sqlite3_errmsg(db) <<  endl;
 	      sqlite3_finalize(stmt);
 	      return result;
 	    }
@@ -324,12 +323,12 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	    string email= usuarioInsertar.getemail();
 	    //Le pasamos el nick al statement
-	    result = sqlite3_bind_text(stmt, 3, email.c_str(), email.length(), SQLITE_STATIC);
+	    result = sqlite3_bind_text(stmt, 4, email.c_str(), email.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
 	    {
-	       // cout << "Error binding parameters" <<  endl;
-	       // cout << sqlite3_errmsg(db) <<  endl;
+	        cout << "Error binding parameters" <<  endl;
+	        cout << sqlite3_errmsg(db) <<  endl;
 	      sqlite3_finalize(stmt);
 	      return result;
 	    }
@@ -393,7 +392,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	   		sqlite3_finalize(stmt);
 			return result;
 	   	}
-		int DNI = tarjetaInsertar.getDNI();
+		int DNI = tarjetaInsertar.getDNIUsuario();
 
 	   	result = sqlite3_bind_int(stmt, 3, PIN);
 
@@ -644,13 +643,12 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
       {
       	//Leer el nick y la puntuacion de la linea del SELECT
       	DNI = sqlite3_column_int(stmt, 0);
-      	PIN = sqlite3_column_int(stmt, 1);
-      	strcpy(nombre, (char*)sqlite3_column_text(stmt, 2));
-      	strcpy(apellido, (char*)sqlite3_column_text(stmt, 3));
-      	strcpy(email, (char*)sqlite3_column_text(stmt, 4));
+      	strcpy(nombre, (char*)sqlite3_column_text(stmt, 1));
+      	strcpy(apellido, (char*)sqlite3_column_text(stmt, 2));
+      	strcpy(email, (char*)sqlite3_column_text(stmt, 3));
   
       	//Crear un jugador con esos atributos
-      	Usuarios user (DNI, PIN, nombre, apellido, email);
+      	Usuarios user (DNI, nombre, apellido, email);
     	
     	listaTodosUsuarios.push_back (user);
       	// listaTodosJugadores[cont] = jugador;

@@ -13,7 +13,7 @@ class Tarjeta
 	int saldo;
 	unsigned int DNIUsuario;
 
-	vector<Tarjeta> tarjetas; 
+	//vector<Tarjeta> tarjetas; 
 
 public:
 	Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo, unsigned int dniUsuario);
