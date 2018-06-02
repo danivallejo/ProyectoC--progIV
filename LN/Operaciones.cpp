@@ -224,10 +224,6 @@ using namespace std;
 
 		db.leer_Movimientos(moves);
 
-		cout << "¿Cuanto dinero desea retirar?" << endl;
-
-		cin >> importe;
-
 		saldoTarjeta = cIntroducido.getsaldo();
 
 		do
@@ -245,11 +241,18 @@ using namespace std;
 
 		Movimientos m (cIntroducido.getnumTarjeta(), "Sacar dinero", importe);
 
+		//HAY QUE QUITAR ESTO ANTES DE ENTREGAAAAR!!!!!
+
+
 		if(moves.size() <50)
 		{
 			moves.push_back(m);
 			cout << "La cantidad de movimientos es: " << moves.size() << endl;
 		}
+
+		////////////////////////////////////////////////////////////////////
+
+		
 		saldoTarjeta = saldoTarjeta - importe;
 
 		cIntroducido.setsaldo(saldoTarjeta);
@@ -259,6 +262,36 @@ using namespace std;
 	}
 	void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 	{
+		DBConnector db ("test.db");
+		int importe;
+		int saldoTarjeta;
+
+		db.leer_Movimientos(moves);
+
+		cout << "¿Cuanto dinero deseas ingresar?" << endl;
+
+		cin >> importe;
+
+		saldoTarjeta = cIntroducido.getsaldo();
+
+		Movimientos m (cIntroducido.getnumTarjeta(), "Ingresar dinero", importe);
+
+		//HAY QUE QUITAR ESTO ANTES DE ENTREGAAAAR!!!!!
+
+		if(moves.size() <50)
+		{
+			moves.push_back(m);
+			cout << "La cantidad de movimientos es: " << moves.size() << endl;
+		}
+
+		//////////////////////////////////////////////
+
+		saldoTarjeta = saldoTarjeta + importe;
+
+		cIntroducido.setsaldo(saldoTarjeta);
+
+		db.insert_Movimientos (m);
+		db.update_Tarjeta(cIntroducido);
 
 	}
 	void Operaciones::Salir()
