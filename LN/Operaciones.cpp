@@ -94,7 +94,8 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 		{
 			Usuarios uIntroducido (DNI, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
 			cout << "El usuario " << uIntroducido.getDNI() << " ha iniciado sesión!" << endl;
-			menu::menuTarjeta(uIntroducido);
+			
+			menuTarjeta(uIntroducido);
 			aux = 1;
 		}
 	}
@@ -177,7 +178,7 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo(), cards[i].getDNIUsuario());
 				cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
 
-				menuOperaciones(cIntroducido, cards);
+				menuOperaciones(cIntroducido); //cards);
 			}else
 			{
 				cout << "El PIN es incorrecto!" << endl;
@@ -216,7 +217,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 		}
 	}
 }
-
+/*
 vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
@@ -284,6 +285,7 @@ vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <
 	}
 	return transfers;
 }
+*/
 void Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");

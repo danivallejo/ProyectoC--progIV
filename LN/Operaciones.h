@@ -30,7 +30,7 @@ public:
 	void SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 	void MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves);
 
-	vector <Transferencia> Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards);
+	//vector <Transferencia> Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards);
 	void ConsultarTransferencias(Tarjeta cIntroducido, vector <Transferencia> transfers);
 };
 

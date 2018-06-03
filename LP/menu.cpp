@@ -12,11 +12,7 @@ using namespace std;
 
 #define rv 20
 
-menu::menu()
-{
-
-}
-void menu::menuUsuario()
+void menuUsuario()
 {
 	int a;
 	Operaciones o;
@@ -44,7 +40,7 @@ void menu::menuUsuario()
 		}
 	}while(a != 3);
 }
-void menu::menuTarjeta(Usuarios uIntroducido)
+void menuTarjeta(Usuarios uIntroducido)
 {
 	Operaciones o;
 	int a;
@@ -73,7 +69,7 @@ void menu::menuTarjeta(Usuarios uIntroducido)
 	}
 	}while(a!=3);
 }
-void menu::menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
+void menuOperaciones(Tarjeta cIntroducida) //vector <Tarjeta> cards)
 {
 	Operaciones o;
 	int a;
@@ -105,7 +101,7 @@ void menu::menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
 	o.ConsultarMovimiento(cIntroducida, moves);
 	break;
 	case 5:
-	o.Transferencia(cIntroducida, transfers, cards);
+	//o.Transferencia(cIntroducida, transfers, cards);
 	break;
 	case 6:
 	o.ConsultarTransferencias(cIntroducida, transfers);
@@ -115,10 +111,7 @@ void menu::menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
 	}
 	}while(a!=7);
 }
-menu::~menu()
-{
 
-}	
 
 
 
