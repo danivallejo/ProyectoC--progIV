@@ -6,6 +6,10 @@
 #include <string>
 #include <fstream>
 #include "menu.h"
+#include "../LN/Usuarios.h"
+#include "../LN/Tarjeta.h"
+#include "../LN/Transferencia.h"
+#include "../LN/Movimientos.h"
 #include <vector>
 
 using namespace std;
