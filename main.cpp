@@ -15,7 +15,6 @@ int main()
   sqlite3 *db;
   string dbFile = "test.db";
   DBConnector db1(dbFile);
-  menu opcion;
   
   int result;
 
@@ -25,7 +24,7 @@ int main()
     cout << "Error opening database" << endl;
     return result;
   }
-  opcion.menuUsuario();
+  menuUsuario();
 
   //iniciarBD(db);
  db1.create_table_Usuarios();

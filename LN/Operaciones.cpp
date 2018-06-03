@@ -113,20 +113,20 @@ vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido, vector <
 	int existe;
 	DBConnector db ("test.db");
 
+	int leidos = db.leer_Tarjetas(cards);
+
 	unsigned int PIN;
 	unsigned int numTarjeta;
 	//NO SE SI SALDO SE DEBERIA PASAR POR PARAMETRO
 	unsigned int saldo = 0;
-	unsigned int aux;
-	unsigned int DNIUsuario = UsuarioIntroducido.getDNI();
+	//unsigned int DNIUsuario = UsuarioIntroducido.getDNI();
 
 	cout << "Registra el numero de tu nueva tarjeta" << endl;
 	cin >> numTarjeta;
 	cout << "Introduce el PIN de tu nueva tarjeta" << endl;
 	cin >> PIN;
 
-	Tarjeta card (numTarjeta, PIN, saldo, DNIUsuario);
-	aux = 0;
+	Tarjeta card (numTarjeta, PIN, saldo); //DNIUsuario);
 
 	existe = db.Tarjeta_existe(card);
 
@@ -140,7 +140,9 @@ vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido, vector <
 			cout << cards.size() << endl;
 
 			db.insert_Tarjeta(card);
-		}else
+
+		}
+		else
 		{
 			cout <<"No se pueden añadir mas tarjetas" << endl;
 		}
@@ -175,7 +177,7 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 		{
 			if(cards[i].getPIN() == PIN)
 			{
-				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo(), cards[i].getDNIUsuario());
+				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo()/*, cards[i].getDNIUsuario()*/);
 				cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
 
 				menuOperaciones(cIntroducido); //cards);

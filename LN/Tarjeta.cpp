@@ -4,12 +4,12 @@
 using namespace std;
 
 
-Tarjeta::Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo, unsigned int dniUsuario)
+Tarjeta::Tarjeta(unsigned int numtarjeta, unsigned int pin, int Saldo)// unsigned int dniUsuario)
 {
 	this -> numTarjeta = numtarjeta;
 	this -> PIN = pin;
 	this -> saldo = Saldo;
-	this -> DNIUsuario = dniUsuario;
+	//this -> DNIUsuario = dniUsuario;
 }
 
 int Tarjeta::getnumTarjeta()
@@ -35,7 +35,7 @@ return saldo;
 void Tarjeta::setsaldo(int saldo)
 {
 this->saldo=saldo;	
-}
+}/*
 int Tarjeta::getDNIUsuario()
 {
 return saldo;
@@ -44,7 +44,7 @@ void Tarjeta::setDNIUsuario(int dniUsuario)
 {
 this->DNIUsuario=dniUsuario;	
 }
-
+*/
 
 Tarjeta::~Tarjeta()
 {

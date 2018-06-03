@@ -51,7 +51,7 @@ void menuTarjeta(Usuarios uIntroducido)
 	do
 	{
 	
-	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Salir \n"<< endl;
+	cout << "Has iniciado sesion correctamente. Seleccione la operacion que desee: "<< endl << "1. Registrar tarjeta" << endl << "2. Introducir Tarjeta" << endl << "3. Salir";
 
 	cin >> a; 
 
