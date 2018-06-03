@@ -6,6 +6,6 @@
 //#include "../LN/Usuarios.h"
 	void menuUsuario();
 	void menuTarjeta(Usuarios uIntroducido);
-	void menuOperaciones(Tarjeta cIntroducida);
+	void menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards);
 
 #endif

@@ -189,7 +189,7 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo()/*, cards[i].getDNIUsuario()*/);
 				cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
 
-				menuOperaciones(cIntroducido); //cards);
+				menuOperaciones(cIntroducido, cards);
 			}else
 			{
 				cout << "El PIN es incorrecto!" << endl;
@@ -236,7 +236,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 		}
 	}
 }
-/*vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
+vector <Transferencia> Operaciones::RealizarTransferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
 	int numTarjeta2;
@@ -253,7 +253,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 
 	if(saldoTarjeta <=0)
 	{
-		cout << "Lo sentimos, no puede realizar esta operación, su saldo es 0 o negativo"
+		cout << "Lo sentimos, no puede realizar esta operación, su saldo es 0 o negativo" << endl;
 	}else
 	{
 		do
@@ -274,14 +274,14 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 
 			aux = 0;
 
-			for(i = 0; i < cards.size(); i++)
+			for(int i = 0; i < cards.size(); i++)
 			{
-				if(numTarjeta2 == cards[i].numTarjeta)
+				if(numTarjeta2 == cards[i].getnumTarjeta())
 				{
 					saldoTarjeta = saldoTarjeta - importe;
 					saldoTarjeta2 = cards[i].getsaldo();
 
-					Transferencia t (cIntroducido.getnumTarjeta(), numTarjeta2, importe)
+					Transferencia t (cIntroducido.getnumTarjeta(), numTarjeta2, importe);
 					db.insert_Transferencia (t);
 		
 					cIntroducido.setsaldo(saldoTarjeta);
@@ -289,7 +289,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 
 					saldoTarjeta2 = saldoTarjeta2 + importe;
 
-					Tarjeta tar (numTarjeta2, cards[i].getPIN(), saldoTarjeta2, cards[i].getDNIUsuario());
+					Tarjeta tar (numTarjeta2, cards[i].getPIN(), saldoTarjeta2);
 
 					db.update_Tarjeta(tar);
 
@@ -303,7 +303,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 	}
 	return transfers;
 }
-*/
+
 
 //Sacar Dinero permite al usuario retirar dinero de su tarjeta, para ello le mandamos como parámetro la tarjeta introducida y un vector de movimientos
 //la tarjeta introducida la actualizamos con el dinero que queda en la tarjeta y el vector de movimientos lo rellenamos con los movimientos realizados + el nuevo movimiento

@@ -83,7 +83,7 @@ void menuTarjeta(Usuarios uIntroducido)
 
 //menuoperaciones es el tercer menú, aparece cuando el usuario ha introducido una tarjeta. Es el menú real de la aplicación 
 //el cual le da al usuario distintas opciones para operar con su tarjeta
-void menuOperaciones(Tarjeta cIntroducida) //vector <Tarjeta> cards)
+void menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
 {
 	Operaciones o;
 	int a;
@@ -115,7 +115,7 @@ void menuOperaciones(Tarjeta cIntroducida) //vector <Tarjeta> cards)
 	o.ConsultarMovimiento(cIntroducida, moves);
 	break;
 	case 5:
-	//o.Transferencia(cIntroducida, transfers, cards);
+	o.RealizarTransferencia(cIntroducida, transfers, cards);
 	break;
 	case 6:
 	o.ConsultarTransferencias(cIntroducida, transfers);
