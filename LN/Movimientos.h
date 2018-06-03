@@ -7,6 +7,9 @@
 
 using namespace std;
 
+
+//Clase Movimientos: Se encargará de llevar un registro de las transacciones que hace un usuario con una tarjeta, como atributos tiene un numero de tarjeta (int),
+//TipoMovimiento(String) se encarga de decir que movimiento se ha realizado y Cantidad (int) dinero que se ha movido en la operación. 
 class Movimientos
 
 {

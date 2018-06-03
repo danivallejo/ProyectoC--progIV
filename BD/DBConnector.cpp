@@ -33,21 +33,21 @@ using namespace std;
     }	
   }
 
-  //CREATE TABLE:
+  //Creacion de la tabla Usuarios; atributos: DNI, NOMBRE, APELLIDO, EMAIL
+
   int DBConnector::create_table_Usuarios () 
   {
   	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Usuarios'"; //SELECT para que solo cree la tabla si no existía
   	sqlite3_stmt *stmt_ex; 
   	int result;
   	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
-  	creada = sqlite3_step(stmt_ex);//no va
+  	creada = sqlite3_step(stmt_ex);
   	
-  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	if(creada != 100)
   	{
 	  	 sqlite3_stmt *stmt; 
 	  	 char sql[] = "CREATE TABLE Usuarios("
 	  	 				"DNI int primary key not null,"
-	  	 				//"PIN int not null," AHORA MISMO SEA CREA LA TABLA... PERO ESTA LINEA HAY QUE METERLA
 	  	 				"NOMBRE text not null,"
 	  	 				"APELLIDO text not null,"
 	  	 				"EMAIL text not null);";
@@ -55,9 +55,9 @@ using namespace std;
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
 	    {
-	       // cout << "Error Creating table Jugadores" <<  endl;   
-	      sqlite3_finalize(stmt);   
-	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	    	//cout << "Error Creating table Usuarios" <<  endl;
+	    	sqlite3_finalize(stmt);
+	    	//cout << sqlite3_errmsg(db) <<  endl;
 	    }
 		
 		result = sqlite3_step(stmt);
@@ -65,8 +65,8 @@ using namespace std;
 	    result = sqlite3_finalize(stmt);
 	    if (result != SQLITE_OK) 
 	    {
-	       // cout << "Error finalizing statement (CREATE)" <<  endl;
-	       // cout << sqlite3_errmsg(db) <<  endl;
+	    	//cout << "Error finalizing statement (CREATE)" <<  endl;
+	    	//cout << sqlite3_errmsg(db) <<  endl;
 	    }
 	}
 	else
@@ -85,15 +85,16 @@ using namespace std;
 	return result;
   }
 
+  //Creación de la tabla Tarjetas; atributos: NUMERO TARJETA, PIN Y SALDO
+
  int DBConnector::create_table_Tarjetas () 
   {
-  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Tarjetas'"; //SELECT para que solo cree la tabla si no existía
-  	sqlite3_stmt *stmt_ex; 
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Tarjetas'";
   	int result;
   	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
-  	creada = sqlite3_step(stmt_ex);//no va
+  	creada = sqlite3_step(stmt_ex);
   	
-  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	if(creada != 100)
   	{
 	  	 sqlite3_stmt *stmt; 
 	  	 char sql[] = "CREATE TABLE Tarjetas("
@@ -104,7 +105,7 @@ using namespace std;
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
 	    {
-	       // cout << "Error Creating table Jugadores" <<  endl;   
+	       // cout << "Error Creating table Tarjetas" <<  endl;   
 	      sqlite3_finalize(stmt);   
 	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
 	    }
@@ -134,6 +135,7 @@ using namespace std;
 	return result;
   }
 
+  //Creacion de la tabla Movimientos; atributos: NUMERO TARJETA, TIPO MOVIMIENTO Y CANTIDAD
  int DBConnector::create_table_Movimientos () 
   {
   	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Movimientos'"; //SELECT para que solo cree la tabla si no existía
@@ -183,15 +185,16 @@ using namespace std;
 	return result;
   }
 
+//Creacion de la tabla Transferencias; atributos: NUMERO TARJETA 1, NUMERO TARJETA 2 Y CANTIDAD 
 int DBConnector::create_table_Transferencias () 
   {
-  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Transferencias'"; //SELECT para que solo cree la tabla si no existía
+  	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Transferencias'";
   	sqlite3_stmt *stmt_ex; 
   	int result;
   	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
-  	creada = sqlite3_step(stmt_ex);//no va
+  	creada = sqlite3_step(stmt_ex);
   	
-  	if(creada != 100)//Da 100 cuando la tabla existe y 101 cuando no (en realidad no sé por qué, pero funciona)
+  	if(creada != 100)
   	{
 	  	 sqlite3_stmt *stmt; 
 	  	 char sql[] = "CREATE TABLE Transferencias("
@@ -203,7 +206,7 @@ int DBConnector::create_table_Transferencias ()
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
 	    {
-	       // cout << "Error Creating table Jugadores" <<  endl;   
+	       // cout << "Error Creating table Transferencias" <<  endl;   
 	      sqlite3_finalize(stmt);   
 	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
 	    }
@@ -233,7 +236,7 @@ int DBConnector::create_table_Transferencias ()
 	return result;
   }
   
-//Para INSERT, UPDATE y DELETE, ver si el jugador existe:
+//Para INSERT y UPDATE ver si el usuario existe:
 
 int DBConnector::Usuario_existe(Usuarios user)
   {
@@ -250,6 +253,8 @@ int DBConnector::Usuario_existe(Usuarios user)
   	return 0;
   }
 
+  //Para INSERT y UPDATE ver si la tarjeta existe
+
 int DBConnector::Tarjeta_existe(Tarjeta card)
   {
   	vector<Tarjeta> Tarjetas;
@@ -265,11 +270,12 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
   	return 0;
   }
 
-  //INSERT:
+  //INSERT de usuario
+
   int DBConnector::insert_Usuario (Usuarios usuarioInsertar)
   {
   	if(Usuario_existe(usuarioInsertar) == 0)
-  	{ //el jugador no existe, lo podemos insertar
+  	{
 	  	sqlite3_stmt *stmt;
 	  	char sql[] = "insert into Usuarios (DNI, NOMBRE, APELLIDO, EMAIL) values (?, ?, ?, ?)";
 	    
@@ -296,7 +302,6 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 	   	}
 	   	string nombre= usuarioInsertar.getnombre();
-	    //Le pasamos el nick al statement
 	    result = sqlite3_bind_text(stmt, 2, nombre.c_str(), nombre.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
@@ -308,7 +313,6 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	    }
 
 	    string apellido= usuarioInsertar.getapellido();
-	    //Le pasamos el nick al statement
 	    result = sqlite3_bind_text(stmt, 3, apellido.c_str(), apellido.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
@@ -321,7 +325,6 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 
 
 	    string email= usuarioInsertar.getemail();
-	    //Le pasamos el nick al statement
 	    result = sqlite3_bind_text(stmt, 4, email.c_str(), email.length(), SQLITE_STATIC);
 
 	    if (result != SQLITE_OK)
@@ -335,7 +338,7 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	    result = sqlite3_step(stmt);
 	    if (result != SQLITE_DONE) 
 	    {
-	       // cout << "Error inserting new data into Jugadores table" <<  endl;
+	       // cout << "Error inserting new data into Usuarios table" <<  endl;
 	      sqlite3_finalize(stmt);
 	      return result;
 	    }
@@ -350,15 +353,16 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	}
 	else
 	{
-		 // cout << "El jugador ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
+		 // cout << "El usuario ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
 		return 0;	
 	}
 }
 
+// INSERT Tarjeta
   int DBConnector::insert_Tarjeta (Tarjeta tarjetaInsertar)
   {
   	if(Tarjeta_existe(tarjetaInsertar) == 0)
-  	{ //el jugador no existe, lo podemos insertar
+  	{ //la tarjeta no existe, la podemos insertar
 	  	sqlite3_stmt *stmt;
 	  	char sql[] = "insert into Tarjetas (NUMEROTARJETA, PIN, SALDO) values (?, ?, 0)";
 	    
@@ -423,11 +427,12 @@ int DBConnector::Tarjeta_existe(Tarjeta card)
 	}
 	else
 	{
-		 // cout << "El jugador ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
+		 // cout << "La tarjeta ya existe - si quieres cambiar algo, UPDATE" <<  endl;	
 		return 0;	
 	}
 }
 
+// INSERT Movimientos
 int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 {
   	sqlite3_stmt *stmt;
@@ -454,7 +459,6 @@ int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 	}
 
 	string TIPOMOVIMIENTO= movimientoInsertar.getTipoMovimiento();
-	//Le pasamos el nick al statement
 	result = sqlite3_bind_text(stmt, 2, TIPOMOVIMIENTO.c_str(), TIPOMOVIMIENTO.length(), SQLITE_STATIC);
 
 	if (result != SQLITE_OK)
@@ -493,6 +497,7 @@ int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 	return result;
 }
 
+// INSERT Transferencias
 int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 {
 	sqlite3_stmt *stmt;
@@ -549,7 +554,7 @@ int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE) 
 	{
-	// cout << "Error inserting new data into Jugadores table" <<  endl;
+	// cout << "Error inserting new data into Transferencias table" <<  endl;
 	sqlite3_finalize(stmt);
 	return result;
 	}
@@ -562,8 +567,10 @@ int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 	}
 	return result;
 }
-//UPDATE:
-int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador completo
+
+//UPDATE Tarjeta, solo actualizamos el saldo de la tarjeta
+
+int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)
 {
 	sqlite3_stmt *stmt;
 	char sql[] = "update Tarjetas set SALDO = ? where NUMEROTARJETA = ?";
@@ -579,7 +586,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 	}
 
 	//Juntar los parámetros con el statement
-	//Le pasamos el puntuacion al statement
+	//Le pasamos el saldo al statement
 	result = sqlite3_bind_int(stmt, 1, saldo);
     if (result != SQLITE_OK)
 	{
@@ -588,7 +595,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 		// cout << sqlite3_errmsg(db) <<  endl;
 		return result;
 	}
-	//Le pasamos el nick al statement
+	//Le pasamos el numero de tarjeta al statement
 	result = sqlite3_bind_int(stmt, 2, numeroTarjeta);
 
 	if (result != SQLITE_OK)
@@ -603,7 +610,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE) 
 	{
-		// cout << "Error inserting new data into Jufgadores table" <<  endl;
+		// cout << "Error inserting new data into Tarjeta table" <<  endl;
 		sqlite3_finalize(stmt);
 		return result;
 	}
@@ -617,7 +624,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 		return result;
 	}
 
-//SELECT
+//SELECT Usuarios
 int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
 {
 	//int cont = 0;
@@ -630,9 +637,8 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
       return result;
     }
 
-    //Variables en las que recogeremos los atributos de cada jugador
+    //Variables en las que recogeremos los atributos de cada Usuario
     int DNI;
-    int PIN;
   	char nombre[200];
   	char apellido[200];
   	char email[200];
@@ -642,18 +648,16 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
       result = sqlite3_step(stmt);
       if (result == SQLITE_ROW) 
       {
-      	//Leer el nick y la puntuacion de la linea del SELECT
+      	//Leer el DNI, el nombre, el apellido y el email de la linea del SELECT
       	DNI = sqlite3_column_int(stmt, 0);
       	strcpy(nombre, (char*)sqlite3_column_text(stmt, 1));
       	strcpy(apellido, (char*)sqlite3_column_text(stmt, 2));
       	strcpy(email, (char*)sqlite3_column_text(stmt, 3));
   
-      	//Crear un jugador con esos atributos
+      	//Crear un usuario con esos atributos
       	Usuarios user (DNI, nombre, apellido, email);
     	
     	listaTodosUsuarios.push_back (user);
-      	// listaTodosJugadores[cont] = jugador;
-      	// cont++;
       }
     } while (result == SQLITE_ROW);
 
@@ -664,6 +668,8 @@ int DBConnector::leer_Usuarios(vector <Usuarios>& listaTodosUsuarios)
     }
     return SQLITE_OK;
 }
+
+//SELECT Tarjetas
 
 int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
 {
@@ -677,29 +683,25 @@ int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
       return result;
     }
 
-    //Variables en las que recogeremos los atributos de cada jugador
+    //Variables en las que recogeremos los atributos de cada tarjeta
     int numeroTarjeta;
   	int PIN;
   	int Saldo;
-  	//int DNI;
 
     do
     {
       result = sqlite3_step(stmt);
       if (result == SQLITE_ROW) 
       {
-      	//Leer el nick y la puntuacion de la linea del SELECT
+      	//Leer el numero de tarjeta, el PIN y el saldo de la linea del SELECT
       	numeroTarjeta = sqlite3_column_int(stmt, 0);
       	PIN = sqlite3_column_int(stmt, 1);
       	Saldo = sqlite3_column_int(stmt, 2);
-      	//DNI = sqlite3_column_int(stmt, 3);
   
-      	//Crear un jugador con esos atributos
-      	Tarjeta card (numeroTarjeta, PIN, Saldo/*, DNI*/);
+      	//Crear una tarjeta con esos atributos
+      	Tarjeta card (numeroTarjeta, PIN, Saldo);
     	
     	listaTodasTarjetas.push_back (card);
-      	// listaTodosJugadores[cont] = jugador;
-      	// cont++;
       }
     } while (result == SQLITE_ROW);
 
@@ -710,6 +712,8 @@ int DBConnector::leer_Tarjetas(vector <Tarjeta>& listaTodasTarjetas)
     }
     return SQLITE_OK;
 }
+
+//SELECT Movimientos
 
 int DBConnector::leer_Movimientos(vector <Movimientos>& listaTodosMovimientos)
 {
@@ -723,7 +727,7 @@ int DBConnector::leer_Movimientos(vector <Movimientos>& listaTodosMovimientos)
       return result;
     }
 
-    //Variables en las que recogeremos los atributos de cada jugador
+    //Variables en las que recogeremos los atributos de cada movimiento
     int numeroTarjeta;
   	char tipoMovimiento[200];
   	int Cantidad;
@@ -733,17 +737,15 @@ int DBConnector::leer_Movimientos(vector <Movimientos>& listaTodosMovimientos)
       result = sqlite3_step(stmt);
       if (result == SQLITE_ROW) 
       {
-      	//Leer el nick y la puntuacion de la linea del SELECT
+      	//Leer el numero de tarjeta, el tipo de movimiento y la cantidad de la linea del SELECT
       	numeroTarjeta = sqlite3_column_int(stmt, 0);
       	strcpy(tipoMovimiento, (char*)sqlite3_column_text(stmt, 1));
     	Cantidad = sqlite3_column_int(stmt, 2);
   
-      	//Crear un jugador con esos atributos
+      	//Crear un movimiento con esos atributos
       	Movimientos mov (numeroTarjeta, tipoMovimiento, Cantidad);
     	
     	listaTodosMovimientos.push_back (mov);
-      	// listaTodosJugadores[cont] = jugador;
-      	// cont++;
       }
     } while (result == SQLITE_ROW);
 
@@ -754,6 +756,8 @@ int DBConnector::leer_Movimientos(vector <Movimientos>& listaTodosMovimientos)
     }
     return SQLITE_OK;
 }
+
+//SELECT Transferencias
 
 int DBConnector::leer_Transferencias(vector <Transferencia>& listaTodasTransferencias)
 {
@@ -767,7 +771,7 @@ int DBConnector::leer_Transferencias(vector <Transferencia>& listaTodasTransfere
       return result;
     }
 
-    //Variables en las que recogeremos los atributos de cada jugador
+    //Variables en las que recogeremos los atributos de cada Transferencia
     int numeroTarjeta1;
   	int numeroTarjeta2;
   	int Cantidad;
@@ -777,17 +781,15 @@ int DBConnector::leer_Transferencias(vector <Transferencia>& listaTodasTransfere
       result = sqlite3_step(stmt);
       if (result == SQLITE_ROW) 
       {
-      	//Leer el nick y la puntuacion de la linea del SELECT
+      	//Leer el numero de tarjeta 1, el numero de tarjeta 2 y la cantidad de la linea del SELECT
       	numeroTarjeta1 = sqlite3_column_int(stmt, 0);
       	numeroTarjeta2 = sqlite3_column_int(stmt, 1);
       	Cantidad = sqlite3_column_int(stmt, 2);
   
-      	//Crear un jugador con esos atributos
+      	//Crear una transferencia con esos atributos
       	Transferencia transfer (numeroTarjeta1, numeroTarjeta2, Cantidad);
     	
     	listaTodasTransferencias.push_back (transfer);
-      	// listaTodosJugadores[cont] = jugador;
-      	// cont++;
       }
     } while (result == SQLITE_ROW);
 

@@ -12,6 +12,10 @@ using namespace std;
 
 #define rv 20
 
+
+//Esta clase tendrá 3 menus diferentes: el de usuario, el de tarjetas y el de operaciones.
+
+//menuUsuario es el primer menú que aparece en la aplicación le permite al usuario 3 opciones: registrarse, iniciar sesión o salir.
 void menuUsuario()
 {
 	int a;
@@ -40,6 +44,9 @@ void menuUsuario()
 		}
 	}while(a != 3);
 }
+
+//menuTarjeta es el segundo de los menús, le llamamos en el momento en el que el usuario ha iniciado sesión. Desde aquí puede registrar una nueva tarjeta,
+// introducir tarjeta o salir.
 void menuTarjeta(Usuarios uIntroducido)
 {
 	Operaciones o;
@@ -69,6 +76,9 @@ void menuTarjeta(Usuarios uIntroducido)
 	}
 	}while(a!=3);
 }
+
+//menuoperaciones es el tercer menú, aparece cuando el usuario ha introducido una tarjeta. Es el menú real de la aplicación 
+//el cual le da al usuario distintas opciones para operar con su tarjeta
 void menuOperaciones(Tarjeta cIntroducida) //vector <Tarjeta> cards)
 {
 	Operaciones o;

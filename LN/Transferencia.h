@@ -7,6 +7,9 @@
 
 using namespace std;
 
+//La clase transferencia tendrá 3 atributos: numTarjeta1(int) tarjeta que realiza la transferencia, la que "manda" el dinero; numTarjeta2(int) tarjeta que recibe la transferencia
+//Cantidad(int) Dinero que se manda en la transferencia.
+
 class Transferencia
 {
 	int numTarjeta1;

@@ -17,8 +17,7 @@
 using namespace std;
 
 
-//namespace Operaciones
-//
+//Alta usuario se encargará de registrar a los usuarios, recibirá un vector de usuarios y lo devolverá relleno por todos los de la bd + el nuevo
 vector <Usuarios> Operaciones::AltaUsuario(vector <Usuarios> users)
 {
 	int existe;
@@ -72,6 +71,7 @@ vector <Usuarios> Operaciones::AltaUsuario(vector <Usuarios> users)
 	return users;
 }
 
+// Introducir usuarios se encarga de validar un usuario, cuando lo valide le dará acceso al menú tarjeta
 void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 {
 	DBConnector db ("test.db");
@@ -108,7 +108,9 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 	//cout << uIntroducido.getDNI << endl <<uIntroducido.getPIN << endl;
 }
 
-vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido, vector <Tarjeta> cards)
+
+//Alta tarjeta se encarga de registrar una nueva tarjeta, para ello recibe por parámetro un vector de tarjetas y lo devuelve relleno de las tarjetas de la base de datos + la nueva
+vector <Tarjeta> Operaciones::AltaTarjeta (vector <Tarjeta> cards)
 {
 	int existe;
 	DBConnector db ("test.db");
@@ -155,6 +157,8 @@ vector <Tarjeta> Operaciones::AltaTarjeta (Usuarios UsuarioIntroducido, vector <
 	return cards;
 }
 
+//Introducir tarjeta se encarga de validar la tarjeta que quiere introducir el usuario, para ello recibe un vector de tarjetas con el que comparar
+//si la tarjeta introducida por el usuario existe, luego también le pide el PIN y si todo es correcto le lleva al menú operaciones
 void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
@@ -198,6 +202,7 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 	}
 }
 
+//Consultar saldo saca por pantalla el saldo de la tarjeta, recibe por parametro la tarjeta introducida previamente
 void Operaciones::ConsultarSaldo(Tarjeta cIntroducido/*, vector <movimientos> moves*/)
 {	
 
@@ -211,6 +216,8 @@ void Operaciones::ConsultarSaldo(Tarjeta cIntroducido/*, vector <movimientos> mo
 	cout << "El saldo de la tarjeta es de: " << saldo << endl;
 }
 
+//Consultar moviemientos saca por pantalla los movimientos realizados por la tarjeta que se ha introducido previamente
+//recibe como parámetros la tarjeta introducida y el vector movimientos, el cual rellenará usando la bd
 void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
@@ -298,6 +305,9 @@ vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <
 	return transfers;
 }
 */
+
+//Sacar Dinero permite al usuario retirar dinero de su tarjeta, para ello le mandamos como parámetro la tarjeta introducida y un vector de movimientos
+//la tarjeta introducida la actualizamos con el dinero que queda en la tarjeta y el vector de movimientos lo rellenamos con los movimientos realizados + el nuevo movimiento
 vector <Movimientos> Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
@@ -346,6 +356,8 @@ vector <Movimientos> Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movi
 	return moves;
 }
 
+//Meter dinero permite al usuario ingresar dinero de su tarjeta, para ello le mandamos como parámetro la tarjeta introducida y un vector de movimientos
+//la tarjeta introducida la actualizamos con el dinero que queda en la tarjeta y el vector de movimientos lo rellenamos con los movimientos realizados + el nuevo movimiento
 vector <Movimientos> Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
@@ -381,6 +393,9 @@ vector <Movimientos> Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movi
 
 	return moves;
 }
+
+//Consultar trasnferencias nos permite ver las transferencias realizadas por nuestra tarjeta y también las recibidas, le mandamos la tarjeta introducida como parámetro
+//y un vector transferencias que rellenamos desde la bd para luego sacar las transferencias que necesitemos por pantalla
 void Operaciones::ConsultarTransferencias(Tarjeta cIntroducido, vector <Transferencia> transfers)
 {
 	DBConnector db ("test.db");

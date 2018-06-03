@@ -5,11 +5,6 @@
 
 using namespace std;
 
-//namespace Usuario
-//{
-
-
-
 Usuarios::Usuarios(unsigned int dni, string nombre, string apellido, string email)
 {
 	this -> DNI = dni;
@@ -17,18 +12,6 @@ Usuarios::Usuarios(unsigned int dni, string nombre, string apellido, string emai
 	this -> apellido = apellido;
 	this -> email = email;
 }
-/*int Usuarios::AltaUsuario()
-{
-cout <<"Introduce un nuevo usuario: "<< endl;
-cout <<"Introduce el DNI: "<<endl;
-cin >> DNI;
-cout <<"Introduce el nombre: "<<endl;
-cin >> nombre;
-cout <<"Introduce el apellido: "<<endl;
-cin >> apellido;
-cout <<"Introduce el email: "<<endl;
-cin >>email;
-}*/
 int Usuarios::getDNI()
 {
 return DNI;

@@ -6,12 +6,12 @@
 
 using namespace std;
 
+//La clase Tarjeta te´ndrá tres atributos: numTarjeta(int) será el numero de la tarjeta, PIN(int) clave secreta de la tarjera, Saldo (int) dinero que tiene la tarjeta
 class Tarjeta
 {
 	unsigned int numTarjeta;
 	unsigned int PIN;
 	int saldo;
-	//unsigned int DNIUsuario;
 
 	//vector<Tarjeta> tarjetas; 
 
