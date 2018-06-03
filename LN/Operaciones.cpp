@@ -135,8 +135,6 @@ vector <Tarjeta> Operaciones::AltaTarjeta (vector <Tarjeta> cards)
 		if(cards.size() < rv)
 		{
 			cards.push_back(card);
-			cout << cards.size() << endl;
-
 			db.insert_Tarjeta(card);
 
 		}
@@ -228,7 +226,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 		if(moves[i].getnumTarjeta() == numeroTarjeta)
 		{
 			Movimientos MRealizado (numeroTarjeta, moves[i].getTipoMovimiento(), moves[i].getCantidad());
-			cout << "La tarjeta con numero: " << MRealizado.getnumTarjeta() << " ha realizado el movimiento: " << MRealizado.getTipoMovimiento()<< << endl << " cuyo importe ha sido de: " << MRealizado.getCantidad() << endl;
+			cout << "La tarjeta con numero: " << MRealizado.getnumTarjeta() << " ha realizado el movimiento: " << MRealizado.getTipoMovimiento() << " cuyo importe ha sido de: " << MRealizado.getCantidad() << endl;
 		}
 	}
 }
