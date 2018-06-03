@@ -31,15 +31,15 @@ vector <Usuarios> Operaciones::AltaUsuario(vector <Usuarios> users)
 	string apellido;
 	string email;
 
-	cout <<"Has seleccionado registrar un nuevo usuario! "<< endl;
+	cout <<" Has seleccionado registrar un nuevo usuario "<< endl;
 
-	cout <<"Introduce el DNI: "<<endl;
+	cout <<" Introduce el DNI: " <<endl;
 	cin >> DNI;
-	cout <<"Introduce el nombre: "<<endl;
+	cout <<" Introduce el nombre: " <<endl;
 	cin >> nombre;
-	cout <<"Introduce el apellido: "<<endl;
+	cout <<" Introduce el apellido: " <<endl;
 	cin >> apellido;
-	cout <<"Introduce el email: "<<endl;
+	cout <<" Introduce el email: " <<endl;
 	cin >>email;
 
 	Usuarios usu  (DNI, nombre, apellido, email);
@@ -48,25 +48,23 @@ vector <Usuarios> Operaciones::AltaUsuario(vector <Usuarios> users)
 
 	if(existe == 0)
 	{
-		cout << "Se ha creado un usuario con DNI " << usu.getDNI() << endl;
-		cout << "Tiene los siguientes datos personales: "<< endl;
-		cout << "Nombre: "<< usu.getnombre() << endl;
-		cout << "Apellido: "<< usu.getapellido() << endl;
-		cout << "Correo electronico: "<< usu.getemail() << endl;
+		cout << " Se ha creado un usuario con DNI " << usu.getDNI() << endl;
+		cout << " Tiene los siguientes datos personales: "<< endl;
+		cout << " Nombre: "<< usu.getnombre() << endl;
+		cout << " Apellido: "<< usu.getapellido() << endl;
+		cout << " Correo electronico: "<< usu.getemail() << endl;
 
 		if(users.size() < rv)
 		{
 			users.push_back(usu);
-			cout << users.size() << endl;
-
 			db.insert_Usuario(usu);
 		}else
 		{
-			cout <<"No se pueden añadir mas usuarios" << endl;
+			cout <<" No se pueden añadir mas usuarios " << endl;
 		}
 	}else 
 	{
-		cout <<"El usuario ya existe" << endl;
+		cout <<" El usuario ya existe " << endl;
 	}		
 	return users;
 }
@@ -81,7 +79,7 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 	int DNI;
 	int aux = 0;
 
-	cout << "Desea iniciar sesión. Introduce el DNI de un usuario: " << endl;
+	cout << " Desea iniciar sesion. Introduce el DNI de un usuario: " << endl;
 	cin >> DNI;
 
 	//Usuarios uIntroducido (DNI, PIN, uIntroducido.getnombre(), uIntroducido.getapellido(), uIntroducido.getemail());
@@ -93,7 +91,7 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 		if(users[i].getDNI() == DNI)
 		{
 			Usuarios uIntroducido (DNI, users[i].getnombre(), users[i].getapellido(), users[i].getemail());
-			cout << "El usuario " << uIntroducido.getDNI() << " ha iniciado sesión!" << endl;
+			cout << " El usuario " << uIntroducido.getDNI() << " ha iniciado sesion!" << endl;
 			
 			menuTarjeta(uIntroducido);
 			aux = 1;
@@ -102,10 +100,8 @@ void Operaciones::IntroducirUsuario(vector <Usuarios> users)
 	
 	if(aux == 0)
 	{	
-		cout << "El usuario introducido no esta registrado!" << endl;
+		cout << " El usuario introducido no esta registrado! " << endl;
 	}
-			
-	//cout << uIntroducido.getDNI << endl <<uIntroducido.getPIN << endl;
 }
 
 
@@ -123,9 +119,9 @@ vector <Tarjeta> Operaciones::AltaTarjeta (vector <Tarjeta> cards)
 	unsigned int saldo = 0;
 	//unsigned int DNIUsuario = UsuarioIntroducido.getDNI();
 
-	cout << "Registra el numero de tu nueva tarjeta" << endl;
+	cout << " Registra el numero de tu nueva tarjeta " << endl;
 	cin >> numTarjeta;
-	cout << "Introduce el PIN de tu nueva tarjeta" << endl;
+	cout << " Introduce el PIN de tu nueva tarjeta " << endl;
 	cin >> PIN;
 
 	Tarjeta card (numTarjeta, PIN, saldo); //DNIUsuario);
@@ -134,7 +130,7 @@ vector <Tarjeta> Operaciones::AltaTarjeta (vector <Tarjeta> cards)
 
 	if (existe == 0)
 	{
-		cout << "Se ha creado una tarjeta con este numero: " << card.getnumTarjeta() << endl;
+		cout << " Se ha creado una tarjeta con este numero: " << card.getnumTarjeta() << endl;
 		
 		if(cards.size() < rv)
 		{
@@ -146,12 +142,12 @@ vector <Tarjeta> Operaciones::AltaTarjeta (vector <Tarjeta> cards)
 		}
 		else
 		{
-			cout <<"No se pueden añadir mas tarjetas" << endl;
+			cout <<" No se pueden añadir mas tarjetas " << endl;
 		}
 
 	}else 
 	{
-		cout <<"El numero de tarjeta ya existe" << endl;
+		cout <<" El numero de tarjeta ya existe " << endl;
 	}	
 
 	return cards;
@@ -170,10 +166,10 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 	int saldo;
 	int aux;
 	
-	cout << "Introduce tu numero de tarjeta" << endl;
+	cout << " Introduce tu numero de tarjeta " << endl;
 	cin >> numeroTarjeta;
 
-	cout << "Introduce el PIN" << endl;
+	cout << " Introduce el PIN " << endl;
 	cin >> PIN;
 
 	aux =0;
@@ -187,18 +183,18 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 			if(cards[i].getPIN() == PIN)
 			{
 				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo()/*, cards[i].getDNIUsuario()*/);
-				cout << "El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
+				cout << " El numero de tarjeta introducido es " << cIntroducido.getnumTarjeta()<< endl;
 
 				menuOperaciones(cIntroducido, cards);
 			}else
 			{
-				cout << "El PIN es incorrecto!" << endl;
+				cout << " El PIN es incorrecto! " << endl;
 			}
 		}
 	}
 	if (aux == 0)
 	{
-		cout << "El numero de tarjeta introducido no esta registrado!" << endl;	
+		cout << " El numero de tarjeta introducido no esta registrado! " << endl;	
 	}
 }
 
@@ -213,7 +209,7 @@ void Operaciones::ConsultarSaldo(Tarjeta cIntroducido/*, vector <movimientos> mo
 
 	saldo = cIntroducido.getsaldo();
 
-	cout << "El saldo de la tarjeta es de: " << saldo << endl;
+	cout << " El saldo de la tarjeta es de: " << saldo << endl;
 }
 
 //Consultar moviemientos saca por pantalla los movimientos realizados por la tarjeta que se ha introducido previamente
@@ -232,11 +228,11 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 		if(moves[i].getnumTarjeta() == numeroTarjeta)
 		{
 			Movimientos MRealizado (numeroTarjeta, moves[i].getTipoMovimiento(), moves[i].getCantidad());
-			cout << "La tarjeta con numero: " << MRealizado.getnumTarjeta() << "ha realizado el movimiento: " << MRealizado.getTipoMovimiento()<< "cuyo importe ha sido de: " << MRealizado.getCantidad() << endl;
+			cout << "La tarjeta con numero: " << MRealizado.getnumTarjeta() << " ha realizado el movimiento: " << MRealizado.getTipoMovimiento()<< << endl << " cuyo importe ha sido de: " << MRealizado.getCantidad() << endl;
 		}
 	}
 }
-vector <Transferencia> Operaciones::RealizarTransferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
+vector <Transferencia> Operaciones::RealizarTransferencia(Tarjeta& cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
 	int numTarjeta2;
@@ -253,23 +249,23 @@ vector <Transferencia> Operaciones::RealizarTransferencia(Tarjeta cIntroducido, 
 
 	if(saldoTarjeta <=0)
 	{
-		cout << "Lo sentimos, no puede realizar esta operación, su saldo es 0 o negativo" << endl;
+		cout << "Lo sentimos, no puede realizar esta operacion, su saldo es 0 o negativo" << endl;
 	}else
 	{
 		do
 		{
-			cout << "Seleccione el importe que desea transferir, por motivos de seguridad no se pueden transferir mas de 1000 euros" << endl;
+			cout << " Seleccione el importe que desea transferir, por motivos de seguridad no se pueden transferir mas de 1000 euros " << endl;
 			cin >> importe;
 
 			if(importe > saldoTarjeta)
 			{
-				cout << "El importe que deseas transferir es mayor que el saldo disponible, te quedarías en negativo" << endl;
+				cout << " El importe que deseas transferir es mayor que el saldo disponible, te quedarías en negativo " << endl;
 			}
 		}while(importe > 1000||importe < 0);
 
 		do
 		{
-			cout <<"Introduce el numero de tarjeta al que quieres hacerle la transferencia" << endl;
+			cout <<" Introduce el numero de tarjeta al que quieres hacerle la transferencia " << endl;
 			cin >> numTarjeta2; 
 
 			aux = 0;
@@ -292,6 +288,8 @@ vector <Transferencia> Operaciones::RealizarTransferencia(Tarjeta cIntroducido, 
 					Tarjeta tar (numTarjeta2, cards[i].getPIN(), saldoTarjeta2);
 
 					db.update_Tarjeta(tar);
+
+					return transfers;
 
 					aux = 0;
 				}else
@@ -319,32 +317,23 @@ vector <Movimientos> Operaciones::SacarDinero(Tarjeta& cIntroducido, vector <Mov
 
 	if(saldoTarjeta <=0)
 	{
-		cout << "Lo sentimos, no puede realizar esta operación, su saldo es 0 o negativo" << endl;
+		cout << " Lo sentimos, no puede realizar esta operacion, su saldo es 0 o negativo " << endl;
 	}else
 	{
 		do
 		{
-			cout << "Seleccione el importe que desea retirar: Por motivos de seguridad no se pueden sacar mas de mil euros" << endl;
+			cout << " Seleccione el importe que desea retirar: Por motivos de seguridad no se pueden sacar mas de mil euros " << endl;
 			cin >> importe;
 
 			if(importe > saldoTarjeta)
 			{
-				cout << "El importe que deseas sacar es mayor que el saldo disponible" << endl;
+				cout << " El importe que deseas sacar es mayor que el saldo disponible " << endl;
 			}
 
 		}while(importe > 1000||importe < 0);
 
-		Movimientos m (cIntroducido.getnumTarjeta(), "Sacar dinero", importe);
+		Movimientos m (cIntroducido.getnumTarjeta(), " Sacar dinero ", importe);
 
-		//HAY QUE QUITAR ESTO ANTES DE ENTREGAAAAR!!!!!
-
-		if(moves.size() <50)
-		{
-			moves.push_back(m);
-			cout << "La cantidad de movimientos es: " << moves.size() << endl;
-		}
-		////////////////////////////////////////////////////////////////////
-		
 		saldoTarjeta = saldoTarjeta - importe;
 
 		cIntroducido.setsaldo(saldoTarjeta);
@@ -366,23 +355,13 @@ vector <Movimientos> Operaciones::MeterDinero(Tarjeta& cIntroducido, vector <Mov
 
 	db.leer_Movimientos(moves);
 
-	cout << "¿Cuanto dinero deseas ingresar?" << endl;
+	cout << " Cuanto dinero deseas ingresar " << endl;
 
 	cin >> importe;
 
 	saldoTarjeta = cIntroducido.getsaldo();
 
-	Movimientos m (cIntroducido.getnumTarjeta(), "Ingresar dinero", importe);
-
-	//HAY QUE QUITAR ESTO ANTES DE ENTREGAAAAR!!!!!
-	
-		if(cIntroducido.getnumTarjeta() == moves[i].getnumTarjeta())
-		{
-			moves.push_back(m);
-			cout << "La cantidad de movimientos es: " << moves.size() << endl;
-		}
-	
-	//////////////////////////////////////////////
+	Movimientos m (cIntroducido.getnumTarjeta(), " Ingresar dinero ", importe);
 
 	saldoTarjeta = saldoTarjeta + importe;
 
@@ -410,12 +389,12 @@ void Operaciones::ConsultarTransferencias(Tarjeta cIntroducido, vector <Transfer
 		if(transfers[i].getnumTarjeta1() == numeroTarjeta)
 		{
 			Transferencia TRealizada(numeroTarjeta, transfers[i].getnumTarjeta2(), transfers[i].getCantidad());
-			cout << "La tarjeta con numero: " << TRealizada.getnumTarjeta1() << " ha realizado una transferencia a la tarjeta: " << TRealizada.getnumTarjeta2() << " de " << TRealizada.getCantidad() << " euros" << endl;
+			cout << " La tarjeta con numero: " << TRealizada.getnumTarjeta1() << " ha realizado una transferencia a la tarjeta: " << TRealizada.getnumTarjeta2() << " de " << TRealizada.getCantidad() << " euros " << endl;
 		}
 		else if (transfers[i].getnumTarjeta2() == numeroTarjeta)
 		{
 			Transferencia TRecibida(transfers[i].getnumTarjeta1(), numeroTarjeta, transfers[i].getCantidad());
-			cout <<"La tarjeta con numero: " << TRecibida.getnumTarjeta2() << " ha recibido una transferencia de la tarjeta: " << TRecibida.getnumTarjeta1() << " de " << TRecibida.getCantidad() << " euros" << endl;
+			cout <<" La tarjeta con numero: " << TRecibida.getnumTarjeta2() << " ha recibido una transferencia de la tarjeta: " << TRecibida.getnumTarjeta1() << " de " << TRecibida.getCantidad() << " euros " << endl;
 		}
 	}
 }

@@ -30,7 +30,7 @@ void menuUsuario()
   	do 
 
 	{
-		cout << endl <<" Este es el menu principal. Seleccione que operación desea realizar:" << endl <<" 1. Registrar usuario. 2.Iniciar sesion . 3.Salir." << endl;
+		cout << endl <<" Este es el menu principal. Seleccione que operacion desea realizar:" << endl <<" 1. Registrar usuario. 2.Iniciar sesion . 3.Salir." << endl;
 
 		cin >> a;
 
@@ -62,7 +62,7 @@ void menuTarjeta(Usuarios uIntroducido)
 	do
 	{
 	
-	cout << "Has iniciado sesion correctamente. Seleccione la operacion que desee: "<< endl << "1. Registrar tarjeta" << endl << "2. Introducir Tarjeta" << endl << "3. Salir";
+	cout << " Has iniciado sesion correctamente. Seleccione la operacion que desee: "<< endl << "1. Registrar tarjeta" << endl << "2. Introducir Tarjeta" << endl << "3. Salir" << endl;
 
 	cin >> a; 
 
@@ -96,7 +96,8 @@ void menuOperaciones(Tarjeta cIntroducida, vector <Tarjeta> cards)
 	do
 	{
 	
-	cout << "Este es el menu principal. Seleccione la operacion que desee:  \n 1. Sacar Dinero \n 2. Ingresar Dinero \n 3. Consultar Saldo \n 4. Consultar Movimientos \n 5. Transferencia \n 6. Consultar Transferencias \n 7. Salir \n"<< endl;
+	cout << "Este es el menu principal. Seleccione la operacion que desee: " << endl << " 1. Sacar Dinero " << endl << " 2. Ingresar Dinero " << endl <<
+	" 3. Consultar Saldo " << endl << " 4. Consultar Movimientos " << endl << " 5. Transferencia " << endl << " 6. Consultar Transferencias " << endl << " 7. Salir "<< endl;
 
 	cin >> a; 
 

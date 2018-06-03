@@ -203,7 +203,7 @@ int DBConnector::create_table_Transferencias ()
 	  	 				"NUMEROTARJETA1 int not null,"
 	  	 				"NUMEROTARJETA2 int not null,"
 	  	 				"CANTIDAD int not null,"
-	  	 				"primary key (NUMEROTARJETA1, NUMEROTARJETA2));";
+	  	 				"primary key (NUMEROTARJETA1, NUMEROTARJETA2, CANTIDAD));";
 
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
