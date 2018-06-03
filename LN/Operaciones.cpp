@@ -236,8 +236,7 @@ void Operaciones::ConsultarMovimiento(Tarjeta cIntroducido, vector <Movimientos>
 		}
 	}
 }
-/*
-vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
+/*vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <Transferencia> transfers, vector <Tarjeta> cards)
 {
 	DBConnector db ("test.db");
 	int numTarjeta2;
@@ -308,7 +307,7 @@ vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <
 
 //Sacar Dinero permite al usuario retirar dinero de su tarjeta, para ello le mandamos como parámetro la tarjeta introducida y un vector de movimientos
 //la tarjeta introducida la actualizamos con el dinero que queda en la tarjeta y el vector de movimientos lo rellenamos con los movimientos realizados + el nuevo movimiento
-vector <Movimientos> Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
+vector <Movimientos> Operaciones::SacarDinero(Tarjeta& cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
 	int importe;
@@ -358,7 +357,7 @@ vector <Movimientos> Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movi
 
 //Meter dinero permite al usuario ingresar dinero de su tarjeta, para ello le mandamos como parámetro la tarjeta introducida y un vector de movimientos
 //la tarjeta introducida la actualizamos con el dinero que queda en la tarjeta y el vector de movimientos lo rellenamos con los movimientos realizados + el nuevo movimiento
-vector <Movimientos> Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
+vector <Movimientos> Operaciones::MeterDinero(Tarjeta& cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
 	int importe;

@@ -149,16 +149,17 @@ using namespace std;
   	{
 	  	 sqlite3_stmt *stmt; 
 	  	 char sql[] = "CREATE TABLE Movimientos("
-	  	 				"NUMEROTARJETA int primary key not null,"
+	  	 				"NUMEROTARJETA int not null,"
 	  	 				"TIPOMOVIMIENTO text not null,"
-	  	 				"CANTIDAD int not null);";
+	  	 				"CANTIDAD int not null,"
+	  	 				"PRIMARY KEY (NUMEROTARJETA, TIPOMOVIMIENTO, CANTIDAD));";
 
 	  	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	  	if (result != SQLITE_OK)//Para continuar, el resultado debe ser SQLITE_OK, cualquier otro resultado será un error por no haberse procesado la select
 	    {
-	       // cout << "Error Creating table Jugadores" <<  endl;   
+	       cout << "Error Creating table Movimientoss" <<  endl;   
 	      sqlite3_finalize(stmt);   
-	       // cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
+	       cout << sqlite3_errmsg(db) <<  endl; //Devuelve el error interno de la BBDD (db) como resultado de la última operación sobre ella.
 	    }
 		
 		result = sqlite3_step(stmt);
@@ -166,21 +167,21 @@ using namespace std;
 	    result = sqlite3_finalize(stmt);
 	    if (result != SQLITE_OK) 
 	    {
-	       // cout << "Error finalizing statement (CREATE)" <<  endl;
-	       // cout << sqlite3_errmsg(db) <<  endl;
+	       cout << "Error finalizing statement (CREATE)" <<  endl;
+	       cout << sqlite3_errmsg(db) <<  endl;
 	    }
 	}
 	else
 	{
-		 // cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
+		cout << "LA TABLA EXISTE, creada = " << creada <<  endl;
 		result = SQLITE_OK;
 	}
 	//--Finalizar el statement stmt_ex
   	result = sqlite3_finalize(stmt_ex);
     if (result != SQLITE_OK) 
     {
-       // cout << "Error finalizing statement" <<  endl;
-       // cout << sqlite3_errmsg(db) <<  endl;
+       cout << "Error finalizing statement" <<  endl;
+       cout << sqlite3_errmsg(db) <<  endl;
     }
     //---
 	return result;

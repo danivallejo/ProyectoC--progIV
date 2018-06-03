@@ -11,6 +11,7 @@ using namespace std;
 
 int main() 
 {
+
   Operaciones o;
   sqlite3 *db;
   string dbFile = "test.db";
@@ -24,13 +25,17 @@ int main()
     cout << "Error opening database" << endl;
     return result;
   }
+
+  db1.create_table_Usuarios();
+  db1.create_table_Tarjetas();
+  db1.create_table_Movimientos();
+  db1.create_table_Transferencias();
+
+
   menuUsuario();
 
   //iniciarBD(db);
- db1.create_table_Usuarios();
- db1.create_table_Tarjetas();
- db1.create_table_Movimientos();
- db1.create_table_Transferencias();
+
 
 
 
