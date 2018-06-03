@@ -441,7 +441,7 @@ int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 
 	int NUMEROTARJETA = movimientoInsertar.getnumTarjeta();
 
-	result = sqlite3_bind_int(stmt, 0, NUMEROTARJETA);
+	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA);
 
 	if (result != SQLITE_OK) 
 	{
@@ -455,7 +455,7 @@ int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 
 	string TIPOMOVIMIENTO= movimientoInsertar.getTipoMovimiento();
 	//Le pasamos el nick al statement
-	result = sqlite3_bind_text(stmt, 1, TIPOMOVIMIENTO.c_str(), TIPOMOVIMIENTO.length(), SQLITE_STATIC);
+	result = sqlite3_bind_text(stmt, 2, TIPOMOVIMIENTO.c_str(), TIPOMOVIMIENTO.length(), SQLITE_STATIC);
 
 	if (result != SQLITE_OK)
 	{
@@ -467,7 +467,7 @@ int DBConnector::insert_Movimientos (Movimientos movimientoInsertar)
 		
 	int CANTIDAD = movimientoInsertar.getCantidad();
 
-	result = sqlite3_bind_int(stmt, 2, CANTIDAD);
+	result = sqlite3_bind_int(stmt, 3, CANTIDAD);
 
 	if (result != SQLITE_OK) 
 	{
@@ -508,7 +508,7 @@ int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 
 	int NUMEROTARJETA1 = transferenciaInsertar.getnumTarjeta1();
 
-	result = sqlite3_bind_int(stmt, 0, NUMEROTARJETA1);
+	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA1);
 	
 	if (result != SQLITE_OK) 
 	{
@@ -521,7 +521,7 @@ int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 
 	int NUMEROTARJETA2 = transferenciaInsertar.getnumTarjeta2();
 
-	result = sqlite3_bind_int(stmt, 1, NUMEROTARJETA2);
+	result = sqlite3_bind_int(stmt, 2, NUMEROTARJETA2);
 	
 	if (result != SQLITE_OK) 
 	{
@@ -534,7 +534,7 @@ int DBConnector::insert_Transferencia (Transferencia transferenciaInsertar)
 
 	int CANTIDAD = transferenciaInsertar.getCantidad();
 
-	result = sqlite3_bind_int(stmt, 2, CANTIDAD);
+	result = sqlite3_bind_int(stmt, 3, CANTIDAD);
 
 	if (result != SQLITE_OK) 
 	{
@@ -580,7 +580,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 
 	//Juntar los parámetros con el statement
 	//Le pasamos el puntuacion al statement
-	result = sqlite3_bind_int(stmt, 2, saldo);
+	result = sqlite3_bind_int(stmt, 1, saldo);
     if (result != SQLITE_OK)
 	{
 		// cout << "Error binding parameters" <<  endl;
@@ -589,7 +589,7 @@ int DBConnector::update_Tarjeta(Tarjeta tarjetaModificar)//Pasar el jugador comp
 		return result;
 	}
 	//Le pasamos el nick al statement
-	result = sqlite3_bind_int(stmt, 0, numeroTarjeta);
+	result = sqlite3_bind_int(stmt, 2, numeroTarjeta);
 
 	if (result != SQLITE_OK)
 	{

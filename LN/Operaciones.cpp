@@ -164,6 +164,7 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 	int numeroTarjeta;
 	int PIN;
 	int saldo;
+	int aux;
 	
 	cout << "Introduce tu numero de tarjeta" << endl;
 	cin >> numeroTarjeta;
@@ -171,10 +172,14 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 	cout << "Introduce el PIN" << endl;
 	cin >> PIN;
 
+	aux =0;
+
 	for (int i= 0; i< rv; i++)
 	{
 		if(cards[i].getnumTarjeta() == numeroTarjeta)
 		{
+			aux = 1;
+
 			if(cards[i].getPIN() == PIN)
 			{
 				Tarjeta cIntroducido (numeroTarjeta, PIN, cards[i].getsaldo()/*, cards[i].getDNIUsuario()*/);
@@ -185,16 +190,21 @@ void Operaciones::IntroducirTarjeta(vector <Tarjeta> cards)
 			{
 				cout << "El PIN es incorrecto!" << endl;
 			}
-		}else
-		{
-			cout << "El numero de tarjeta introducido no esta registrado!" << endl;
 		}
-	}	
+	}
+	if (aux == 0)
+	{
+		cout << "El numero de tarjeta introducido no esta registrado!" << endl;	
+	}
 }
 
-void Operaciones::ConsultarSaldo(Tarjeta cIntroducido)
-{
+void Operaciones::ConsultarSaldo(Tarjeta cIntroducido/*, vector <movimientos> moves*/)
+{	
+
+	//DBConnector db ("test.db");
 	int saldo;
+
+	//db.leer_Movimientos(moves);
 
 	saldo = cIntroducido.getsaldo();
 
@@ -288,7 +298,7 @@ vector <Transferencia> Operaciones::Transferencia(Tarjeta cIntroducido, vector <
 	return transfers;
 }
 */
-void Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
+vector <Movimientos> Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
 	int importe;
@@ -325,18 +335,18 @@ void Operaciones::SacarDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 			cout << "La cantidad de movimientos es: " << moves.size() << endl;
 		}
 		////////////////////////////////////////////////////////////////////
-
 		
 		saldoTarjeta = saldoTarjeta - importe;
 
 		cIntroducido.setsaldo(saldoTarjeta);
 
-		db.insert_Movimientos (m);
+		db.insert_Movimientos(m);
 		db.update_Tarjeta(cIntroducido);
 	}
+	return moves;
 }
 
-void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
+vector <Movimientos> Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 {
 	DBConnector db ("test.db");
 	int importe;
@@ -353,13 +363,13 @@ void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 	Movimientos m (cIntroducido.getnumTarjeta(), "Ingresar dinero", importe);
 
 	//HAY QUE QUITAR ESTO ANTES DE ENTREGAAAAR!!!!!
-
-	if(moves.size() <50)
-	{
-		moves.push_back(m);
-		cout << "La cantidad de movimientos es: " << moves.size() << endl;
-	}
-
+	
+		if(cIntroducido.getnumTarjeta() == moves[i].getnumTarjeta())
+		{
+			moves.push_back(m);
+			cout << "La cantidad de movimientos es: " << moves.size() << endl;
+		}
+	
 	//////////////////////////////////////////////
 
 	saldoTarjeta = saldoTarjeta + importe;
@@ -368,8 +378,9 @@ void Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movimientos> moves)
 
 	db.insert_Movimientos (m);
 	db.update_Tarjeta(cIntroducido);
-}
 
+	return moves;
+}
 void Operaciones::ConsultarTransferencias(Tarjeta cIntroducido, vector <Transferencia> transfers)
 {
 	DBConnector db ("test.db");

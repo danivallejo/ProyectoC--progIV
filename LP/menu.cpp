@@ -95,7 +95,7 @@ void menuOperaciones(Tarjeta cIntroducida) //vector <Tarjeta> cards)
 	o.MeterDinero(cIntroducida, moves);
 	break;
 	case 3:
-	o.ConsultarSaldo(cIntroducida);
+	o.ConsultarSaldo(cIntroducida/*, moves*/);
 	break;
 	case 4:
 	o.ConsultarMovimiento(cIntroducida, moves);
