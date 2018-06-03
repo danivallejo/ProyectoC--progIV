@@ -65,7 +65,7 @@ void menuTarjeta(Usuarios uIntroducido)
 	switch(a)	
 	{
 	case 1:
-	o.AltaTarjeta(uIntroducido, cards);
+	o.AltaTarjeta(cards);
 	break;
 	case 2:
 	o.IntroducirTarjeta(cards);

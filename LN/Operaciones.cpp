@@ -363,6 +363,7 @@ vector <Movimientos> Operaciones::MeterDinero(Tarjeta cIntroducido, vector <Movi
 	DBConnector db ("test.db");
 	int importe;
 	int saldoTarjeta;
+	int i;
 
 	db.leer_Movimientos(moves);
 

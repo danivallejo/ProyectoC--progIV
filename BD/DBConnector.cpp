@@ -90,6 +90,7 @@ using namespace std;
  int DBConnector::create_table_Tarjetas () 
   {
   	char existe[] = "SELECT name FROM sqlite_master WHERE type='table' AND  name = 'Tarjetas'";
+  	sqlite3_stmt *stmt_ex; 
   	int result;
   	int creada = sqlite3_prepare_v2(db, existe, -1, &stmt_ex, NULL);
   	creada = sqlite3_step(stmt_ex);
